@@ -1,7 +1,7 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { db } from "@/lib/db";
+// import { db } from "@/lib/db";
 import { LoginSchema } from "@/schemas/login.schema";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";

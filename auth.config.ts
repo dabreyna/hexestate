@@ -3,9 +3,9 @@ import Credentials from "next-auth/providers/credentials"
 import { LoginSchema } from "./schemas/login.schema"
 import { db } from "./lib/db";
 import bcrypt from "bcryptjs";
+import { error } from "console";
 
 
-// import { db } from "./lib/db";
  
 // Notice this is only an object, not a full Auth.js instance
 export default {
@@ -19,24 +19,25 @@ export default {
       // },
       authorize: async (credentials) => {
         const { data, success } = LoginSchema.safeParse(credentials);
-
+        
         if (!success) {
-          throw new Error("Invalid credentials");
+           throw new Error("Datos incorrectos");
         }
         // verificar si existe el usuario en la base de datos
+
         const user = await db.cat_usuarios.findUnique({
           where: {
-            email: data.username,
+            username: data.username,
           },
         });
 
         if (!user || !user.password) {
-          throw new Error("No user found");
+          throw new Error("Usuario no encontrado");
         }
         // verificar si la contraseña es correcta
         const isValid = await bcrypt.compare(data.password, user.password);
         if (!isValid) {
-          throw new Error("Incorrect password");
+          throw new Error("Contraseña incorrecta");
         }
 
 
@@ -46,9 +47,3 @@ export default {
     }),
   ],
 } satisfies NextAuthConfig;
-
-
-
-
-// export default {AASA ASASA   
-

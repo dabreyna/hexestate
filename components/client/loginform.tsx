@@ -9,8 +9,9 @@ import { LoginSchema } from "@/schemas/login.schema"
 import {zodResolver} from '@hookform/resolvers/zod'
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
+// import { FormError } from "@/components/form-error"
 // import { signIn } from "@/auth"
-import { signIn } from "next-auth/react"
+// import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { loginAction } from "@/app/actions/login.action"
@@ -34,8 +35,12 @@ export function LoginForm() {
     setError(null);
     startTransition(async () => {
       const response = await loginAction(values);
+      console.log(response)
       if (response.error) {
         setError(response.error);
+        setTimeout(() => {
+          setError(""); // Limpiar el error
+        }, 3000); // 3 segundos = 3000 milisegundo
       } else {
         router.push("/private/dashboard");
       }
@@ -133,6 +138,9 @@ export function LoginForm() {
                     </div>
                   </div>
                   <div className="mb-4">
+                  {/* <FormError message={error}/> */}
+                  <FormMessage className="animate-pulse shadow-text text-red-500 font-bold text-lg">{error}</FormMessage>
+                    <br/>
                     <Button className="grid w-full cursor-pointer select-none rounded-md border border-rose-500 bg-rose-500 py-2 px-5 text-center align-middle text-sm text-white shadow hover:border-rose-600 hover:bg-rose-600 hover:text-white focus:border-rose-600 focus:bg-rose-600 focus:text-white focus:shadow-none" type="submit">Ingresar</Button>
                   </div>
                 </form>
