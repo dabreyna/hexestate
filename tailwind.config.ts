@@ -1,3 +1,4 @@
+import { Urbanist } from "next/font/google"
 import type { Config } from "tailwindcss"
 
 const config = {
@@ -10,6 +11,9 @@ const config = {
 	],
   prefix: "",
   theme: {
+    fontFamily: {
+      // Urbanist: ['"Urbanist"',"sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",

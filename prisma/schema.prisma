@@ -14,14 +14,13 @@ datasource db {
 }
 
 model cat_usuarios {
-  id_usuario Int @unique
-  username String @unique
-  password  String?
-  nombre  String?
-  ap_paterno String?
-  ap_materno String?
-  email String @unique
-  perfil_usuario  Int
-  estatus Int
-
+  id_usuario     Int     @unique
+  username       String  @unique
+  password       String?
+  nombre         String?
+  ap_paterno     String?
+  ap_materno     String?
+  email          String  @unique
+  perfil_usuario Int
+  estatus        Int
 }

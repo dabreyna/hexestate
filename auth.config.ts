@@ -3,20 +3,16 @@ import Credentials from "next-auth/providers/credentials"
 import { LoginSchema } from "./schemas/login.schema"
 import { db } from "./lib/db";
 import bcrypt from "bcryptjs";
-import { error } from "console";
 
-
- 
+interface User {
+  perfil_usuario?: string,
+  nombre?: string,
+  id_usuario?: string,
+}
 // Notice this is only an object, not a full Auth.js instance
 export default {
   providers: [
     Credentials({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // credentials: {
-      //   email: {},
-      //   password: {},
-      // },
       authorize: async (credentials) => {
         const { data, success } = LoginSchema.safeParse(credentials);
         
@@ -39,10 +35,8 @@ export default {
         if (!isValid) {
           throw new Error("Contraseña incorrecta");
         }
-
-
         // return user object with the their profile data
-        return user
+        return user as unknown as User
       },
     }),
   ],
