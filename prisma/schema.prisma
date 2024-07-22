@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,13 +8,55 @@ datasource db {
 }
 
 model cat_usuarios {
-  id_usuario     Int     @unique
-  username       String  @unique
-  password       String?
-  nombre         String?
-  ap_paterno     String?
-  ap_materno     String?
-  email          String  @unique
-  perfil_usuario Int
-  estatus        Int
+  id_usuario          Int                  @default(autoincrement())
+  username            String               @db.VarChar(25)
+  password            String               @db.VarChar(64)
+  nombre              String               @db.VarChar(40)
+  ap_paterno          String               @db.VarChar(40)
+  ap_materno          String?              @db.VarChar(40)
+  email               String?              @db.VarChar(150)
+  fecha_alta          DateTime             @db.Timestamp(6)
+  fecha_pwd           DateTime?            @db.Date
+  id_empresa          Int?
+  tel_trabajo         String?              @db.VarChar(10)
+  tel_trabajo_ext     String?              @db.VarChar(5)
+  tel_celular         String?              @db.VarChar(10)
+  perfil_usuario      Int
+  estatus             Int?
+  cat_empresas        cat_empresas?        @relation(fields: [id_empresa], references: [id_empresa], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuarios_cat_empresas")
+  cat_estatus_usuario cat_estatus_usuario? @relation(fields: [estatus], references: [id_estatus], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuarios_cat_estatus_usuario")
+  cat_perfil_usuario  cat_perfil_usuario   @relation(fields: [perfil_usuario], references: [id_perfil_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuarios_cat_perfil_usuario")
+
+  @@id([id_usuario, username], map: "usuarios_pkey")
+}
+
+model cat_empresas {
+  id_empresa          Int            @id @default(autoincrement())
+  nombre              String         @db.VarChar(140)
+  razon_social        String?        @db.VarChar(140)
+  rfc                 String?        @db.VarChar(15)
+  ciudad              String?        @db.VarChar(40)
+  direccion           String?        @db.VarChar(180)
+  estado              String?        @db.VarChar(50)
+  representante_legal String?        @db.VarChar(130)
+  telefono_principal  String?        @db.VarChar(10)
+  telefono_secundario String?        @db.VarChar(10)
+  email               String?        @db.VarChar(120)
+  folio_recibo        String?        @db.VarChar(5)
+  folio_notas_credito String?        @db.VarChar(5)
+  cp                  String?        @db.VarChar(5)
+  bnd_activo          Boolean
+  cat_usuarios        cat_usuarios[]
+}
+
+model cat_estatus_usuario {
+  id_estatus   Int            @id @default(autoincrement())
+  estatus      String         @db.VarChar(30)
+  cat_usuarios cat_usuarios[]
+}
+
+model cat_perfil_usuario {
+  id_perfil_usuario Int            @id @default(autoincrement())
+  perfil            String         @db.VarChar(40)
+  cat_usuarios      cat_usuarios[]
 }
