@@ -7,5 +7,5 @@ export default async function Home() {
   if (!session) {
     redirect("/web");
   }
-  return <>hola</>;
+  return <>Cargando...</>;
 }

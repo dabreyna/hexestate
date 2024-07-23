@@ -21,7 +21,7 @@ export default {
         }
         // verificar si existe el usuario en la base de datos
 
-        const user = await db.cat_usuarios.findUnique({
+        const user = await db.cat_usuarios.findFirst({
           where: {
             username: data.username,
           },
