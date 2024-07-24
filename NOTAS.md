@@ -18,3 +18,21 @@ paso 2: escribir interface nombreModelo { y esperar a que la herramienta de auto
 - "servicios_fraccionamiento" [x]
 - "servicios_informativos_terrenos" [x]
 - "sistema_traspasos_folios" [x]
+
+## revisar los siguientes urls para darme una idea de como acomodar el dashboard y caja con los datos del cliente
+
+https://dash-tail.vercel.app/en/user-profile
+https://themes.themesbrand.com/steex/angular/default/pages/profile
+
+## para usuarios
+
+https://themes.kopyov.com/limitless/demo/template/html/layout_1/full/user_pages_list.
+https://themes.kopyov.com/limitless/demo/template/html/layout_1/full/user_pages_profile_tabbed.html
+
+## ejemplos para recibos
+
+https://preview.themeforest.net/item/pages-admin-dashboard-template-web-app/full_screen_preview/9694847
+
+##extras
+-->NOTAS https://react.vristo.sbthemes.com/apps/notes
+-->SCRUM BOARD https://react.vristo.sbthemes.com/apps/scrumboard
