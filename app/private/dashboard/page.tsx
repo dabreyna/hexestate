@@ -7,6 +7,5 @@ export default async function DashboardPage() {
   if (!session) {
     redirect("/sistema");
   }
-  return <>
-  asdasda</>;
+  return <>asdasda</>;
 }

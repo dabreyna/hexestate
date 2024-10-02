@@ -84,3 +84,15 @@ return (
 export default UploadForm;
 
 ## ---- FIN DE EJEMPLO
+
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+async function ejecutarConsultaPersonalizada() {
+const result = await prisma.$queryRaw`    SELECT * FROM clientes
+    WHERE id_cliente > 10
+ `;
+
+console.log(result);
+}
