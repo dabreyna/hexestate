@@ -1,11 +1,6 @@
 "use client";
 
-//import { useSession, signOut } from "next-auth/react";
-//import { useRouter } from "next/router";
-
 import { logoutAction } from "@/app/actions/logout.action";
-//import { loginAction } from "@/app/actions/login.action"
-
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -33,12 +28,15 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function HeaderBar() {
-  //const { data: session } = useSession();
-  //const router = useRouter();
-
   const handleLogout = async () => {
     await logoutAction();
     //router.push("/sistema"); // Redirect to the desired page after logout
+  };
+
+  const handleBuscarCliente = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const nombreCliente = event.target.value;
+    console.log("Nombre Cliente:", nombreCliente);
   };
 
   return (
@@ -100,11 +98,14 @@ export function HeaderBar() {
         </Sheet>
         <div className="relative ml-auto flex-1 md:grow-0">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Buscar Cliente.."
-            className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-          />
+          <form onSubmit={handleBuscarCliente} className="relative">
+            <Input
+              type="search"
+              name="nombreCliente"
+              placeholder="Buscar Cliente.."
+              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+            />
+          </form>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
