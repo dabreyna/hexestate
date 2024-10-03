@@ -24,8 +24,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { BuscadorClientes } from "@/components/client/buscadorClientes";
 
 export function HeaderBar() {
   const handleLogout = async () => {
@@ -33,11 +34,11 @@ export function HeaderBar() {
     //router.push("/sistema"); // Redirect to the desired page after logout
   };
 
-  const handleBuscarCliente = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const nombreCliente = event.target.value;
-    console.log("Nombre Cliente:", nombreCliente);
-  };
+  // const handleBuscarCliente = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   event.preventDefault();
+  //   const nombreCliente = event.target.value;
+  //   console.log("Nombre Cliente:", nombreCliente);
+  // };
 
   return (
     <>
@@ -97,7 +98,8 @@ export function HeaderBar() {
           </SheetContent>
         </Sheet>
         <div className="relative ml-auto flex-1 md:grow-0">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <BuscadorClientes />
+          {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <form onSubmit={handleBuscarCliente} className="relative">
             <Input
               type="search"
@@ -105,7 +107,7 @@ export function HeaderBar() {
               placeholder="Buscar Cliente.."
               className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
             />
-          </form>
+          </form> */}
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

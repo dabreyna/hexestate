@@ -90,9 +90,13 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function ejecutarConsultaPersonalizada() {
-const result = await prisma.$queryRaw`    SELECT * FROM clientes
+const result = await prisma.$queryRaw`   SELECT * FROM clientes
     WHERE id_cliente > 10
- `;
+`;
 
 console.log(result);
 }
+
+videos para apis
+https://www.youtube.com/watch?v=aEFkWxUNAVc
+https://www.youtube.com/watch?v=IYoZvxUbhUQ&t=218s

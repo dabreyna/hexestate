@@ -12,8 +12,15 @@ const nextConfig = {
             source: '/sistema',
             destination: '/private/login/',
             permanent: true,
-        }
+        },
+        // {
+        //     source: '/api',
+        //     destination: '/api/apis/buscarCliente/',
+        //     permanent: true,
+        // }
     ],
+    // Ruta a la carpeta api
+    // assetPrefix: '/api',
 };
 
 export default nextConfig;
