@@ -1,4 +1,4 @@
-"use client";
+//"use client";
 // import Image from "next/image";
 // import Link from "next/link";
 import {
@@ -53,15 +53,16 @@ import { redirect } from "next/navigation";
 import * as React from "react";
 
 import { useSearchParams } from "next/navigation";
+import axios from "axios";
+import { useState, useEffect } from 'react';
+import { Resultados } from "./resultados";
+export default async function BuscarClientePage() {
+  const session = await auth();
+  if (!session) {
+    redirect("/sistema");
+  }
 
-export default function BuscarClientePage() {
-  // const session = await auth();
-  // if (!session) {
-  //   redirect("/sistema");
-  // }
-  const search = useSearchParams();
-  const searchQuery = search ? search.get("nombreCliente") : null;
-
+ 
   return (
     <>
       <div className="mx-auto grid  flex-1 auto-rows-max gap-4 w-full">
@@ -72,7 +73,10 @@ export default function BuscarClientePage() {
                 <CardTitle>Resultados</CardTitle>
                 <CardDescription>texto pendiente</CardDescription>
               </CardHeader>
-              <CardContent>hola {searchQuery}</CardContent>
+              <CardContent>
+                <Resultados />
+              {/* {searchResults ? searchResults : 'Cargando resultados...'} */}
+              </CardContent>
             </Card>
           </div>
         </div>
