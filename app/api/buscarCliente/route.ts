@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbQuery from "@/lib/dbQuery";
-import { Resultados } from '../../private/dashboard/buscarCliente/resultados';
+// import { Resultados } from '../../private/dashboard/buscarCliente/resultados';
 
 
 export async function GET(request: NextRequest) {

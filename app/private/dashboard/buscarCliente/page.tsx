@@ -30,7 +30,6 @@ export default async function BuscarClientePage() {
               </CardHeader>
               <CardContent>
                 <Resultados />
-                {/* {searchResults ? searchResults : 'Cargando resultados...'} */}
               </CardContent>
             </Card>
           </div>
