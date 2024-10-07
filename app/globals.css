@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ruby */
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -29,6 +31,8 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --desktop: 120 30% 100%;
+    --desktop-foreground: 240 5.9% 90%;
   }
 
   .dark {

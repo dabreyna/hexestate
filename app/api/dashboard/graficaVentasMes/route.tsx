@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbQuery from "@/lib/dbQuery";
 
+
+/*TODO:
+
+MODIFICAR EN EL WHERE: EXTRACT(MONTH FROM fecha_contrato) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '5 months')
+REMOVER EL -INTERVAL '5 months'  PARA QUE SEA EL MES ACTUAL Y NO 5 MESES ATRAS
+*/
 export async function GET(request: NextRequest) {
-  let query = `SELECT COUNT(*) AS ventas,vendedor,CONCAT(b.nombre, ' ', b.ap_paterno) AS nombre_completo
+  let query = `SELECT CONCAT(b.nombre, ' ', b.ap_paterno) AS nombre_completo,cast(COUNT(*) as INT) AS ventas,vendedor
              FROM contratos_terrenos a
              INNER JOIN cat_usuarios b ON a.vendedor = b.id_usuario
              WHERE 

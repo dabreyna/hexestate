@@ -30,28 +30,17 @@ import { useEffect, useState } from "react";
 
 export const description = "A bar chart with a custom label";
 
-// export type listadoVentas = {
-//   ventas: number;
-//   vendedor: number;
-//   nombre_completo: string;
-// };
-
-// const chartData = [
-//   { month: "January", desktop: 186, mobile: 80 },
-//   { month: "February", desktop: 305, mobile: 200 },
-//   { month: "March", desktop: 237, mobile: 120 },
-//   { month: "April", desktop: 73, mobile: 190 },
-//   { month: "May", desktop: 209, mobile: 130 },
-//   { month: "June", desktop: 214, mobile: 140 },
-// ];
-
 const chartConfig = {
   nombre_completo: {
     label: "Ventas",
-    color: "hsl(var(--chart-1))",
+    color: "bg-rose-500",
+  },
+  vendedor: {
+    label: "Ventas",
+    color: "bg-rose-500",
   },
   ventas: {
-    color: "hsl(var(--chart-3))",
+    color: "bg-rose-500",
   },
 } satisfies ChartConfig;
 
@@ -76,7 +65,7 @@ export default function GraficoVentasDashboard() {
   const fechaActual = moment().locale("es");
   const fechaMesActual = fechaActual.format("MMMM YYYY");
   return (
-    <Card>
+    <Card  className="themes-wrapper group relative flex flex-col overflow-hidden rounded-xl border shadow transition-all duration-200 ease-in-out hover:z-30">
       <CardHeader>
         <CardTitle>Ventas del Mes</CardTitle>
         <CardDescription>{fechaMesActual}</CardDescription>
@@ -84,45 +73,47 @@ export default function GraficoVentasDashboard() {
       <CardContent>
         <ChartContainer
           config={chartConfig}
-          className="max-h-[400px] max-w-[600]"
+          className="max-h-[400px]"
         >
           <BarChart
             accessibilityLayer
             data={dataGrafico}
             layout="vertical"
+            compact={false}
+            barSize={30}
             margin={{
-              right: 16,
+              left: 20,
             }}
           >
-            <CartesianGrid horizontal={false} />
+            <CartesianGrid horizontal={true} />
             <YAxis
               dataKey="nombre_completo"
               type="category"
               tickLine={false}
               tickMargin={10}
-              axisLine={false}
+              axisLine={true}
               tickFormatter={(value) => value.slice(0, 3)}
               hide
             />
-            <XAxis dataKey="ventas" type="number" hide />
+            <XAxis dataKey="ventas" type="number"  />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
+              content={<ChartTooltipContent  indicator="dashed" />} 
             />
-            <Bar dataKey="ventas" layout="vertical" fill="fill-red" radius={4}>
+            <Bar dataKey="ventas" layout="vertical" fill="var(--color-desktop)" radius={4}>
               <LabelList
                 dataKey="nombre_completo" // Change this to the appropriate data key for your chart
                 position="insideLeft"
                 offset={8}
                 className="fill-white"
-                fontSize={14}
+                fontSize={12}
               />
               <LabelList
                 dataKey="ventas"
                 position="right"
                 offset={8}
-                className="fill-black"
-                fontSize={12}
+                className="bg-rose-500"
+                fontSize={14}
               />
             </Bar>
           </BarChart>
@@ -130,10 +121,10 @@ export default function GraficoVentasDashboard() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          Tendiendo al alza un 5.2% este mes <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Comparado al total de (65) ventas del mes anterior
         </div>
       </CardFooter>
     </Card>

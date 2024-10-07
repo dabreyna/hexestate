@@ -1,4 +1,4 @@
-import { Urbanist } from "next/font/google"
+//import { Urbanist } from "next/font/google"
 import type { Config } from "tailwindcss"
 
 const config = {
@@ -58,6 +58,10 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        desktop: {
+          DEFAULT: "hsl(var(--desktop))",
+          foreground: "hsl(var(--desktop-foreground))",
         },
       },
       borderRadius: {

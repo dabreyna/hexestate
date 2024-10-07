@@ -90,13 +90,15 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function ejecutarConsultaPersonalizada() {
-const result = await prisma.$queryRaw`   SELECT * FROM clientes
-    WHERE id_cliente > 10
-`;
+const result = await prisma.$queryRaw`  SELECT * FROM clientes
+    WHERE id_cliente > 10`;
 
 console.log(result);
 }
 
-videos para apis
-https://www.youtube.com/watch?v=aEFkWxUNAVc
-https://www.youtube.com/watch?v=IYoZvxUbhUQ&t=218s
+## ----- MODIFICAR: api/dashboard/graficaVentasMes/route.tsx
+
+MODIFICAR EN EL WHERE: EXTRACT(MONTH FROM fecha_contrato) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '5 months')
+REMOVER EL -INTERVAL '5 months' PARA QUE SEA EL MES ACTUAL Y NO 5 MESES ATRAS
+
+## ----

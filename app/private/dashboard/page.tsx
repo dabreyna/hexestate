@@ -24,15 +24,14 @@ export default async function DashboardPage() {
           <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
-                <CardTitle>Transactions</CardTitle>
+                <CardTitle></CardTitle>
                 <CardDescription>
-                  Recent transactions from your store.
                 </CardDescription>
               </div>
             </CardHeader>
 
-            <CardContent>
-              <GraficoVentasDashboard />
+            <CardContent >
+              <GraficoVentasDashboard  />
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-5">

@@ -201,10 +201,10 @@ export default function ListadoClientesBuscador({
         <Input
           placeholder="Filtrar por Nombre..."
           value={
-            (table.getColumn("nombreCliente")?.getFilterValue() as string) ?? ""
+            (table.getColumn("nombre_cliente")?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
-            table.getColumn("nombreCliente")?.setFilterValue(event.target.value)
+            table.getColumn("nombre_cliente")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
