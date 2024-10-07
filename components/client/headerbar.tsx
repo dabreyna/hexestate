@@ -34,15 +34,9 @@ export function HeaderBar() {
     //router.push("/sistema"); // Redirect to the desired page after logout
   };
 
-  // const handleBuscarCliente = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   event.preventDefault();
-  //   const nombreCliente = event.target.value;
-  //   console.log("Nombre Cliente:", nombreCliente);
-  // };
-
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+      <header className="fixed top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <Sheet>
           <SheetTrigger asChild>
             <Button size="icon" variant="outline" className="sm:hidden">
@@ -108,7 +102,7 @@ export function HeaderBar() {
               className="overflow-hidden rounded-full"
             >
               <Image
-                src="/placeholder-user.jpg"
+                src={"/image/profilePictures/profile3.jpg"}
                 width={36}
                 height={36}
                 alt="Avatar"
@@ -116,6 +110,7 @@ export function HeaderBar() {
               />
             </Button>
           </DropdownMenuTrigger>
+          <span>Daniel Bruno</span>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />

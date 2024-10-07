@@ -1,6 +1,3 @@
-//"use client";
-// import Image from "next/image";
-// import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -9,52 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  CaretSortIcon,
-  ChevronDownIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons";
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import * as React from "react";
 
-import { useSearchParams } from "next/navigation";
-import axios from "axios";
-import { useState, useEffect } from 'react';
 import { Resultados } from "./resultados";
 export default async function BuscarClientePage() {
   const session = await auth();
@@ -62,7 +18,6 @@ export default async function BuscarClientePage() {
     redirect("/sistema");
   }
 
- 
   return (
     <>
       <div className="mx-auto grid  flex-1 auto-rows-max gap-4 w-full">
@@ -75,7 +30,7 @@ export default async function BuscarClientePage() {
               </CardHeader>
               <CardContent>
                 <Resultados />
-              {/* {searchResults ? searchResults : 'Cargando resultados...'} */}
+                {/* {searchResults ? searchResults : 'Cargando resultados...'} */}
               </CardContent>
             </Card>
           </div>

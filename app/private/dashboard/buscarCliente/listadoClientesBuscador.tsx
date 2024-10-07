@@ -1,0 +1,314 @@
+"use client";
+
+import * as React from "react";
+import {
+  CaretSortIcon,
+  ChevronDownIcon,
+  DotsHorizontalIcon,
+} from "@radix-ui/react-icons";
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+// const data: listadoClientes[] = [
+//   {
+//     id_cliente: 1,
+//     nombreCliente: "PEDRO PEREZ",
+//     contratos: [
+//       {
+//         terreno: "terreno1",
+//         id_contrato: 1,
+//         estatus: 1,
+//       },
+//       {
+//         terreno: "terreno2",
+//         id_contrato: 2,
+//         estatus: 2,
+//       },
+//     ],
+//   },
+//   {
+//     id_cliente: 2,
+//     nombreCliente: "Daniel Bruno",
+//     contratos: [
+//       {
+//         terreno: "terreno1",
+//         id_contrato: 1,
+//         estatus: 1,
+//       },
+//       {
+//         terreno: "terreno2",
+//         id_contrato: 2,
+//         estatus: 2,
+//       },
+//     ],
+//   },
+// ];
+
+interface ListadoClientesProps {
+  data: listadoClientes[] | any[];
+}
+
+export type Contrato = {
+  terreno: string;
+  id_contrato: number;
+  estatus: number;
+};
+
+export type listadoClientes = {
+  id_cliente: number;
+  nombre_cliente: string;
+  ap_paterno: string;
+  contratos: Contrato[];
+};
+
+export const columns: ColumnDef<listadoClientes>[] = [
+  {
+    accessorKey: "id_cliente",
+    header: "# de cliente",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("id_cliente")}</div>
+    ),
+  },
+  {
+    accessorKey: "nombre_cliente",
+    header: "Nombre",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("nombre_cliente")}</div>
+    ),
+  },
+  {
+    accessorKey: "contratos",
+    header: "Contratos",
+    cell: ({ row }) => {
+      const contratos = row.getValue("contratos") as Contrato[];
+      return (
+        <div className="capitalize">
+          {contratos?.map((contrato) => (
+            <div key={contrato.id_contrato}>
+              {" "}
+              {/* Use id_contrato as a unique key */}
+              <span>{contrato.terreno}</span>
+            </div>
+          ))}
+        </div>
+      );
+    },
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const cliente = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Opciones</span>
+              <DotsHorizontalIcon className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() =>
+                navigator.clipboard.writeText(cliente.id_cliente.toString())
+              }
+            >
+              Copiar # de Cliente
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                navigator.clipboard.writeText(cliente.nombre_cliente)
+              }
+            >
+              Copiar Nombre de Cliente
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Ir a Caja</DropdownMenuItem>
+            <DropdownMenuItem>Ver Expediente</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+  },
+];
+
+export default function ListadoClientesBuscador({
+  data,
+}: ListadoClientesProps) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+
+  const table = useReactTable({
+    data,
+    columns,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      sorting,
+      columnFilters,
+      columnVisibility,
+      rowSelection,
+    },
+  });
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filtrar por Nombre..."
+          value={
+            (table.getColumn("nombreCliente")?.getFilterValue() as string) ?? ""
+          }
+          onChange={(event) =>
+            table.getColumn("nombreCliente")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="ml-auto">
+              Columnas <ChevronDownIcon className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex-1 text-sm text-muted-foreground">
+          {/* {table.getFilteredSelectedRowModel().rows.length} of{" "} */}
+          {table.getFilteredRowModel().rows.length} Cliente(s) encontrado(s).
+        </div>
+        <div className="space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Atras
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Siguiente
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}

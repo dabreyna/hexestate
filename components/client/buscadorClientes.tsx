@@ -38,14 +38,3 @@ export function BuscadorClientes() {
     </>
   );
 }
-
-{
-  /* <form onSubmit={handleBuscarCliente} className="relative">
-  <Input
-    type="search"
-    name="nombreCliente"
-    placeholder="Buscar Cliente.."
-    className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-  />
-</form> */
-}
