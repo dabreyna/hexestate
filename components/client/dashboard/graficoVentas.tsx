@@ -65,16 +65,13 @@ export default function GraficoVentasDashboard() {
   const fechaActual = moment().locale("es");
   const fechaMesActual = fechaActual.format("MMMM YYYY");
   return (
-    <Card  className="themes-wrapper group relative flex flex-col overflow-hidden rounded-xl border shadow transition-all duration-200 ease-in-out hover:z-30">
+    <Card className="xl:col-span-2 themes-wrapper group relative flex flex-col overflow-hidden rounded-xl border shadow transition-all duration-200 ease-in-out hover:z-30">
       <CardHeader>
         <CardTitle>Ventas del Mes</CardTitle>
         <CardDescription>{fechaMesActual}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer
-          config={chartConfig}
-          className="max-h-[400px]"
-        >
+        <ChartContainer config={chartConfig} className="max-h-[400px]">
           <BarChart
             accessibilityLayer
             data={dataGrafico}
@@ -95,12 +92,17 @@ export default function GraficoVentasDashboard() {
               tickFormatter={(value) => value.slice(0, 3)}
               hide
             />
-            <XAxis dataKey="ventas" type="number"  />
+            <XAxis dataKey="ventas" type="number" />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent  indicator="dashed" />} 
+              content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="ventas" layout="vertical" fill="var(--color-desktop)" radius={4}>
+            <Bar
+              dataKey="ventas"
+              layout="vertical"
+              fill="var(--color-desktop)"
+              radius={4}
+            >
               <LabelList
                 dataKey="nombre_completo" // Change this to the appropriate data key for your chart
                 position="insideLeft"

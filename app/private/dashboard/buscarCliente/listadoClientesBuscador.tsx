@@ -20,7 +20,6 @@ import {
 } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -39,41 +38,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-// const data: listadoClientes[] = [
-//   {
-//     id_cliente: 1,
-//     nombreCliente: "PEDRO PEREZ",
-//     contratos: [
-//       {
-//         terreno: "terreno1",
-//         id_contrato: 1,
-//         estatus: 1,
-//       },
-//       {
-//         terreno: "terreno2",
-//         id_contrato: 2,
-//         estatus: 2,
-//       },
-//     ],
-//   },
-//   {
-//     id_cliente: 2,
-//     nombreCliente: "Daniel Bruno",
-//     contratos: [
-//       {
-//         terreno: "terreno1",
-//         id_contrato: 1,
-//         estatus: 1,
-//       },
-//       {
-//         terreno: "terreno2",
-//         id_contrato: 2,
-//         estatus: 2,
-//       },
-//     ],
-//   },
-// ];
+import { Link } from "lucide-react";
+// import router from "next/router";
+import { useRouter } from "next/navigation";
 
 interface ListadoClientesProps {
   data: listadoClientes[] | any[];
@@ -92,82 +59,89 @@ export type listadoClientes = {
   contratos: Contrato[];
 };
 
-export const columns: ColumnDef<listadoClientes>[] = [
-  {
-    accessorKey: "id_cliente",
-    header: "# de cliente",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("id_cliente")}</div>
-    ),
-  },
-  {
-    accessorKey: "nombre_cliente",
-    header: "Nombre",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("nombre_cliente")}</div>
-    ),
-  },
-  {
-    accessorKey: "contratos",
-    header: "Contratos",
-    cell: ({ row }) => {
-      const contratos = row.getValue("contratos") as Contrato[];
-      return (
-        <div className="capitalize">
-          {contratos?.map((contrato) => (
-            <div key={contrato.id_contrato}>
-              {" "}
-              {/* Use id_contrato as a unique key */}
-              <span>{contrato.terreno}</span>
-            </div>
-          ))}
-        </div>
-      );
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const cliente = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Opciones</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(cliente.id_cliente.toString())
-              }
-            >
-              Copiar # de Cliente
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(cliente.nombre_cliente)
-              }
-            >
-              Copiar Nombre de Cliente
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Ir a Caja</DropdownMenuItem>
-            <DropdownMenuItem>Ver Expediente</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
 export default function ListadoClientesBuscador({
   data,
 }: ListadoClientesProps) {
+  const router = useRouter();
+  const handleDetallesContrato = (id_cliente: number) => {
+    router.push(`/private/dashboard/detallesContrato/${id_cliente}`);
+  };
+
+  const columns: ColumnDef<listadoClientes>[] = [
+    {
+      accessorKey: "id_cliente",
+      header: "# de cliente",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("id_cliente")}</div>
+      ),
+    },
+    {
+      accessorKey: "nombre_cliente",
+      header: "Nombre",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("nombre_cliente")}</div>
+      ),
+    },
+    {
+      accessorKey: "contratos",
+      header: "Contratos",
+      cell: ({ row }) => {
+        const contratos = row.getValue("contratos") as Contrato[];
+        return (
+          <div className="capitalize">
+            {contratos?.map((contrato) => (
+              <div key={contrato.id_contrato}>
+                {" "}
+                {/* Use id_contrato as a unique key */}
+                <span>{contrato.terreno}</span>
+              </div>
+            ))}
+          </div>
+        );
+      },
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const cliente = row.original;
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Opciones</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() =>
+                  navigator.clipboard.writeText(cliente.id_cliente.toString())
+                }
+              >
+                Copiar # de Cliente
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  navigator.clipboard.writeText(cliente.nombre_cliente)
+                }
+              >
+                Copiar Nombre de Cliente
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => handleDetallesContrato(cliente.id_cliente)}
+              >
+                Ver Expediente
+              </DropdownMenuItem>
+              <DropdownMenuItem>Ir a Caja</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -201,10 +175,13 @@ export default function ListadoClientesBuscador({
         <Input
           placeholder="Filtrar por Nombre..."
           value={
-            (table.getColumn("nombre_cliente")?.getFilterValue() as string) ?? ""
+            (table.getColumn("nombre_cliente")?.getFilterValue() as string) ??
+            ""
           }
           onChange={(event) =>
-            table.getColumn("nombre_cliente")?.setFilterValue(event.target.value)
+            table
+              .getColumn("nombre_cliente")
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
