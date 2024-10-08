@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import logoLotificadora from "@/public/logos/android-chrome-512x512.png";
 import {
+  BadgeDollarSign,
+  Calculator,
+  ChartNoAxesCombined,
+  FileSliders,
+  HandCoins,
+  Handshake,
   Home,
   LineChart,
   Package,
@@ -50,11 +56,12 @@ export function Asidebar() {
                 href="#"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-stone-200 hover:text-foreground md:h-8 md:w-8"
               >
-                <ShoppingCart className="h-5 w-5" />
-                <span className="sr-only">Orders</span>
+                <BadgeDollarSign className="h-5 w-5" />
+                
+                <span className="sr-only">Ventas</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Orders</TooltipContent>
+            <TooltipContent side="right">Ventas</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -62,23 +69,23 @@ export function Asidebar() {
                 href="#"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-accent hover:text-foreground md:h-8 md:w-8"
               >
-                <Package className="h-5 w-5" />
-                <span className="sr-only">Products</span>
+                <HandCoins className="h-5 w-5" />
+                <span className="sr-only">Cobranza</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Products</TooltipContent>
+            <TooltipContent side="right">Cobranza</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/private/dashboard/clienteDetalles"
+                href=""
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-accent hover:text-foreground md:h-8 md:w-8"
               >
-                <Users2 className="h-5 w-5" />
-                <span className="sr-only">Customers</span>
+                <Handshake className="h-5 w-5" />
+                <span className="sr-only">Atencion al Cliente</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Customers</TooltipContent>
+            <TooltipContent side="right">Atencion al Cliente</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -86,11 +93,35 @@ export function Asidebar() {
                 href="#"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-accent hover:text-foreground md:h-8 md:w-8"
               >
-                <LineChart className="h-5 w-5" />
-                <span className="sr-only">Analytics</span>
+                <ChartNoAxesCombined className="h-5 w-5" />
+                <span className="sr-only">Reportes</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Analytics</TooltipContent>
+            <TooltipContent side="right">Reportes</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-accent hover:text-foreground md:h-8 md:w-8"
+              >
+                <FileSliders className="h-5 w-5" />
+                <span className="sr-only">Administracion</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Administracion</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-accent hover:text-foreground md:h-8 md:w-8"
+              >
+                <Calculator className="h-5 w-5" />
+                <span className="sr-only">Contabilidad</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Contabilidad</TooltipContent>
           </Tooltip>
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">

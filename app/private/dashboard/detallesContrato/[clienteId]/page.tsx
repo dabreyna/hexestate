@@ -4,6 +4,7 @@ import {
   ChevronLeft,
   Home,
   LineChart,
+  MoreHorizontal,
   Package,
   Package2,
   PanelLeft,
@@ -56,6 +57,7 @@ import {
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -161,21 +163,74 @@ export default async function CajaCliente({
                   <TabsContent value="beneficiarios">
                     <Card>
                       <CardHeader>
-                        <CardTitle>Password</CardTitle>
+                        <CardTitle>Beneficiario (1)</CardTitle>
                         <CardDescription>
-                          Change your password here. After saving, you'll be
-                          logged out.
+                        Nombre , fecha nacimiento, telefono, direccion,
+                          ciudad, provincia, pais, email, lugar de nacimiento,
+                          ocupacion, calle, numero, etc...,
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                          <Label htmlFor="current">Current password</Label>
-                          <Input id="current" type="password" />
-                        </div>
-                        <div className="space-y-1">
-                          <Label htmlFor="new">New password</Label>
-                          <Input id="new" type="password" />
-                        </div>
+                      <Table>
+                        <TableCaption></TableCaption>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="">Nombre|</TableHead>
+                            <TableHead>Teléfono</TableHead>
+                            <TableHead>Email</TableHead>
+                            <TableHead className="text-right"></TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-medium">Juan Perez Perez</TableCell>
+                            <TableCell>686-123-1234</TableCell>
+                            <TableCell>jperez@jperez.com</TableCell>
+                            <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <span className="sr-only">Open menu</span>
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Ver datos
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-medium">Maria Perez Perez</TableCell>
+                            <TableCell>686-555-7777</TableCell>
+                            <TableCell>mperez@hotmail.com</TableCell>
+                            <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <span className="sr-only">Open menu</span>
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Ver datos
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+
                       </CardContent>
                       <CardFooter>
                         <Button></Button>
@@ -188,8 +243,66 @@ export default async function CajaCliente({
                         <CardTitle></CardTitle>
                         <CardDescription></CardDescription>
                       </CardHeader>
-                      <CardContent className="space-y-2"></CardContent>
+                      <CardContent className="space-y-2">
+                      <Table>
+                        <TableCaption></TableCaption>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="">Nombre|</TableHead>
+                            <TableHead>Teléfono</TableHead>
+                            <TableHead className="text-right"></TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-medium">Mario Garcia</TableCell>
+                            <TableCell>686-123-1234</TableCell>
+                            <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <span className="sr-only">Open menu</span>
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Ver datos
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-medium">Hernesto Pacheco</TableCell>
+                            <TableCell>686-555-7777</TableCell>
+                            <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <span className="sr-only">Open menu</span>
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                                <DropdownMenuItem>
+                                  Ver datos
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                      </CardContent>
                       <CardFooter>
+
                         <Button></Button>
                       </CardFooter>
                     </Card>
@@ -197,21 +310,103 @@ export default async function CajaCliente({
                   <TabsContent value="requisitos">
                     <Card>
                       <CardHeader>
-                        <CardTitle>Account</CardTitle>
+                        <CardTitle></CardTitle>
                         <CardDescription>
-                          Make changes to your account here. Click save when
-                          you're done.
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                          <Label htmlFor="name">Name</Label>
-                          <Input id="name" defaultValue="Pedro Duarte" />
-                        </div>
-                        <div className="space-y-1">
-                          <Label htmlFor="username">Username</Label>
-                          <Input id="username" defaultValue="@peduarte" />
-                        </div>
+                      <Table>
+                        <TableCaption></TableCaption>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="">Requisito|</TableHead>
+                            <TableHead>Carga de documentos</TableHead>
+                            <TableHead>Archivo</TableHead>
+                            <TableHead className="text-right"></TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="font-medium">Identificación Oficial</TableCell>
+                            <TableCell>    
+                              <div className="grid w-full max-w-sm items-center gap-1.5">
+                                <Label htmlFor="picture">Documento</Label>
+                                <Input id="picture" type="file" />
+                                <Button variant="outline">Guardar</Button>
+                              </div>
+                            </TableCell>
+                            <TableCell>35690_2023-01-01.pdf</TableCell>
+                            <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <span className="sr-only">Open menu</span>
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-medium">Comprobante de Domicilio</TableCell>
+                            <TableCell>    
+                              <div className="grid w-full max-w-sm items-center gap-1.5">
+                                <Label htmlFor="picture">Documento</Label>
+                                <Input id="picture" type="file" />
+                                <Button variant="outline">Guardar</Button>
+                              </div>
+                            </TableCell>
+                            <TableCell>35690_2023-01-01.pdf</TableCell>
+                            <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <span className="sr-only">Open menu</span>
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="font-medium">Croquis de ubicacion</TableCell>
+                            <TableCell>    
+                              <div className="grid w-full max-w-sm items-center gap-1.5">
+                                <Label htmlFor="picture">Documento</Label>
+                                <Input id="picture" type="file" />
+                                <Button variant="outline">Guardar</Button>
+                              </div>
+                            </TableCell>
+                            <TableCell>35690_2023-01-01.pdf</TableCell>
+                            <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <span className="sr-only">Open menu</span>
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+
                       </CardContent>
                       <CardFooter>
                         <Button></Button>
@@ -221,21 +416,13 @@ export default async function CajaCliente({
                   <TabsContent value="servicios">
                     <Card>
                       <CardHeader>
-                        <CardTitle>Account</CardTitle>
+                        <CardTitle></CardTitle>
                         <CardDescription>
-                          Make changes to your account here. Click save when
-                          you're done.
+                          
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                          <Label htmlFor="name">Name</Label>
-                          <Input id="name" defaultValue="Pedro Duarte" />
-                        </div>
-                        <div className="space-y-1">
-                          <Label htmlFor="username">Username</Label>
-                          <Input id="username" defaultValue="@peduarte" />
-                        </div>
+
                       </CardContent>
                       <CardFooter>
                         <Button></Button>
@@ -284,52 +471,29 @@ export default async function CajaCliente({
             </Card>
             <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
               <CardHeader>
-                <CardTitle>Product Images</CardTitle>
+                <CardTitle>Ultimo Mensaje /Caja</CardTitle>
                 <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit
+                  <p className="text-sm font-normal leading-none">
+                  texto texto texto textotexto texto texto textotexto texto texto textotexto texto texto textotexto texto texto 
+                  textotexto texto texto textotexto texto texto texto
+                  </p><br />
+                  <p className="">
+                    <span className="text-xs font-light text-muted-foreground"> Alejandra Castellon</span>
+                  </p>
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-2">
-                  <Image
-                    alt="Product image"
-                    className="aspect-square w-full rounded-md object-cover"
-                    height="300"
-                    src="/placeholder.svg"
-                    width="300"
-                  />
-                  <div className="grid grid-cols-3 gap-2">
-                    <button>
-                      <Image
-                        alt="Product image"
-                        className="aspect-square w-full rounded-md object-cover"
-                        height="84"
-                        src="/placeholder.svg"
-                        width="84"
-                      />
-                    </button>
-                    <button>
-                      <Image
-                        alt="Product image"
-                        className="aspect-square w-full rounded-md object-cover"
-                        height="84"
-                        src="/placeholder.svg"
-                        width="84"
-                      />
-                    </button>
-                    <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
-                      <Upload className="h-4 w-4 text-muted-foreground" />
-                      <span className="sr-only">Upload</span>
-                    </button>
-                  </div>
+
+   
                 </div>
               </CardContent>
             </Card>
             <Card x-chunk="dashboard-07-chunk-5">
               <CardHeader>
-                <CardTitle>Archive Product</CardTitle>
+                <CardTitle>Datos extra</CardTitle>
                 <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit.
+                  Campos por definir
                 </CardDescription>
               </CardHeader>
               <CardContent>
