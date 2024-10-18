@@ -74,6 +74,25 @@ model agenda {
   @@index([id_cliente], map: "fki_fk_agenda_clientes")
 }
 
+model agenda_cobranza {
+  id_agenda                                                     BigInt                         @id @default(autoincrement())
+  id_contrato                                                   Int?
+  id_usuario                                                    Int?
+  fecha_alta                                                    DateTime?                      @db.Timestamp(6)
+  fecha_compromiso                                              DateTime?                      @db.Timestamptz(6)
+  id_clasificacion                                              Int?
+  comentario                                                    String?
+  id_tipo_comentario                                            Int?
+  bnd_mostrar_caja                                              Boolean?
+  bnd_atendido                                                  Boolean?
+  id_usuario_atendio                                            Int?
+  cat_cobranza_clasificacion                                    cat_cobranza_clasificacion?    @relation(fields: [id_clasificacion], references: [id_clasificacion], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_cobranza_clasificacion")
+  cat_cobranza_tipos_comentario                                 cat_cobranza_tipos_comentario? @relation(fields: [id_tipo_comentario], references: [id_tipo], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_cobranza_tipos_comentario")
+  cat_usuarios_agenda_cobranza_id_usuarioTocat_usuarios         cat_usuarios?                  @relation("agenda_cobranza_id_usuarioTocat_usuarios", fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_usuarios")
+  cat_usuarios_agenda_cobranza_id_usuario_atendioTocat_usuarios cat_usuarios?                  @relation("agenda_cobranza_id_usuario_atendioTocat_usuarios", fields: [id_usuario_atendio], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_ususarios_atendio")
+  contratos_terrenos                                            contratos_terrenos?            @relation(fields: [id_contrato], references: [id_contrato], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_contratos_terrenos")
+}
+
 model agua_reconexiones {
   id_reconexion Int           @id @default(autoincrement())
   nomenclatura  String?       @db.VarChar(50)
@@ -251,6 +270,26 @@ model beneficiarios {
   contratos_terrenos contratos_terrenos? @relation(fields: [id_contrato], references: [id_contrato], onDelete: NoAction, onUpdate: NoAction, map: "fk_beneficiarios_contratos_terrenos")
 
   @@index([id_contrato], map: "fki_fk_beneficiarios_contratos_terrenos")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model bitacora {
+  id_bitacora             BigInt    @default(autoincrement())
+  comentario              String?
+  fecha_comentario        DateTime? @db.Time(6)
+  id_tipo_comentario      Int?
+  id_usuario              Int?
+  prospecto_nombre        String?   @db.VarChar(125)
+  telefono                String?   @db.VarChar(20)
+  turno                   Int?
+  id_estacion             Int?
+  id_usuario_turno        Int?
+  id_usuario_turno_actual Int?
+  ap_paterno              String?   @db.VarChar(80)
+  ap_materno              String?   @db.VarChar(80)
+  reasignado              Int?
+
+  @@ignore
 }
 
 model cadenas_recibos {
@@ -603,8 +642,16 @@ model cat_tipos_terreno {
   lista_precios   lista_precios[]
 }
 
+model cat_tomas_agua {
+  id_toma             Int       @id @default(autoincrement())
+  id_contrato         Int?
+  estatus             Int?
+  fecha_alta          DateTime? @db.Date
+  cont_candados_rotos Int?
+}
+
 model cat_usuarios {
-  id_usuario                                                       Int                             @default(autoincrement())
+  id_usuario                                                       Int                             @unique @default(autoincrement())
   username                                                         String                          @db.VarChar(100)
   password                                                         String                          @db.VarChar(128)
   nombre                                                           String                          @db.VarChar(80)
@@ -810,6 +857,13 @@ model comisiones {
   @@index([asesor_primario], map: "fki_fk_comisiones_cat_usuarios_asesor_primario")
   @@index([asesor_secundario], map: "fki_fk_comisiones_cat_usuarios_asesor_secundario")
   @@index([id_contrato], map: "fki_fk_comisiones_contratos_terrenos")
+}
+
+model comisiones_configuracion {
+  id_configuracion       Int     @id @default(autoincrement())
+  no_meses               Int
+  comision_monto         Decimal @db.Decimal(19, 2)
+  comision_contado_monto Decimal @db.Decimal(19, 2)
 }
 
 model comisiones_pagos {
@@ -1396,58 +1450,4 @@ model traspasos {
   @@index([id_usuario], map: "fki_fk_traspasos_clientes_cat_usuarios")
   @@index([id_cliente_nuevo], map: "fki_fk_traspasos_clientes_nuevo")
   @@index([id_contrato], map: "fki_fk_traspasos_contratos_terrenos")
-}
-
-model agenda_cobranza {
-  id_agenda                                                     BigInt                         @id @default(autoincrement())
-  id_contrato                                                   Int?
-  id_usuario                                                    Int?
-  fecha_alta                                                    DateTime?                      @db.Timestamp(6)
-  fecha_compromiso                                              DateTime?                      @db.Timestamptz(6)
-  id_clasificacion                                              Int?
-  comentario                                                    String?
-  id_tipo_comentario                                            Int?
-  bnd_mostrar_caja                                              Boolean?
-  bnd_atendido                                                  Boolean?
-  id_usuario_atendio                                            Int?
-  cat_cobranza_clasificacion                                    cat_cobranza_clasificacion?    @relation(fields: [id_clasificacion], references: [id_clasificacion], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_cobranza_clasificacion")
-  cat_cobranza_tipos_comentario                                 cat_cobranza_tipos_comentario? @relation(fields: [id_tipo_comentario], references: [id_tipo], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_cobranza_tipos_comentario")
-  cat_usuarios_agenda_cobranza_id_usuarioTocat_usuarios         cat_usuarios?                  @relation("agenda_cobranza_id_usuarioTocat_usuarios", fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_usuarios")
-  cat_usuarios_agenda_cobranza_id_usuario_atendioTocat_usuarios cat_usuarios?                  @relation("agenda_cobranza_id_usuario_atendioTocat_usuarios", fields: [id_usuario_atendio], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_ususarios_atendio")
-  contratos_terrenos                                            contratos_terrenos?            @relation(fields: [id_contrato], references: [id_contrato], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_contratos_terrenos")
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model bitacora {
-  id_bitacora             BigInt    @default(autoincrement())
-  comentario              String?
-  fecha_comentario        DateTime? @db.Time(6)
-  id_tipo_comentario      Int?
-  id_usuario              Int?
-  prospecto_nombre        String?   @db.VarChar(125)
-  telefono                String?   @db.VarChar(20)
-  turno                   Int?
-  id_estacion             Int?
-  id_usuario_turno        Int?
-  id_usuario_turno_actual Int?
-  ap_paterno              String?   @db.VarChar(80)
-  ap_materno              String?   @db.VarChar(80)
-  reasignado              Int?
-
-  @@ignore
-}
-
-model cat_tomas_agua {
-  id_toma             Int       @id @default(autoincrement())
-  id_contrato         Int?
-  estatus             Int?
-  fecha_alta          DateTime? @db.Date
-  cont_candados_rotos Int?
-}
-
-model comisiones_configuracion {
-  id_configuracion       Int     @id @default(autoincrement())
-  no_meses               Int
-  comision_monto         Decimal @db.Decimal(19, 2)
-  comision_contado_monto Decimal @db.Decimal(19, 2)
 }

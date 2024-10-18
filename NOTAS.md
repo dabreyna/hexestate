@@ -1,6 +1,7 @@
 ## para generar los modelos en prisma desde la base de datos existente
 
 correr el comando `npx prisma db pull` esto va a generar los modelos en el directorio `prisma/schema.prisma`
+despues npx prisma generate
 
 ## para generar las interfaces en typescript desde el modelo de prisma
 
