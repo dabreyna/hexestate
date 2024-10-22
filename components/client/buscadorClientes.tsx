@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useContratoSelectedStore } from "@/app/store/dashboard/detallesContrato/contratoSelectedStore";
 
 export function BuscadorClientes() {
   const [nombreCliente, setNombreCliente] = useState("");
@@ -19,8 +20,13 @@ export function BuscadorClientes() {
     router.push(
       `/private/dashboard/buscarCliente?nombreCliente=${encodedNombreCliente}`
     );
+
     setNombreCliente("");
   };
+  const seleccionaContrato = useContratoSelectedStore((state) => state.setContrato);
+  const seleccionaCliente = useContratoSelectedStore((state) => state.setCliente);
+  seleccionaCliente("");
+  seleccionaContrato("");
 
   return (
     <>

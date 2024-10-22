@@ -1,0 +1,698 @@
+"use client"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+  } from "@/components/ui/form"
+// import {Select,SelectContent,SelectGroup,SelectItem,SelectLabel,SelectTrigger,SelectValue,} from "@/components/ui/select"
+import { Sheet,SheetClose,SheetContent,SheetDescription,SheetFooter,SheetHeader,SheetTitle,SheetTrigger,} from "@/components/ui/sheet"
+import { FilePenLine, Pencil, Save } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Separator } from "@/components/ui/separator"
+
+type Copropietario={
+    id_copropietario :string |null;
+    abreviatura :string |null;
+    nombre :string;
+    ap_paterno :string |null;
+    ap_materno? :string |null;
+    fecha_nacimiento :string |null;
+    sexo :string |null;
+    lugar_nacimiento? :string |null;
+    ocupacion? :string |null;
+    calle? :string |null;
+    numero? :string |null; 
+    ciudad? :string |null;
+    cp? :string |null;
+    colonia? :string |null;
+    estado? :string |null;
+    pais? :string |null;
+    tel_cod_casa? :string |null;
+    tel_casa? :string |null;
+    tel_cod_cel? :string |null;
+    tel_cel? :string |null;
+    tel_cod_trabajo? :string |null;
+    tel_trabajo? :string |null;
+    email? :string |null;
+    lugar_trabajo? :string |null;
+    domicilio_trabajo? :string |null;
+    conyuge? :string |null;
+    estado_civil? :string |null;
+    nacionalidad? :string |null;
+    bnd_permiso? :string |null;
+    bnd_principal? :string |null;
+  }
+  interface CopropietarioProps{
+    copropietario:Copropietario|any;
+  }
+  const FormSchema = z.object({
+    abreviatura: z.enum(['SR.','SRA.','SRTA.']),
+    nombre: z.string().toUpperCase().min(2, {message: "Nombre muy corto, por favor revisa la informacion.",}),
+    ap_paterno: z.string().toUpperCase().min(2, {message: "Apellido muy corto, por favor revisa la informacion.",}),
+    ap_materno: z.string().toUpperCase().min(2, {message: "Apellido muy corto, por favor revisa la informacion.",}).optional(),
+    fecha_nacimiento: z.string().regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Fecha debe tener formato DD/MM/YYYY'),
+    sexo:z.enum(['M','F']),
+    lugar_nacimiento: z.string().min(2, {message: "Nombre muy corto, por favor revisa la informacion.",}).optional(),
+    ocupacion:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
+    calle:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
+    numero:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
+    ciudad:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
+    cp:z.number().min(4, {message: "Codigo Postal muy corto, por favor revisa la informacion.",}).optional(),
+    colonia:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
+    estado:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
+    pais:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
+    tel_cod_casa:z.string().min(1, {message: "Codigo muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    tel_casa:z.string().min(4, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    tel_cod_cel:z.string().min(1, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    tel_cel:z.string().min(5, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    tel_cod_trabajo:z.string().min(1, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    tel_trabajo:z.string().min(5, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    email:z.string().email({message: "Email no valido"}).optional().nullable(),
+    lugar_trabajo:z.string().min(4, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    domicilio_trabajo:z.string().min(5, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    conyuge:z.string().min(5, {message: "Nombre muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    estado_civil:z.enum(['SOLTERO','CASADO','DIVORCIADO','VIUDO']).optional().nullable(),
+    nacionalidad:z.enum(['MX','EXT']).optional(),
+    bnd_permiso: z.boolean().default(false).optional(),
+    bnd_principal:z.boolean().default(false).optional(),
+  })
+
+export function EditarCopropietario({copropietario}:CopropietarioProps) {
+    const form = useForm<z.infer<typeof FormSchema>>({
+        resolver: zodResolver(FormSchema),
+        defaultValues: {
+          abreviatura: copropietario.abreviatura,
+          nombre:copropietario.nombre,
+          ap_paterno:copropietario.ap_paterno,
+          ap_materno:copropietario.ap_materno,
+          fecha_nacimiento:copropietario.fecha_nacimiento,
+          sexo:copropietario.sexo,
+          lugar_nacimiento:copropietario.lugar_nacimiento,
+          ocupacion:copropietario.ocupacion,
+          calle:copropietario.calle,
+          numero:copropietario.numero,
+          ciudad:copropietario.ciudad,
+          cp:copropietario.cp,
+          colonia:copropietario.colonia,
+          estado:copropietario.estado,
+          pais:copropietario.pais,
+          tel_cod_casa:copropietario.tel_cod_casa,
+          tel_casa:copropietario.tel_casa,
+          tel_cod_cel:copropietario.tel_cod_cel,
+          tel_cel:copropietario.tel_cel,
+          tel_cod_trabajo:copropietario.tel_cod_trabajo,
+          tel_trabajo:copropietario.tel_trabajo,          
+          email:copropietario.email,
+          lugar_trabajo:copropietario.lugar_trabajo,
+          domicilio_trabajo:copropietario.domicilio_trabajo,
+          conyuge:copropietario.conyuge,
+          estado_civil:copropietario.estado_civil,
+          nacionalidad:copropietario.nacionalidad,
+          bnd_permiso:copropietario.bnd_permiso,
+          bnd_principal:copropietario.bnd_principal
+
+        },
+      })
+
+      function onSubmit(data: z.infer<typeof FormSchema>) {
+        console.log("asasasasasasa");
+      }
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button >Editar<Pencil  strokeWidth={2} color="yellow"/> </Button>
+      </SheetTrigger>
+      <SheetContent className=" md:max-w-[800px] sm:min-w-[430px]">
+        <SheetHeader>
+          <SheetTitle>Edit Copropietario</SheetTitle>
+          <SheetDescription>
+            Ten cuidado al modificar los datos, no olvides guardar o puedes perder los cambios.
+            <Separator className="my-4" />
+          </SheetDescription>
+        </SheetHeader>
+        <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-8 items-center gap-4">
+                        <FormField 
+                            control={form.control}
+                            name="abreviatura"
+                            render={({ field }) => (
+                                <FormItem className="col-span-2">
+                                <FormLabel>Abreviatura</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                    <SelectTrigger className="h-6 border border-gray-300">
+                                        <SelectValue placeholder={copropietario.abreviatura} />
+                                    </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {['SR.', 'SRA.', 'SRTA.'].map((option) => (
+                                        <SelectItem key={option} value={option}>
+                                            {option}
+                                        </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <FormDescription>
+                                </FormDescription>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="nombre"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Nombre(s)</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.nombre} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />                    
+                        <FormField
+                        control={form.control}
+                        name="ap_paterno"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Apellido Paterno</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.nombre} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />                    
+                        <FormField
+                        control={form.control}
+                        name="ap_materno"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Apellido Materno</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.nombre} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />                    
+                    </div>
+                    <div className="grid grid-cols-8 items-center gap-4">
+                        <FormField
+                        control={form.control}
+                        name="fecha_nacimiento"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Fecha Nacimiento</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.fecha_nacimiento} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField 
+                            control={form.control}
+                            name="sexo"
+                            render={({ field }) => (
+                                <FormItem className="col-span-2">
+                                <FormLabel>Sexo</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value} >
+                                    <FormControl>
+                                    <SelectTrigger className="h-6 border border-gray-300">
+                                        <SelectValue placeholder={copropietario.sexo} />
+                                    </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {['M', 'F'].map((option) => (
+                                        <SelectItem key={option} value={option}>
+                                            {option}
+                                        </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <FormDescription>
+                                </FormDescription>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="lugar_nacimiento"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Lugar de Nacimiento</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.lugar_nacimiento} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="ocupacion"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Ocupacion</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.ocupacion} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    </div>
+                    <div className="grid grid-cols-8 items-center gap-4">
+                    <FormField
+                        control={form.control}
+                        name="calle"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Calle</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.calle} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="numero"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Numero</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.numero} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="ciudad"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Ciudad</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.ciudad} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="cp"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Codigo Postal</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.cp} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />                        
+                    </div>
+                    <div className="grid grid-cols-8 items-center gap-4">
+                    <FormField
+                        control={form.control}
+                        name="colonia"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Colonia</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.colonia} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="estado"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Estado</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.estado} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="pais"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Pais</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.pais} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        {/* <FormField
+                        control={form.control}
+                        name="cp"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Codigo Postal</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.cp} {...field}/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />                         */}
+                    </div>
+                    <div className="grid grid-cols-8 items-center gap-4">
+                    <FormField
+                        control={form.control}
+                        name="tel_cod_casa"
+                        render={({ field }) => (
+                            <FormItem className="col-span-1">
+                            <FormLabel>Cod.Casa</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.tel_cod_casa} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    <FormField
+                        control={form.control}
+                        name="tel_casa"
+                        render={({ field }) => (
+                            <FormItem className="col-span-1">
+                            <FormLabel> Tel.Casa</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.tel_casa} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    <FormField
+                        control={form.control}
+                        name="tel_cod_cel"
+                        render={({ field }) => (
+                            <FormItem className="col-span-1">
+                            <FormLabel>Cod.Cel</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.tel_cod_cel} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    <FormField
+                        control={form.control}
+                        name="tel_cel"
+                        render={({ field }) => (
+                            <FormItem className="col-span-1">
+                            <FormLabel> Tel.Cel</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.tel_cel} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="tel_cod_trabajo"
+                        render={({ field }) => (
+                            <FormItem className="col-span-1">
+                            <FormLabel>Cod.Trabajo</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.tel_cod_trabajo} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="tel_trabajo"
+                        render={({ field }) => (
+                            <FormItem className="col-span-1">
+                            <FormLabel>Tel.Trabajo</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.tel_trabajo} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.email} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />                        
+                    </div>
+                    <div className="grid grid-cols-8 items-center gap-4">
+                    <FormField
+                        control={form.control}
+                        name="lugar_trabajo"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Lugar de Trabajo</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.lugar_trabajo} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    <FormField
+                        control={form.control}
+                        name="domicilio_trabajo"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Domicilio Trabajo</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.domicilio_trabajo} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    <FormField
+                        control={form.control}
+                        name="conyuge"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Conyuge</FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.conyuge} {...field} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField 
+                            control={form.control}
+                            name="estado_civil"
+                            render={({ field }) => (
+                                <FormItem className="col-span-2">
+                                <FormLabel>Estado Civil</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value} >
+                                    <FormControl className="h-6 border border-gray-300">
+                                    <SelectTrigger>
+                                        <SelectValue placeholder={copropietario.estado_civil}/>
+                                    </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent >
+                                        {['SOLTERO', 'CASADO', 'DIVORCIADO', 'VIUDO'].map((option) => (
+                                        <SelectItem key={option} value={option} >
+                                            {option}
+                                        </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <FormDescription>
+                                </FormDescription>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                            
+                        />
+                    </div>
+                    <div className="grid grid-cols-8 items-center gap-4">
+                    <FormField 
+                            control={form.control}
+                            name="nacionalidad"
+                            render={({ field }) => (
+                                <FormItem className="col-span-2">
+                                <FormLabel>Nacionalidad</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                    <SelectTrigger className="h-6 border border-gray-300">
+                                        <SelectValue placeholder={copropietario.nacionalidad} />
+                                    </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {['MX', 'EXT'].map((option) => (
+                                        <SelectItem key={option} value={option}>
+                                            {option}
+                                        </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <FormDescription>
+                                </FormDescription>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    <FormField
+                        control={form.control}
+                        name="bnd_permiso"
+                        render={({ field }) => (
+                            <FormItem className="col-span-1">
+                            
+                            <FormControl>
+                                {/* <Input placeholder={copropietario.domicilio_trabajo} {...field}/> */}
+                                <Checkbox checked={field.value} onCheckedChange={field.onChange} className="h-5 border border-gray-300 mt-8"/>
+                            </FormControl>
+                            <FormLabel>Permiso</FormLabel>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    <FormField
+                        control={form.control}
+                        name="bnd_principal"
+                        render={({ field }) => (
+                            <FormItem className="col-span-1">
+                            
+                            <FormControl>
+                                {/* <Input placeholder={copropietario.domicilio_trabajo} {...field}/> */}
+                                <Checkbox checked={field.value} onCheckedChange={field.onChange} className="h-5 border border-gray-300 mt-8"/>
+                            </FormControl>
+                            <FormLabel>Principal</FormLabel>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    </div>
+
+                </div>
+            <Button type="submit" size="lg"> <Save strokeWidth="2"/>Guardar Cambios </Button>
+                </form>
+                </Form>
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button>Cerrar</Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
+
+  )
+}

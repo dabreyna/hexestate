@@ -37,23 +37,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+
 import {
   Table,
   TableBody,
@@ -63,13 +47,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -81,6 +58,7 @@ import { getContratosPorIdCliente } from "@/lib/contratos/contrato";
 import ListadoContratos from "@/components/client/dashboard/detallesContrato/listadoContratos";
 //import { Contrato } from "../../buscarCliente/listadoClientesBuscador";
 import Copropietarios from "@/components/client/dashboard/detallesContrato/copropietarios";
+import CabeceraContrato from "@/components/client/dashboard/detallesContrato/cabeceraContratos";
 
 export default async function DetallesContratos({
   params,
@@ -107,11 +85,15 @@ export default async function DetallesContratos({
               <CardHeader>
                 <CardTitle>Datos de Contrato</CardTitle>
                 <CardDescription>
-                  aqui van los datos del cliente (conyugue,telefonos,estado
-                  civil,fecha nacimiento,etc)
+                    
                 </CardDescription>
               </CardHeader>
-              <CardContent></CardContent>
+              <CardContent>
+                <div>
+                <CabeceraContrato />
+
+                </div>
+              </CardContent>
             </Card>
 
             <Card x-chunk="dashboard-07-chunk-1">
@@ -137,7 +119,6 @@ export default async function DetallesContratos({
                   </TabsList>
                   <TabsContent value="copropietarios">
                     <Copropietarios />
-
                   </TabsContent>
                   <TabsContent value="beneficiarios">
                     <Card>
