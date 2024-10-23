@@ -13,7 +13,7 @@ import {
   } from "@/components/ui/form"
 // import {Select,SelectContent,SelectGroup,SelectItem,SelectLabel,SelectTrigger,SelectValue,} from "@/components/ui/select"
 import { Sheet,SheetClose,SheetContent,SheetDescription,SheetFooter,SheetHeader,SheetTitle,SheetTrigger,} from "@/components/ui/sheet"
-import { FilePenLine, Pencil, Save } from "lucide-react";
+import { Pencil, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -22,7 +22,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 
 type Copropietario={
-    id_copropietario :string |null;
+    id_copropietario :any;
     abreviatura :string |null;
     nombre :string;
     ap_paterno :string |null;
@@ -50,13 +50,19 @@ type Copropietario={
     conyuge? :string |null;
     estado_civil? :string |null;
     nacionalidad? :string |null;
-    bnd_permiso? :string |null;
-    bnd_principal? :string |null;
+    bnd_permiso? :boolean |null;
+    bnd_principal? :boolean |null;
   }
   interface CopropietarioProps{
     copropietario:Copropietario|any;
+    onGuardar:(newData:Copropietario[])=>void;
   }
   const FormSchema = z.object({
+    id_copropietario:z.union([ 
+        z.string().min(4, { message: "Código Postal muy corto, por favor revisa la información." }),
+        z.number().min(4), // Ajusta el mínimo según tus necesidades
+
+    ]).optional(),
     abreviatura: z.enum(['SR.','SRA.','SRTA.']),
     nombre: z.string().toUpperCase().min(2, {message: "Nombre muy corto, por favor revisa la informacion.",}),
     ap_paterno: z.string().toUpperCase().min(2, {message: "Apellido muy corto, por favor revisa la informacion.",}),
@@ -68,7 +74,10 @@ type Copropietario={
     calle:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     numero:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     ciudad:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
-    cp:z.number().min(4, {message: "Codigo Postal muy corto, por favor revisa la informacion.",}).optional(),
+    cp: z.union([
+        z.string().min(4, { message: "Código Postal muy corto, por favor revisa la información." }),
+        z.number().min(4), // Ajusta el mínimo según tus necesidades
+      ]).optional(),
     colonia:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     estado:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     pais:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
@@ -88,10 +97,11 @@ type Copropietario={
     bnd_principal:z.boolean().default(false).optional(),
   })
 
-export function EditarCopropietario({copropietario}:CopropietarioProps) {
+export function EditarCopropietario({copropietario,onGuardar}:CopropietarioProps) {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
+          id_copropietario:copropietario.id_copropietario,
           abreviatura: copropietario.abreviatura,
           nombre:copropietario.nombre,
           ap_paterno:copropietario.ap_paterno,
@@ -126,7 +136,42 @@ export function EditarCopropietario({copropietario}:CopropietarioProps) {
       })
 
       function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log("asasasasasasa");
+        const newData:Copropietario[]=[
+            {
+              id_copropietario: data.id_copropietario,
+              abreviatura: data.abreviatura,
+              nombre: data.nombre,
+              ap_paterno: data.ap_paterno,
+              ap_materno: data.ap_materno,
+              fecha_nacimiento: data.fecha_nacimiento,
+              sexo: data.sexo,
+              lugar_nacimiento: data.lugar_nacimiento,
+              ocupacion: data.ocupacion,
+              calle: data.calle,
+              numero: data.numero,
+              ciudad: data.ciudad,
+              cp: data.cp,
+              colonia: data.colonia,
+              estado: data.estado,
+              pais: data.pais,
+              tel_cod_casa: data.tel_cod_casa,
+              tel_casa: data.tel_casa,
+              tel_cod_cel: data.tel_cod_cel,              
+              tel_cel: data.tel_cel,
+              tel_cod_trabajo: data.tel_cod_trabajo,
+              tel_trabajo: data.tel_trabajo,          
+              email: data.email,
+              lugar_trabajo: data.lugar_trabajo,
+              domicilio_trabajo: data.domicilio_trabajo,
+              conyuge: data.conyuge,
+              estado_civil: data.estado_civil,
+              nacionalidad: data.nacionalidad,
+              bnd_permiso: data.bnd_permiso,
+              bnd_principal: data.bnd_principal
+            }
+        ];
+        onGuardar(newData);
+        console.log(data);
       }
   return (
     <Sheet>
@@ -144,6 +189,23 @@ export function EditarCopropietario({copropietario}:CopropietarioProps) {
         <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="grid gap-4 py-4">
+                    {/* <input type="hidden" name="id_copropietario" value={copropietario?.id_copropietario}/> */}
+                    <FormField
+                        control={form.control}
+                        name="id_copropietario"
+                        render={({ field }) => (
+                            <FormItem className="hidden">
+                            <FormLabel></FormLabel>
+                            <FormControl>
+                                <Input placeholder={copropietario.id_copropietario} {...field} className="hidden"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />    
                     <div className="grid grid-cols-8 items-center gap-4">
                         <FormField 
                             control={form.control}
@@ -194,7 +256,7 @@ export function EditarCopropietario({copropietario}:CopropietarioProps) {
                             <FormItem className="col-span-2">
                             <FormLabel>Apellido Paterno</FormLabel>
                             <FormControl>
-                                <Input placeholder={copropietario.nombre} {...field} className="h-6 border border-gray-300"/>
+                                <Input placeholder={copropietario.ap_paterno} {...field} className="h-6 border border-gray-300"/>
                             </FormControl>
                             <FormDescription>
                                 
@@ -210,7 +272,7 @@ export function EditarCopropietario({copropietario}:CopropietarioProps) {
                             <FormItem className="col-span-2">
                             <FormLabel>Apellido Materno</FormLabel>
                             <FormControl>
-                                <Input placeholder={copropietario.nombre} {...field} className="h-6 border border-gray-300"/>
+                                <Input placeholder={copropietario.ap_materno} {...field} className="h-6 border border-gray-300"/>
                             </FormControl>
                             <FormDescription>
                                 

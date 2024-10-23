@@ -11,36 +11,36 @@ import { useEffect,useState } from "react";
 import { EditarCopropietario } from "./editarCopropietario";
 
 interface datosCopropietario {
-  id_copropietario :string |null;
+  id_copropietario :any;
   abreviatura :string |null;
-  nombre :string |null;
+  nombre :string;
   ap_paterno :string |null;
-  ap_materno :string |null;
+  ap_materno? :string |null;
   fecha_nacimiento :string |null;
   sexo :string |null;
-  lugar_nacimiento :string |null;
-  ocupacion :string |null;
-  calle :string |null;
-  numero :string |null; 
-  ciudad :string |null;
-  cp :string |null;
-  colonia :string |null;
-  estado :string |null;
-  pais :string |null;
-  tel_cod_casa :string |null;
-  tel_casa :string |null;
-  tel_cod_cel :string |null;
-  tel_cel :string |null;
-  tel_cod_trabajo :string |null;
-  tel_trabajo :string |null;
-  email :string |null;
-  lugar_trabajo :string |null;
-  domicilio_trabajo :string |null;
-  conyuge :string |null;
-  estado_civil :string |null;
-  nacionalidad :string |null;
-  bnd_permiso :string |null;
-  bnd_principal :string |null;
+  lugar_nacimiento? :string |null;
+  ocupacion? :string |null;
+  calle? :string |null;
+  numero? :string |null; 
+  ciudad? :string |null;
+  cp? :string |null;
+  colonia? :string |null;
+  estado? :string |null;
+  pais? :string |null;
+  tel_cod_casa? :string |null;
+  tel_casa? :string |null;
+  tel_cod_cel? :string |null;
+  tel_cel? :string |null;
+  tel_cod_trabajo? :string |null;
+  tel_trabajo? :string |null;
+  email? :string |null;
+  lugar_trabajo? :string |null;
+  domicilio_trabajo? :string |null;
+  conyuge? :string |null;
+  estado_civil? :string |null;
+  nacionalidad? :string |null;
+  bnd_permiso? :boolean |null;
+  bnd_principal? :boolean |null;
 }
 interface listadoCopropietarios{
   Copropietarios :datosCopropietario[];
@@ -51,6 +51,16 @@ export default function Copropietarios() {
     const [data,setData]=useState<datosCopropietario[]>([]);
     // const idCliente = useContratoSelectedStore((state) => state.idCliente);
     const idContrato = useContratoSelectedStore((state) => state.idContrato);
+
+    const handleGuardarCambios =(newData:datosCopropietario[])=>{
+      const index = data.findIndex((copropietario)=>copropietario.id_copropietario===newData[0].id_copropietario);
+      const newCopropietarios = [...data];
+      newCopropietarios[index]=newData[0];
+      setData(newCopropietarios);
+
+      //setData(newData);
+      console.log("guardando cambios");
+    }
 
     useEffect(() => {
       // if(isMounted){
@@ -140,7 +150,7 @@ export default function Copropietarios() {
                             </div>
                       </CardContent>
                       <CardFooter>
-                        <EditarCopropietario copropietario={copropietario}/>
+                        <EditarCopropietario copropietario={copropietario} onGuardar={handleGuardarCambios}/>
                       </CardFooter>
                     </Card>))}
                     </>
