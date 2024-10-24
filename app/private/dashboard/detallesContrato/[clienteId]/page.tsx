@@ -59,6 +59,7 @@ import ListadoContratos from "@/components/client/dashboard/detallesContrato/lis
 //import { Contrato } from "../../buscarCliente/listadoClientesBuscador";
 import Copropietarios from "@/components/client/dashboard/detallesContrato/copropietarios";
 import CabeceraContrato from "@/components/client/dashboard/detallesContrato/cabeceraContratos";
+import Beneficiarios from "@/components/client/dashboard/detallesContrato/beneficiarios";
 
 export default async function DetallesContratos({
   params,
@@ -121,7 +122,8 @@ export default async function DetallesContratos({
                     <Copropietarios />
                   </TabsContent>
                   <TabsContent value="beneficiarios">
-                    <Card>
+                    <Beneficiarios />
+                    {/* <Card>
                       <CardHeader>
                         <CardTitle>Beneficiario (1)</CardTitle>
                         <CardDescription>
@@ -212,7 +214,7 @@ export default async function DetallesContratos({
                       <CardFooter>
                         <Button></Button>
                       </CardFooter>
-                    </Card>
+                    </Card> */}
                   </TabsContent>
                   <TabsContent value="referencias">
                     <Card>

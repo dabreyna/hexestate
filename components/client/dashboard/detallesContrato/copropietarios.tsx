@@ -21,9 +21,9 @@ interface datosCopropietario {
   lugar_nacimiento? :string |null;
   ocupacion? :string |null;
   calle? :string |null;
-  numero? :string |null; 
+  numero? :any |null; 
   ciudad? :string |null;
-  cp? :string |null;
+  cp? :any |null;
   colonia? :string |null;
   estado? :string |null;
   pais? :string |null;
