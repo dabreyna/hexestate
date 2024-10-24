@@ -20,17 +20,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator"
 
 type Beneficiario={
-    id_beneficiario :any;
+    id_referencia :any;
     abreviatura :string |null;
     nombre :string;
     ap_paterno :string |null;
     ap_materno? :string |null;
-    fecha_nacimiento :string |null;
-    lugar_nacimiento? :string |null;
-    ocupacion? :string |null;
     calle? :string |null;
     numero? :any |null; 
-    entre? :string |null;
+    entre? :any |null; 
     ciudad? :string |null;
     cp? :any |null;
     colonia? :string |null;
@@ -40,21 +37,15 @@ type Beneficiario={
     tel_casa? :any |null;
     tel_cod_cel? :any |null;
     tel_cel? :any |null;
-    tel_cod_trabajo? :any |null;
-    tel_trabajo? :any |null;
-    email? :any |null;
-    lugar_trabajo? :any |null;
-    conyuge? :any |null;
-    estado_civil? :any |null;
-    nacionalidad? :any |null;
     parentesco? :string |null;
+    observaciones? :string |null;
   }
-  interface BeneficiarioProps{
-    beneficiario:Beneficiario|any;
-    onGuardar:(newData:Beneficiario[])=>void;
+  interface ReferenciaProps{
+    referencia:Referencia|any;
+    onGuardar:(newData:Referencia[])=>void;
   }
   const FormSchema = z.object({
-    id_beneficiario:z.union([ 
+    id_referencia:z.union([ 
         z.string().min(4,),
         z.number().min(4), // Ajusta el mínimo según tus necesidades
 
@@ -63,9 +54,6 @@ type Beneficiario={
     nombre: z.string().toUpperCase().min(2, {message: "Nombre muy corto, por favor revisa la informacion.",}),
     ap_paterno: z.string().toUpperCase().min(2, {message: "Apellido muy corto, por favor revisa la informacion.",}),
     ap_materno: z.string().toUpperCase().min(2, {message: "Apellido muy corto, por favor revisa la informacion.",}).optional(),
-    fecha_nacimiento: z.string().regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Fecha debe tener formato DD/MM/YYYY'),
-    lugar_nacimiento: z.string().min(2, {message: "Nombre muy corto, por favor revisa la informacion.",}).optional(),
-    ocupacion:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     calle:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     numero:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     entre:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
@@ -93,68 +81,44 @@ type Beneficiario={
         z.string(),
         z.number(),
       ]).optional().nullable(),
-    tel_cod_trabajo:z.union([
-        z.string().min(4, { message: "Numero muy corto, por favor revisa la información." }),
-        z.number().min(4), // Ajusta el mínimo según tus necesidades
-      ]).optional().nullable(),
-    tel_trabajo:z.union([
-        z.string().min(4, { message: "Numero muy corto, por favor revisa la información." }),
-        z.number().min(4), // Ajusta el mínimo según tus necesidades
-      ]).optional().nullable(),
-    email:z.string().email({message: "Email no valido"}).optional().nullable(),
-    lugar_trabajo:z.string().min(4, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
-    conyuge:z.string().min(5, {message: "Nombre muy corto, por favor revisa la informacion.",}).optional().nullable(),
-    estado_civil:z.enum(['SOLTERO','CASADO','DIVORCIADO','VIUDO']).optional(),
-    nacionalidad:z.enum(['MX','EXT']).optional(),
-    parentesco:z.string().min(4, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    parentesco:z.string().min(1, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
+    observaciones:z.string().optional().nullable(),
   })
 
-export function EditarBeneficiario({beneficiario,onGuardar}:BeneficiarioProps) {
+export function EditarReferencia({referencia,onGuardar}:ReferenciaProps) {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-          id_beneficiario:beneficiario.id_beneficiario,
-          abreviatura: beneficiario.abreviatura,
-          nombre:beneficiario.nombre,
-          ap_paterno:beneficiario.ap_paterno,
-          ap_materno:beneficiario.ap_materno,
-          fecha_nacimiento:beneficiario.fecha_nacimiento,
-          lugar_nacimiento:beneficiario.lugar_nacimiento,
-          ocupacion:beneficiario.ocupacion,
-          calle:beneficiario.calle,
-          numero:beneficiario.numero,
-          entre:beneficiario.entre,
-          ciudad:beneficiario.ciudad,
-          cp:beneficiario.cp,
-          colonia:beneficiario.colonia,
-          estado:beneficiario.estado,
-          pais:beneficiario.pais,
-          tel_cod_casa:beneficiario.tel_cod_casa,
-          tel_casa:beneficiario.tel_casa,
-          tel_cod_cel:beneficiario.tel_cod_cel,
-          tel_cel:beneficiario.tel_cel,
-          tel_cod_trabajo:beneficiario.tel_cod_trabajo,
-          tel_trabajo:beneficiario.tel_trabajo,          
-          email:beneficiario.email,
-          lugar_trabajo:beneficiario.lugar_trabajo,
-          conyuge:beneficiario.conyuge,
-          estado_civil:beneficiario.estado_civil,
-          nacionalidad:beneficiario.nacionalidad,
-          parentesco:beneficiario.parentesco,
+          id_referencia:referencia.id_beneficiario,
+          abreviatura: referencia.abreviatura,
+          nombre:referencia.nombre,
+          ap_paterno:referencia.ap_paterno,
+          ap_materno:referencia.ap_materno,
+          calle:referencia.calle,
+          numero:referencia.numero,
+          entre:referencia.entre,
+          ciudad:referencia.ciudad,
+          cp:referencia.cp,
+          colonia:referencia.colonia,
+          estado:referencia.estado,
+          pais:referencia.pais,
+          tel_cod_casa:referencia.tel_cod_casa,
+          tel_casa:referencia.tel_casa,
+          tel_cod_cel:referencia.tel_cod_cel,
+          tel_cel:referencia.tel_cel,
+          parentesco:referencia.parentesco,
+          observaciones:referencia.observaciones,
         },
       })
 
       function onSubmit(data: z.infer<typeof FormSchema>) {
         const newData:Beneficiario[]=[
             {
-              id_beneficiario: data.id_beneficiario,
+              id_referencia: data.id_referencia,
               abreviatura: data.abreviatura,
               nombre: data.nombre,
               ap_paterno: data.ap_paterno,
               ap_materno: data.ap_materno,
-              fecha_nacimiento: data.fecha_nacimiento,
-              lugar_nacimiento: data.lugar_nacimiento,
-              ocupacion: data.ocupacion,
               calle: data.calle,
               numero: data.numero,
               entre: data.entre,
@@ -167,14 +131,8 @@ export function EditarBeneficiario({beneficiario,onGuardar}:BeneficiarioProps) {
               tel_casa: data.tel_casa,
               tel_cod_cel: data.tel_cod_cel,              
               tel_cel: data.tel_cel,
-              tel_cod_trabajo: data.tel_cod_trabajo,
-              tel_trabajo: data.tel_trabajo,          
-              email: data.email,
-              lugar_trabajo: data.lugar_trabajo,
-              conyuge: data.conyuge,
-              estado_civil: data.estado_civil,
-              nacionalidad: data.nacionalidad,
               parentesco: data.parentesco,
+              observaciones: data.observaciones,
             }
         ];
         onGuardar(newData);
@@ -188,7 +146,7 @@ export function EditarBeneficiario({beneficiario,onGuardar}:BeneficiarioProps) {
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <SheetHeader>
-          <SheetTitle>Edit Copropietario</SheetTitle>
+          <SheetTitle>Editar Referencia</SheetTitle>
           <SheetDescription>
             Ten cuidado al modificar los datos, no olvides guardar o puedes perder los cambios.
             <Separator className="my-4" />

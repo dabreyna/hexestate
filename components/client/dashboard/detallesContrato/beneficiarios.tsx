@@ -51,7 +51,7 @@ export default function Beneficiarios() {
     const idContrato = useContratoSelectedStore((state) => state.idContrato);
 
     const handleGuardarCambios =(newData:datosBeneficiario[])=>{
-      const index = data.findIndex((copropietario)=>copropietario.id_beneficiario===newData[0].id_beneficiario);
+      const index = data.findIndex((beneficiario)=>beneficiario.id_beneficiario===newData[0].id_beneficiario);
       const newBeneficiarios = [...data];
       newBeneficiarios[index]=newData[0];
       setData(newBeneficiarios);
@@ -87,7 +87,7 @@ export default function Beneficiarios() {
               {data.map((beneficiario)=>(
                 <Card key={beneficiario.id_beneficiario}>
                   <CardHeader>
-                    <CardTitle>Copropiertario: <span className="text-sm">{beneficiario.abreviatura} {beneficiario.nombre} {beneficiario.ap_paterno} {beneficiario?.ap_materno}</span></CardTitle>
+                    <CardTitle>Beneficiario: <span className="text-sm">{beneficiario.abreviatura} {beneficiario.nombre} {beneficiario.ap_paterno} {beneficiario?.ap_materno}</span></CardTitle>
                     <CardDescription className="space-y-2 text-gray-700 font-medium">
                     </CardDescription>
                   </CardHeader>

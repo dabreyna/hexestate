@@ -32,9 +32,6 @@ export default function ListadoContratos({ Contratos }: ListadoContratosProps) {
   const handleContratoElegido = (value: string) => {
     seleccionaCliente(Contratos[0].id_cliente);
     seleccionaContrato(value);
-    // console.log(value);
-    // console.log(idContrato);
-    // console.log(idCliente);
   };
   return (
     <>

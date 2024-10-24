@@ -48,7 +48,6 @@ export default function CabeceraContrato() {
             throw new Error(`Failed to fetch data: ${response.status}`);
           }
           const data = await response.json();
-          console.log(data);
           setData(data);
         } catch (error) {
           console.error(error);
@@ -60,7 +59,6 @@ export default function CabeceraContrato() {
       setIsMounted(true);
     }
     }, [idCliente,idContrato,isMounted]);
-// console.log(data)
   return (<>
             {data ? (
             <>
