@@ -1,19 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ChevronLeft,
-  Home,
-  LineChart,
   MoreHorizontal,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  Upload,
-  Users2,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -61,6 +49,9 @@ import Copropietarios from "@/components/client/dashboard/detallesContrato/copro
 import CabeceraContrato from "@/components/client/dashboard/detallesContrato/cabeceraContratos";
 import Beneficiarios from "@/components/client/dashboard/detallesContrato/beneficiarios";
 import Referencias from "@/components/client/dashboard/detallesContrato/referencias";
+import UltimoMensajeCobranza from "@/components/client/dashboard/detallesContrato/ultimoMensajeCobranza";
+import UltimoMensajeCaja from "@/components/client/dashboard/detallesContrato/ultimoMensajeCaja";
+import { Separator } from "@/components/ui/separator";
 
 export default async function DetallesContratos({
   params,
@@ -100,10 +91,6 @@ export default async function DetallesContratos({
 
             <Card x-chunk="dashboard-07-chunk-1">
               <CardHeader>
-                {/* <CardTitle>Stock</CardTitle> */}
-                {/* <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit
-                </CardDescription> */}
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="copropietarios" className="w-full">
@@ -311,19 +298,15 @@ export default async function DetallesContratos({
             </Card>
             <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
               <CardHeader>
-                <CardTitle>Ultimo Mensaje /Caja</CardTitle>
-                <CardDescription>
-                  <span className="text-sm font-normal leading-none">
-                    texto texto texto textotexto texto texto textotexto texto
-                    texto textotexto texto texto textotexto texto texto
-                    textotexto texto texto textotexto texto texto texto
-                  </span>
-                  <br />
-
-                </CardDescription>
+                <CardTitle className="text-lg font-medium leading-none">&Uacute;ltimos Mensajes</CardTitle>
+                <CardDescription></CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid gap-2"></div>
+                <div className="grid gap-2 text-sm font-normal leading-none">
+                  <UltimoMensajeCobranza />
+                  <Separator className="my-4" />
+                  <UltimoMensajeCaja />
+                </div>
               </CardContent>
             </Card>
             <Card x-chunk="dashboard-07-chunk-5">
@@ -334,17 +317,11 @@ export default async function DetallesContratos({
               <CardContent>
                 <div></div>
                 <Button size="sm" variant="secondary">
-                  Archive Product
+                  algo
                 </Button>
               </CardContent>
             </Card>
           </div>
-        </div>
-        <div className="flex items-center justify-center gap-2 md:hidden">
-          <Button variant="outline" size="sm">
-            Discard
-          </Button>
-          <Button size="sm">Save Product</Button>
         </div>
       </div>
     </>

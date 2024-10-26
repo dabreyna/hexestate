@@ -97,10 +97,6 @@ export default function Copropietarios() {
                             <div className="container mx-auto px-4">
                                 <div className="grid md:grid-cols-2 gap-4  xs:grid-cols-1">
                                     <div>
-                                        {/* <span className="text-sm uppercase"><b></b> <span className="text-xs normal-case">{copropietario.abreviatura}</span></span>
-                                        <br />
-                                        <span className="text-sm uppercase"><b>Nombre:</b> <span className="text-xs normal-case">{copropietario.nombre} {copropietario.ap_paterno} {copropietario?.ap_materno}</span></span>
-                                        <br /> */}
                                         <span className="text-sm uppercase"><b>Fecha de Nacimiento:</b> <span className="text-xs normal-case">{copropietario.fecha_nacimiento}</span></span>
                                         <br />
                                         <span className="text-sm uppercase"><b>Sexo:</b> <span className="text-xs normal-case">{copropietario.sexo}</span></span>

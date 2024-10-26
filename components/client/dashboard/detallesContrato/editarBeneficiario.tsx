@@ -62,13 +62,13 @@ type Beneficiario={
     abreviatura: z.enum(['SR.','SRA.','SRTA.']),
     nombre: z.string().toUpperCase().min(2, {message: "Nombre muy corto, por favor revisa la informacion.",}),
     ap_paterno: z.string().toUpperCase().min(2, {message: "Apellido muy corto, por favor revisa la informacion.",}),
-    ap_materno: z.string().toUpperCase().min(2, {message: "Apellido muy corto, por favor revisa la informacion.",}).optional(),
+    ap_materno: z.string().toUpperCase().min(2, {message: "Apellido muy corto, por favor revisa la informacion.",}).optional().nullable(),
     fecha_nacimiento: z.string().regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Fecha debe tener formato DD/MM/YYYY'),
     lugar_nacimiento: z.string().min(2, {message: "Nombre muy corto, por favor revisa la informacion.",}).optional(),
     ocupacion:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     calle:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     numero:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
-    entre:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
+    entre:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional().nullable(),
     ciudad:z.string().min(2, {message: "Texto muy corto, por favor revisa la informacion.",}).optional(),
     cp: z.union([
         z.string().min(4, { message: "Código Postal muy corto, por favor revisa la información." }),
@@ -188,7 +188,7 @@ export function EditarBeneficiario({beneficiario,onGuardar}:BeneficiarioProps) {
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <SheetHeader>
-          <SheetTitle>Edit Copropietario</SheetTitle>
+          <SheetTitle>Editar Beneficiario</SheetTitle>
           <SheetDescription>
             Ten cuidado al modificar los datos, no olvides guardar o puedes perder los cambios.
             <Separator className="my-4" />
@@ -279,7 +279,7 @@ export function EditarBeneficiario({beneficiario,onGuardar}:BeneficiarioProps) {
                             <FormItem className="col-span-2">
                             <FormLabel>Apellido Materno</FormLabel>
                             <FormControl>
-                                <Input placeholder={beneficiario.ap_materno} {...field} className="h-6 border border-gray-300"/>
+                                <Input placeholder={beneficiario.ap_materno ? beneficiario.ap_materno : ''} {...(beneficiario.ap_materno && field)} className="h-6 border border-gray-300"/>
                             </FormControl>
                             <FormDescription>
                                 
@@ -373,32 +373,22 @@ export function EditarBeneficiario({beneficiario,onGuardar}:BeneficiarioProps) {
                             </FormItem>
                         )}
                         />
-                        <FormField 
-                            control={form.control}
-                            name="entre"
-                            render={({ field }) => (
-                                <FormItem className="col-span-2">
-                                <FormLabel>Entre</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value} >
-                                    <FormControl>
-                                    <SelectTrigger className="h-6 border border-gray-300">
-                                        <SelectValue placeholder={beneficiario.sexo} />
-                                    </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                        {['M', 'F'].map((option) => (
-                                        <SelectItem key={option} value={option}>
-                                            {option}
-                                        </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <FormDescription>
-                                </FormDescription>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        <FormField
+                        control={form.control}
+                        name="entre"
+                        render={({ field }) => (
+                            <FormItem className="col-span-2">
+                            <FormLabel>Entre</FormLabel>
+                            <FormControl>
+                                <Input placeholder={beneficiario.entre ? beneficiario.entre : ''} {...(beneficiario.entre && field)} className="h-6 border border-gray-300"/>
+                            </FormControl>
+                            <FormDescription>
+                                
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />   
                         <FormField
                         control={form.control}
                         name="ciudad"

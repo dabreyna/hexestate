@@ -189,7 +189,6 @@ export function EditarCopropietario({copropietario,onGuardar}:CopropietarioProps
             }
         ];
         onGuardar(newData);
-        console.log(data);
       }
   return (
     <Sheet>
@@ -200,7 +199,7 @@ export function EditarCopropietario({copropietario,onGuardar}:CopropietarioProps
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <SheetHeader>
-          <SheetTitle>Edit Copropietario</SheetTitle>
+          <SheetTitle>Editar Copropietario</SheetTitle>
           <SheetDescription>
             Ten cuidado al modificar los datos, no olvides guardar o puedes perder los cambios.
             <Separator className="my-4" />

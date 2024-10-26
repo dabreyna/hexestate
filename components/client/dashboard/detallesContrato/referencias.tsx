@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 import { useContratoSelectedStore } from "@/app/store/dashboard/detallesContrato/contratoSelectedStore";
 import { useEffect,useState } from "react";
-import { EditarBeneficiario } from "./editarBeneficiario";
+import { EditarReferencia } from "./editarReferencia";
 
 interface datosReferencia {
   id_referencia :any;
@@ -32,7 +32,7 @@ interface datosReferencia {
   observaciones? :string |null;
 }
 interface listadoReferencias{
-  Beneficiarios :datosReferencia[];
+  Referencias :datosReferencia[];
 }
 
 export default function Referencias() {
@@ -42,10 +42,10 @@ export default function Referencias() {
     const idContrato = useContratoSelectedStore((state) => state.idContrato);
 
     const handleGuardarCambios =(newData:datosReferencia[])=>{
-      const index = data.findIndex((referencia)=>referencia.id_beneficiario===newData[0].id_beneficiario);
-      const newBeneficiarios = [...data];
-      newBeneficiarios[index]=newData[0];
-      setData(newBeneficiarios);
+      const index = data.findIndex((referencia)=>referencia.id_referencia===newData[0].id_referencia);
+      const newReferencias = [...data];
+      newReferencias[index]=newData[0];
+      setData(newReferencias);
 
       //setData(newData);
       console.log("guardando cambios");
@@ -55,7 +55,7 @@ export default function Referencias() {
       // if(isMounted){
       const fetchData = async () => {
         try {
-          const response = await fetch(`/api/dashboard/detallesContrato/datosBeneficiario?idContrato=${idContrato}`);
+          const response = await fetch(`/api/dashboard/detallesContrato/datosReferencia?idContrato=${idContrato}`);
           if (!response.ok) {
             throw new Error(`Failed to fetch data: ${response.status}`);
           }
@@ -78,7 +78,7 @@ export default function Referencias() {
               {data.map((referencia)=>(
                 <Card key={referencia.id_referencia}>
                   <CardHeader>
-                    <CardTitle>Copropiertario: <span className="text-sm">{referencia.abreviatura} {referencia.nombre} {referencia.ap_paterno} {referencia?.ap_materno}</span></CardTitle>
+                    <CardTitle>Referencia: <span className="text-sm">{referencia.abreviatura} {referencia.nombre} {referencia.ap_paterno} {referencia?.ap_materno}</span></CardTitle>
                     <CardDescription className="space-y-2 text-gray-700 font-medium">
                     </CardDescription>
                   </CardHeader>
@@ -114,14 +114,14 @@ export default function Referencias() {
                                         <br />
                                         <span className="text-sm uppercase"><b>Parentesco:</b> <span className="text-xs normal-case">{referencia.parentesco}</span></span>
                                         <br />
-                                        <span className="text-sm uppercase"><b>Observaciones:</b> <span className="text-xs normal-case">{referencia.parentesco}</span></span>
+                                        <span className="text-sm uppercase"><b>Observaciones:</b> <span className="text-xs normal-case">{referencia.observaciones}</span></span>
                                         <br />
                                     </div>
                                 </div>
                             </div>
                       </CardContent>
                       <CardFooter>
-                        <EditarBeneficiario referencia={referencia} onGuardar={handleGuardarCambios}/>
+                        <EditarReferencia referencia={referencia} onGuardar={handleGuardarCambios}/>
                       </CardFooter>
                     </Card>))}
                     </>

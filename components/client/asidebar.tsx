@@ -4,16 +4,12 @@ import logoLotificadora from "@/public/logos/android-chrome-512x512.png";
 import {
   BadgeDollarSign,
   Calculator,
-  ChartNoAxesCombined,
+  ClipboardList,
   FileSliders,
   HandCoins,
   Handshake,
   Home,
-  LineChart,
-  Package,
   Settings,
-  ShoppingCart,
-  Users2,
 } from "lucide-react";
 
 import {
@@ -90,10 +86,10 @@ export function Asidebar() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/private/dashboard/reportes"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-accent hover:text-foreground md:h-8 md:w-8"
               >
-                <ChartNoAxesCombined className="h-5 w-5" />
+                <ClipboardList className="h-5 w-5" />
                 <span className="sr-only">Reportes</span>
               </Link>
             </TooltipTrigger>

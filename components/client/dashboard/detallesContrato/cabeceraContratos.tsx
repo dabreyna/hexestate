@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 import { useContratoSelectedStore } from "@/app/store/dashboard/detallesContrato/contratoSelectedStore";
 import { useEffect,useState } from "react";
-import { Contrato } from '../../../../app/private/dashboard/buscarCliente/listadoClientesBuscador';
+// import { Contrato } from '../../../../app/private/dashboard/buscarCliente/listadoClientesBuscador';
 
 interface datosClienteContrato {
   nombre: string | null;
