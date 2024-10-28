@@ -3,6 +3,7 @@ import Link from "next/link";
 import logoLotificadora from "@/public/logos/android-chrome-512x512.png";
 import {
   BadgeDollarSign,
+  BookKey,
   Calculator,
   ClipboardList,
   FileSliders,
@@ -48,8 +49,7 @@ export function Asidebar() {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link
-                href="#"
+              <Link href="/private/dashboard/ventas"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-stone-200 hover:text-foreground md:h-8 md:w-8"
               >
                 <BadgeDollarSign className="h-5 w-5" />
@@ -62,7 +62,7 @@ export function Asidebar() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/private/dashboard/cobranza"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-accent hover:text-foreground md:h-8 md:w-8"
               >
                 <HandCoins className="h-5 w-5" />
@@ -98,10 +98,10 @@ export function Asidebar() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/private/dashboard/administracion"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:bg-accent hover:text-foreground md:h-8 md:w-8"
               >
-                <FileSliders className="h-5 w-5" />
+                <BookKey className="h-5 w-5" />
                 <span className="sr-only">Administracion</span>
               </Link>
             </TooltipTrigger>

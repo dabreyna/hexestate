@@ -28,6 +28,8 @@ import {
   UserCheck,
   Wallet,
   BookOpenCheck,
+  Percent,
+  ThumbsDown,
 } from "lucide-react";
 
 
@@ -44,7 +46,7 @@ import { redirect } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-export default async function DetallesContratos({
+export default async function ReportesPage({
   params,
 }: {
   params: { clienteId: string };
@@ -54,11 +56,6 @@ export default async function DetallesContratos({
     redirect("/sistema");
   }
 
-  //const { getCliente } = await import("@/lib/clientes/cliente");
-  //const { getContratosPorIdCliente } = await import("@/lib/contratos/contrato");
-
-  // const cliente = await getCliente(params.clienteId);
-  // const contratos = await getContratosPorIdCliente(params.clienteId);
 
   return (
     <>
@@ -72,7 +69,7 @@ export default async function DetallesContratos({
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="ventas" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3">
+                  <TabsList className="grid w-full grid-cols-3" >
                     <TabsTrigger value="ventas">VENTAS</TabsTrigger>
                     <TabsTrigger value="cobranza">COBRANZA</TabsTrigger>
                     <TabsTrigger value="administracion">ADMINISTRACION</TabsTrigger>
@@ -239,291 +236,331 @@ export default async function DetallesContratos({
                           </Link>
                         </div>
                         <div>
-                          <RadioGroupItem
-                            value="cancelados"
-                            id="cancelados"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="cancelados"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <FileOutput className="mb-3 h-10 w-10" />
-                            Cancelados
-                          </Label>
-                          </div>
-                        <div>
-                          <RadioGroupItem
-                            value="bitacora_de_llamadas"
-                            id="bitacora_de_llamadas"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="bitacora_de_llamadas"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <PhoneForwarded className="mb-3 h-10 w-10" />
-                            Bitacora de llamadas
-                          </Label>
-                          </div>
-                        <div>
-                          <RadioGroupItem
-                            value="reporte_cobranza"
-                            id="reporte_cobranza"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="reporte_cobranza"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <HandCoins className="mb-3 h-10 w-10" />
-                            Reporte de cobranza
-                          </Label>
-                          </div>
-                        <div>
-                          <RadioGroupItem
-                            value="asignacion_carga"
-                            id="asignacion_carga"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="asignacion_carga"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <Scale className="mb-3 h-10 w-10" />
-                            Asignacion de carga
-                          </Label>
-                          </div>
-                        <div>
-                          <RadioGroupItem
-                            value="comentarios"
-                            id="comentarios"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="comentarios"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <MessageSquareText className="mb-3 h-10 w-10" />
-                              Comentarios
-                          </Label>
-                          </div>
-                          </RadioGroup>
+                          <Link href="/private/dashboard/reportes/cancelados">
+                            <RadioGroupItem
+                              value="cancelados"
+                              id="cancelados"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="cancelados"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <FileOutput className="mb-3 h-10 w-10" />
+                              Cancelados
+                            </Label>
+                          </Link>
                         </div>
-                        </TabsContent>
-                        <TabsContent value="administracion">
                         <div>
-                        <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-6"> 
+                          <Link href="/private/dashboard/reportes/bitacoraDeLlamadas">
+                            <RadioGroupItem
+                              value="bitacora_de_llamadas"
+                              id="bitacora_de_llamadas"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="bitacora_de_llamadas"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <PhoneForwarded className="mb-3 h-10 w-10" />
+                              Bitacora de llamadas
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="general_inventarios"
-                            id="general_inventarios"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="general_inventarios"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <NotebookPen className="mb-3 h-10 w-10"/>  
-                            General Inventarios
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/reporteCobranza">
+                            <RadioGroupItem
+                              value="reporte_cobranza"
+                              id="reporte_cobranza"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="reporte_cobranza"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <HandCoins className="mb-3 h-10 w-10" />
+                              Reporte de cobranza
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="ajuste_anual"
-                            id="ajuste_anual"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="ajuste_anual"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <ArrowUpWideNarrow className="mb-3 h-10 w-10" />
-                            Ajuste Anual
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/asignacionCarga">
+                            <RadioGroupItem
+                              value="asignacion_carga"
+                              id="asignacion_carga"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="asignacion_carga"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <Scale className="mb-3 h-10 w-10" />
+                              Asignacion de carga
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="traspasos"
-                            id="traspasos"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="traspasos"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <ArrowRightLeft className="mb-3 h-10 w-10" />
-                            Traspasos
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/comentarios">
+                            <RadioGroupItem
+                              value="comentarios"
+                              id="comentarios"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="comentarios"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <MessageSquareText className="mb-3 h-10 w-10" />
+                                Comentarios
+                            </Label>
+                          </Link>
+                        </div>
+                      </RadioGroup>
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="administracion">
+                    <div>
+                      <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-6"> 
                         <div>
-                          <RadioGroupItem
-                            value="saldos_vencidos"
-                            id="saldos_vencidos"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="saldos_vencidos"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <TriangleAlert className="mb-3 h-10 w-10" />
-                            Saldos Vencidos
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/generalInventarios">
+                            <RadioGroupItem
+                              value="general_inventarios"
+                              id="general_inventarios"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="general_inventarios"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <NotebookPen className="mb-3 h-10 w-10"/>  
+                              General Inventarios
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="recuperacion_de_cartera"
-                            id="recuperacion_de_cartera"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="recuperacion_de_cartera"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <Wallet className="mb-3 h-10 w-10" />
-                            Recuperacion de cartera
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/ajusteAnual">
+                            <RadioGroupItem
+                              value="ajuste_anual"
+                              id="ajuste_anual"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="ajuste_anual"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <ArrowUpWideNarrow className="mb-3 h-10 w-10" />
+                              Ajuste Anual
+                              </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="historico_terrenos"
-                            id="historico_terrenos"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="historico_terrenos"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <FileClock className="mb-3 h-10 w-10" />
-                            Historico de terrenos
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/traspasos">
+                            <RadioGroupItem
+                              value="traspasos"
+                              id="traspasos"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="traspasos"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <ArrowRightLeft className="mb-3 h-10 w-10" />
+                              Traspasos
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="devolucion_programada"
-                            id="devolucion_programada"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="devolucion_programada"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <History className="mb-3 h-10 w-10" />
-                            Devolucion Programada
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/saldosVencidos">
+                            <RadioGroupItem
+                              value="saldos_vencidos"
+                              id="saldos_vencidos"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="saldos_vencidos"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <TriangleAlert className="mb-3 h-10 w-10" />
+                              Saldos Vencidos
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="descuentos_aplicados"
-                            id="descuentos_aplicados"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="descuentos_aplicados"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <ChartPie className="mb-3 h-10 w-10" />
-                            Descuentos aplicados
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/recuperacionDeCartera">
+                            <RadioGroupItem
+                              value="recuperacion_de_cartera"
+                              id="recuperacion_de_cartera"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="recuperacion_de_cartera"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <Wallet className="mb-3 h-10 w-10" />
+                              Recuperacion de cartera
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="saldos_cuentas_por_cobrar"
-                            id="saldos_cuentas_por_cobrar"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="saldos_cuentas_por_cobrar"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <ChartBarDecreasing className="mb-3 h-10 w-10" />
-                            Saldos de cuentas por cobrar
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/historicoTerrenos">
+                            <RadioGroupItem
+                              value="historico_terrenos"
+                              id="historico_terrenos"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="historico_terrenos"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <FileClock className="mb-3 h-10 w-10" />
+                              Historico de terrenos
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="contratos_pagados"
-                            id="contratos_pagados"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="contratos_pagados"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <ClipboardCheck className="mb-3 h-10 w-10" />
-                            Contratos pagados
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/devolucionProgramada">
+                            <RadioGroupItem
+                              value="devolucion_programada"
+                              id="devolucion_programada"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="devolucion_programada"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <History className="mb-3 h-10 w-10" />
+                              Devolucion Programada
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="cartera_vencida"
-                            id="cartera_vencida"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="cartera_vencida"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <ChartPie className="mb-3 h-10 w-10" />
-                            Cartera vencida
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/descuentosAplicados">
+                            <RadioGroupItem
+                              value="descuentos_aplicados"
+                              id="descuentos_aplicados"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="descuentos_aplicados"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <Percent className="mb-3 h-10 w-10" />
+                              Descuentos aplicados
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="estadisticos"
-                            id="estadisticos"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="estadisticos"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <ChartArea className="mb-3 h-10 w-10" />
-                            Estadisticos
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/saldosCuentasPorCobrar">
+                            <RadioGroupItem
+                              value="saldos_cuentas_por_cobrar"
+                              id="saldos_cuentas_por_cobrar"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="saldos_cuentas_por_cobrar"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <ChartBarDecreasing className="mb-3 h-10 w-10" />
+                              Saldos de cuentas por cobrar
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="estadistico_detalle"
-                            id="estadistico_detalle"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="estadistico_detalle"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <PanelsTopLeft className="mb-3 h-10 w-10" />
-                            Estadistico detalle
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/contratosPagados">
+                            <RadioGroupItem
+                              value="contratos_pagados"
+                              id="contratos_pagados"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="contratos_pagados"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <ClipboardCheck className="mb-3 h-10 w-10" />
+                              Contratos pagados
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="corte_caja_detalle"
-                            id="corte_caja_detalle"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="corte_caja_detalle"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <BookOpenText className="mb-3 h-10 w-10" />
-                            Corte caja detalle
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/carteraVencida">
+                            <RadioGroupItem
+                              value="cartera_vencida"
+                              id="cartera_vencida"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="cartera_vencida"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <ThumbsDown className="mb-3 h-10 w-10" />
+                              Cartera vencida
+                            </Label>
+                          </Link>
+                        </div>
                         <div>
-                          <RadioGroupItem
-                            value="corte_caja"
-                            id="corte_caja"
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor="corte_caja"
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                          >
-                            <BookOpenCheck className="mb-3 h-10 w-10" />
-                            Corte caja
-                          </Label>
-                          </div>
+                          <Link href="/private/dashboard/reportes/estadisticos">
+                            <RadioGroupItem
+                              value="estadisticos"
+                              id="estadisticos"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="estadisticos"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <ChartArea className="mb-3 h-10 w-10" />
+                              Estadisticos
+                            </Label>
+                          </Link>
+                        </div>
+                        <div>
+                          <Link href="/private/dashboard/reportes/estadisticoDetalle">
+                            <RadioGroupItem
+                              value="estadistico_detalle"
+                              id="estadistico_detalle"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="estadistico_detalle"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <PanelsTopLeft className="mb-3 h-10 w-10" />
+                              Estadistico detalle
+                            </Label>
+                          </Link>
+                        </div>
+                        <div>
+                          <Link href="/private/dashboard/reportes/corteCajaDetalle">
+                            <RadioGroupItem
+                              value="corte_caja_detalle"
+                              id="corte_caja_detalle"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="corte_caja_detalle"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <BookOpenText className="mb-3 h-10 w-10" />
+                              Corte caja detalle
+                            </Label>
+                          </Link>
+                        </div>
+                        <div>
+                          <Link href="/private/dashboard/reportes/corteCaja">
+                            <RadioGroupItem
+                              value="corte_caja"
+                              id="corte_caja"
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor="corte_caja"
+                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              <BookOpenCheck className="mb-3 h-10 w-10" />
+                              Corte caja
+                            </Label>
+                          </Link>
+                        </div>
                     </RadioGroup>
                   </div>
                   </TabsContent>

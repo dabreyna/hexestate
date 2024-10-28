@@ -8,7 +8,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     fontFamily: {
@@ -23,6 +23,8 @@ const config = {
     },
     extend: {
       colors: {
+        carmoise: "#b31c45",
+        candlelight: "#fcf5e5",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
