@@ -47,7 +47,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import TablaDatos from "@/components/client/dashboard/reportes/terrenosDisponibles/tablaDatos";
 import MontosGenerales from "@/components/client/dashboard/reportes/terrenosDisponibles/montosGenerales";
-
+import {getDatos} from "@/lib/reportes/terrenosDisponibles/listadoFraccionamientos";
+import ListadoFraccionamientos from "@/components/client/dashboard/reportes/terrenosDisponibles/listadoFraccionamientos";
 
 export default async function TerrenosDisponibles({  
     params,
@@ -59,6 +60,8 @@ export default async function TerrenosDisponibles({
       redirect("/sistema");
     }
   
+    const listadoFraccionamientos = await getDatos();
+    console.log(listadoFraccionamientos);
   return (
       <>
         <div className="mx-auto grid  flex-1 auto-rows-max gap-4  w-full">
@@ -72,15 +75,13 @@ export default async function TerrenosDisponibles({
                   <div className="grid gap-6 md:grid-cols-8 sm:grid-cols-12">
                     <Card className="col-span-2">
                       <CardHeader>
-                        <CardTitle>TERRENOS DISPONIBLES</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        col1
+                        <ListadoFraccionamientos Fraccionamientos={listadoFraccionamientos}/>
                       </CardContent>
                     </Card>
                     <Card className="col-span-1">
                       <CardHeader>
-                        <CardTitle></CardTitle>
                       </CardHeader>
                       <CardContent>
                         <MontosGenerales/>

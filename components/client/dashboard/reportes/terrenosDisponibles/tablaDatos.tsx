@@ -1,3 +1,4 @@
+"use client";
 import {
     Table,
     TableBody,
@@ -8,6 +9,8 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+
+import { useFraccionamientoSelectedStore } from "@/app/store/dashboard/reportes/terrenosDisponibles/fraccionamientoSelectedStore";
 
   const invoices = [
     {
@@ -59,10 +62,12 @@ import {
    
 
   export default function TablaDatos() {
+    const idFraccionamiento = useFraccionamientoSelectedStore((state) => state.idFraccionamiento);
+    
     return (
         <>
             <Table>
-                <TableCaption>EL PARAISO</TableCaption>
+                <TableCaption>EL PARAISO {idFraccionamiento}</TableCaption>
                 <TableHeader>
                     <TableRow>
                     <TableHead className="w-[100px]">Terreno</TableHead>

@@ -6,7 +6,7 @@ import { getDatos } from "@/lib/reportes/terrenosDisponibles/montosGenerales";
 
 export default async function MontosGenerales() {
     const datos = await getDatos();
-    console.log(datos);
+    //console.log(datos);
 
     return (
         <>
