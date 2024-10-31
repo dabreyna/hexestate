@@ -10,28 +10,28 @@ export default async function MontosGenerales() {
 
     return (
         <>
-        <Card>
-            <CardContent className="p-4" style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
-                <div className="grid grid-cols-1 gap-4">
+        <Card className="col-span-2 mb-2" style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
+            <CardContent className="p-4" >
+                <div className="grid grid-cols-1 gap-2">
                     <span className="font-semibold text-center text-uppercase uppercase text-sm">Terrenos Disponibles</span>
                 <span className="text-center font-black" style={{backgroundColor:'#fcf5e5'}}>{datos.total_terrenos}</span>
                 </div>
             </CardContent>
         </Card>
         <br />
-        <Card>
-            <CardContent className="p-4" style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
+        <Card className="col-span-2 mb-2" style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
+            <CardContent className="p-4" >
                 <div className="grid grid-cols-1 gap-4">
-                    <span className="font-semibold text-center text-uppercase uppercase text-sm">Superficie</span>
+                    <span className="font-semibold text-center text-uppercase uppercase text-sm">Superficie Total</span>
                 <span className="text-center font-black">{datos.total_superficie}</span>
                 </div>
             </CardContent>
         </Card>
         <br />
-        <Card>
-            <CardContent className="p-4" style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
+        <Card className="col-span-2 mb-2" style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
+            <CardContent className="p-4" >
                 <div className="grid grid-cols-1 gap-4">
-                    <span className="font-semibold text-center text-uppercase uppercase text-sm">Valor</span>
+                    <span className="font-semibold text-center text-uppercase uppercase text-sm">Valor Estimado</span>
                 <span className="text-center font-black">{datos.total_valor}</span>
                 </div>
             </CardContent>

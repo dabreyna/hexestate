@@ -72,6 +72,9 @@ export default async function TerrenosDisponibles({
                 <CardTitle className="text-center"></CardTitle>
                 </CardHeader>
                 <CardContent>
+                  <div className="grid gap-6 md:grid-cols-8 sm:grid-cols-3">
+                  <MontosGenerales/>
+                  </div>
                   <div className="grid gap-6 md:grid-cols-8 sm:grid-cols-12">
                     <Card className="col-span-2">
                       <CardHeader>
@@ -80,14 +83,7 @@ export default async function TerrenosDisponibles({
                         <ListadoFraccionamientos Fraccionamientos={listadoFraccionamientos}/>
                       </CardContent>
                     </Card>
-                    <Card className="col-span-1">
-                      <CardHeader>
-                      </CardHeader>
-                      <CardContent>
-                        <MontosGenerales/>
-                      </CardContent>
-                    </Card>
-                    <Card className="col-span-5">
+                    <Card className="col-span-6">
                       <CardHeader>
                       </CardHeader>
                       <CardContent>

@@ -11,63 +11,101 @@ import {
   } from "@/components/ui/table"
 
 import { useFraccionamientoSelectedStore } from "@/app/store/dashboard/reportes/terrenosDisponibles/fraccionamientoSelectedStore";
+import { useEffect,useState } from "react";
 
   const invoices = [
-    {
-      terreno: "016",
-      superficie: "367.171",
-      preciom2: "$4,000.00",
-      gl120: "$12,243.90",
-      express: "$40,813.00",
-      dolares18: "$14,447.80",
-      gl144: "$10,203.25",
-      contado: "$1,469,268.00",
-      premier2021: "$13,774.39",
+      {manzana:"001",
+        terreno: "016",
+        superficie: "367.171",
+        preciom2: "$4,000.00",
+        gl120: "$12,243.90",
+        express: "$40,813.00",
+        dolares18: "$14,447.80",
+        gl144: "$10,203.25",
+        contado: "$1,469,268.00",
+        premier2021: "$13,774.39",
     },
-    {
-      terreno: "017",
-      superficie: "367.171",
-      preciom2: "$4,000.00",
-      gl120: "$12,243.90",
-      express: "$40,813.00",
-      dolares18: "$14,447.80",
-      gl144: "$10,203.25",
-      contado: "$1,469,268.00",
-      premier2021: "$13,774.39",
-    },
-    {
-      terreno: "018",
-      superficie: "367.171",
-      preciom2: "$4,000.00",
-      gl120: "$12,243.90",
-      express: "$40,813.00",
-      dolares18: "$14,447.80",
-      gl144: "$10,203.25",
-      contado: "$1,469,268.00",
-      premier2021: "$13,774.39",
-    },
-    {
-      terreno: "024",
-      superficie: "367.171",
-      preciom2: "$4,000.00",
-      gl120: "$12,243.90",
-      express: "$40,813.00",
-      dolares18: "$14,447.80",
-      gl144: "$10,203.25",
-      contado: "$1,469,268.00",
-      premier2021: "$13,774.39",
-    },
+      {
+        terreno: "017",
+        superficie: "367.171",
+        preciom2: "$4,000.00",
+        gl120: "$12,243.90",
+        express: "$40,813.00",
+        dolares18: "$14,447.80",
+        gl144: "$10,203.25",
+        contado: "$1,469,268.00",
+        premier2021: "$13,774.39",
+      },
+      {
+        terreno: "018",
+        superficie: "367.171",
+        preciom2: "$4,000.00",
+        gl120: "$12,243.90",
+        express: "$40,813.00",
+        dolares18: "$14,447.80",
+        gl144: "$10,203.25",
+        contado: "$1,469,268.00",
+        premier2021: "$13,774.39",
+      },
+      {
+        terreno: "024",
+        superficie: "367.171",
+        preciom2: "$4,000.00",
+        gl120: "$12,243.90",
+        express: "$40,813.00",
+        dolares18: "$14,447.80",
+        gl144: "$10,203.25",
+        contado: "$1,469,268.00",
+        premier2021: "$13,774.39",
+      },
+  ] 
 
-  ]
-   
+ 
+  interface Terreno {
+    terreno: string;
+    superficie: string;
+    preciom2: string;
+    financiamientos: Financiamiento[];
+  }
+  
+  interface Financiamiento {
+    nombre: string;
+    monto: string;
+  }
+  
+  interface Manzana {
+    manzana: string;
+    terrenos: Terreno[];
+  }
+  
+
+
 
   export default function TablaDatos() {
     const idFraccionamiento = useFraccionamientoSelectedStore((state) => state.idFraccionamiento);
-    
+    const [data,setData]=useState<Manzana[]>([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`/api/dashboard/reportes/datosFraccionamiento?idFraccionamiento=${idFraccionamiento}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data: ${response.status}`);
+          }
+          const data = await response.json();
+          setData(data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchData();
+    }, [idFraccionamiento]);
+
     return (
         <>
             <Table>
-                <TableCaption>EL PARAISO {idFraccionamiento}</TableCaption>
+                <TableCaption> {idFraccionamiento}</TableCaption>
                 <TableHeader>
                     <TableRow>
                     <TableHead className="w-[100px]">Terreno</TableHead>

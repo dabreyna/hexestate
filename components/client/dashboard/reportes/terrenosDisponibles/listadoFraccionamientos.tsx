@@ -21,7 +21,7 @@ export default function ListadoFraccionamientos({ Fraccionamientos }: ListadoFra
       };
     return (
         <>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1"> 
                 <RadioGroup onValueChange={handleFraccionamientoElegido}>   
                     {Fraccionamientos.map((fraccionamiento) => (
                     <div className="flex items-center space-x-2"  key={fraccionamiento.id_fraccionamiento}>
