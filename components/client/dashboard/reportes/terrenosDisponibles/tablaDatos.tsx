@@ -65,12 +65,12 @@ import { useEffect,useState } from "react";
     terreno: string;
     superficie: string;
     preciom2: string;
-    financiamientos: Financiamiento[];
   }
-  
+
   interface Financiamiento {
     nombre: string;
-    monto: string;
+    interes: string;
+    mensualidades: string;
   }
   
   interface Manzana {
