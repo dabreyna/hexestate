@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);   
   const idFraccionamiento = searchParams.get('idFraccionamiento'); 
 
-  let query = `SELECT B.NO_MANZANA,A.NO_TERRENO,A.SUPERFICIE,A.PRECIO_M2,A.TOTAL_TERRENO
+  let query = `SELECT B.NO_MANZANA,A.NO_TERRENO,A.SUPERFICIE,A.PRECIO_M2,A.TOTAL_TERRENO,A.ID_TERRENO
                 FROM CAT_TERRENOS A
                 INNER JOIN CAT_MANZANAS B ON B.ID_MANZANA = A.ID_MANZANA
                 INNER JOIN CAT_FRACCIONAMIENTOS C ON C.ID_FRACCIONAMIENTO = B.ID_FRACCIONAMIENTO

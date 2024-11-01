@@ -62,15 +62,18 @@ import { useEffect,useState } from "react";
 
  
   interface Terreno {
-    terreno: string;
+    no_terreno: string;
     superficie: string;
-    preciom2: string;
+    precio_m2: string;
+    total_terreno: string;
+    id_terreno: string;
   }
 
   interface Financiamiento {
-    nombre: string;
-    interes: string;
-    mensualidades: string;
+    financiamiento: string;
+    porcentaje: string;
+    id_financiamiento: string;
+    no_pagos: string;
   }
   
   interface Manzana {
@@ -78,22 +81,37 @@ import { useEffect,useState } from "react";
     terrenos: Terreno[];
   }
   
+  
 
 
 
   export default function TablaDatos() {
     const idFraccionamiento = useFraccionamientoSelectedStore((state) => state.idFraccionamiento);
-    const [data,setData]=useState<Manzana[]>([]);
+    const [manzanas,setManzanas]=useState<Manzana[]>([]);
+    const [financiamientos,setFinanciamientos]=useState<Financiamiento[]>([]);
+
+ 
 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch(`/api/dashboard/reportes/datosFraccionamiento?idFraccionamiento=${idFraccionamiento}`);
+          const response = await fetch(`/api/dashboard/reportes/terrenosDisponibles/listadoFinanciamientos`);
           if (!response.ok) {
             throw new Error(`Failed to fetch data: ${response.status}`);
           }
           const data = await response.json();
-          setData(data);
+          setFinanciamientos(data);
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+          const response = await fetch(`/api/dashboard/reportes/terrenosDisponibles/listadoTerrenos?idFraccionamiento=${idFraccionamiento}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data: ${response.status}`);
+          }
+          const data = await response.json();
+          console.log(data);
+          setManzanas(data);
         } catch (error) {
           console.error(error);
         }
@@ -102,71 +120,57 @@ import { useEffect,useState } from "react";
       fetchData();
     }, [idFraccionamiento]);
 
+    function calculaMonto(porcentaje:string,no_pagos:string,total_terreno:string){
+      const porcentaje_num = Number(porcentaje)/100;
+      const precioTerreno = Number((Number(total_terreno)*porcentaje_num)+Number(total_terreno));
+      const mensualidad = Number((precioTerreno / Number(no_pagos)).toFixed(2));
+
+      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(mensualidad);
+    }
     return (
         <>
             <Table>
                 <TableCaption> {idFraccionamiento}</TableCaption>
                 <TableHeader>
-                    <TableRow>
+                    <TableRow >
                     <TableHead className="w-[100px]">Terreno</TableHead>
-                    <TableHead>Superficie</TableHead>
-                    <TableHead>Precio m2</TableHead>
-                    <TableHead>GL 120</TableHead>
-                    <TableHead>Express</TableHead>
-                    <TableHead>Dolares18</TableHead>
-                    <TableHead>GL144</TableHead>
-                    <TableHead>Contado</TableHead>
-                    <TableHead>Premier 2021</TableHead>
+                    <TableHead className="text-right">Superficie</TableHead>
+                    <TableHead className="text-right">Precio m2</TableHead>
+                    
+                    {
+                      financiamientos ? (
+                        <>
+                        {financiamientos.map((financiamiento)=>(
+                          <TableHead key={financiamiento.financiamiento} className="text-right">{financiamiento.financiamiento}</TableHead>
+                        ))}
+                        </>
+                      ):
+                        <>
+                        <TableHead>cargando Financiamientos...</TableHead>
+                        </>
+                    }
+
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow className="shadownc-table__row my-row" >
-                        <TableCell colSpan={9} className="font-medium text-xs bg-slate-100" style={{ height: '10px', padding: 2,}}>Manzana: 002</TableCell>
-                    </TableRow>
-                    {invoices.map((invoice) => (
-                    <TableRow key={invoice.terreno}>
-                        <TableCell className="font-medium text-xs">{invoice.terreno}</TableCell>
-                        <TableCell className="text-right">{invoice.superficie}</TableCell>
-                        <TableCell className="text-right">{invoice.preciom2}</TableCell>
-                        <TableCell className="text-right">{invoice.gl120}</TableCell>
-                        <TableCell className="text-right">{invoice.express}</TableCell>
-                        <TableCell className="text-right">{invoice.dolares18}</TableCell>
-                        <TableCell className="text-right">{invoice.gl144}</TableCell>
-                        <TableCell className="text-right">{invoice.contado}</TableCell>
-                        <TableCell className="text-right">{invoice.premier2021}</TableCell>
-                        {/* <TableCell className="text-right">{invoice.totalAmount}</TableCell> */}
-                    </TableRow>
-                    ))
-                    }
-                    <TableRow>
-                        <TableCell colSpan={1}>Subotal</TableCell>
-                        <TableCell className="font-semibold text-right">2,500.00</TableCell>
-                        <TableCell colSpan={5}></TableCell>
-                        <TableCell colSpan={1} className="font-semibold text-right">$7,122,500.00</TableCell>
-                    </TableRow>
-                    <TableRow className="bg-slate-300">
-                        <TableCell colSpan={9} className="font-medium text-xs bg-slate-100" style={{ height: '10px', padding: 2,}}>Manzana: 003</TableCell>
-                    </TableRow>
-                    {invoices.map((invoice) => (
-                    <TableRow key={invoice.terreno}>
-                        <TableCell className="font-medium text-xs">{invoice.terreno}</TableCell>
-                        <TableCell className="text-right">{invoice.superficie}</TableCell>
-                        <TableCell className="text-right">{invoice.preciom2}</TableCell>
-                        <TableCell className="text-right">{invoice.gl120}</TableCell>
-                        <TableCell className="text-right">{invoice.express}</TableCell>
-                        <TableCell className="text-right">{invoice.dolares18}</TableCell>
-                        <TableCell className="text-right">{invoice.gl144}</TableCell>
-                        <TableCell className="text-right">{invoice.contado}</TableCell>
-                        <TableCell className="text-right">{invoice.premier2021}</TableCell>
-                    </TableRow>
-                    ))
-                    }
-                    <TableRow>
-                        <TableCell colSpan={1}>Subotal</TableCell>
-                        <TableCell className="font-semibold text-right">2,500.00</TableCell>
-                        <TableCell colSpan={5}></TableCell>
-                        <TableCell colSpan={1} className="font-semibold text-right">$7,122,500.00</TableCell>
-                    </TableRow>
+                      {manzanas.map((manzana)=>(
+                        <>
+                          <TableRow key={manzana.manzana} className="shadownc-table__row my-row">
+                             <TableCell colSpan={9} className="font-medium text-xs bg-slate-100" style={{ height: '10px', padding: 2,}}>Manzana: {manzana.manzana}</TableCell>
+                          </TableRow>
+                          {manzana.terrenos.map((terreno) => (
+                            <TableRow key={`${terreno.id_terreno}-${terreno.no_terreno}`}>
+                                <TableCell className="font-medium text-xs">{terreno.no_terreno}</TableCell>
+                                <TableCell className="text-right">{terreno.superficie}</TableCell>
+                                <TableCell className="text-right">{terreno.precio_m2}</TableCell>
+                                {financiamientos.map((financiamiento)=>(
+                                  <TableCell key={financiamiento.financiamiento} className="text-right">{calculaMonto(financiamiento.porcentaje,financiamiento.no_pagos,terreno.total_terreno)}</TableCell>
+                                ))}
+                                {/* <TableCell className="text-right">{invoice.totalAmount}</TableCell> */}
+                            </TableRow>
+                          ))}
+                      </>
+                    ))}
                 </TableBody>
                 <TableFooter>
                     <TableRow style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
