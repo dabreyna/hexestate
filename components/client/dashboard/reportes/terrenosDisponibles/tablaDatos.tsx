@@ -12,53 +12,8 @@ import {
 
 import { useFraccionamientoSelectedStore } from "@/app/store/dashboard/reportes/terrenosDisponibles/fraccionamientoSelectedStore";
 import { useEffect,useState } from "react";
-
-  const invoices = [
-      {manzana:"001",
-        terreno: "016",
-        superficie: "367.171",
-        preciom2: "$4,000.00",
-        gl120: "$12,243.90",
-        express: "$40,813.00",
-        dolares18: "$14,447.80",
-        gl144: "$10,203.25",
-        contado: "$1,469,268.00",
-        premier2021: "$13,774.39",
-    },
-      {
-        terreno: "017",
-        superficie: "367.171",
-        preciom2: "$4,000.00",
-        gl120: "$12,243.90",
-        express: "$40,813.00",
-        dolares18: "$14,447.80",
-        gl144: "$10,203.25",
-        contado: "$1,469,268.00",
-        premier2021: "$13,774.39",
-      },
-      {
-        terreno: "018",
-        superficie: "367.171",
-        preciom2: "$4,000.00",
-        gl120: "$12,243.90",
-        express: "$40,813.00",
-        dolares18: "$14,447.80",
-        gl144: "$10,203.25",
-        contado: "$1,469,268.00",
-        premier2021: "$13,774.39",
-      },
-      {
-        terreno: "024",
-        superficie: "367.171",
-        preciom2: "$4,000.00",
-        gl120: "$12,243.90",
-        express: "$40,813.00",
-        dolares18: "$14,447.80",
-        gl144: "$10,203.25",
-        contado: "$1,469,268.00",
-        premier2021: "$13,774.39",
-      },
-  ] 
+import { FileDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
  
   interface Terreno {
@@ -80,15 +35,18 @@ import { useEffect,useState } from "react";
     manzana: string;
     terrenos: Terreno[];
   }
-  
-  
 
-
+  interface TotalesFraccionamiento {
+    total_superficie: string;
+    total_valor: string;
+  }
+  
 
   export default function TablaDatos() {
     const idFraccionamiento = useFraccionamientoSelectedStore((state) => state.idFraccionamiento);
     const [manzanas,setManzanas]=useState<Manzana[]>([]);
     const [financiamientos,setFinanciamientos]=useState<Financiamiento[]>([]);
+    const [totalesFraccionamiento,setTotalesFraccionamiento]=useState<TotalesFraccionamiento>({total_superficie:'0',total_valor:'0'});
 
  
 
@@ -110,8 +68,18 @@ import { useEffect,useState } from "react";
             throw new Error(`Failed to fetch data: ${response.status}`);
           }
           const data = await response.json();
-          console.log(data);
           setManzanas(data);
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+          const response = await fetch(`/api/dashboard/reportes/terrenosDisponibles/totalesFraccionamiento?idFraccionamiento=${idFraccionamiento}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data: ${response.status}`);
+          }
+          const data = await response.json();
+          setTotalesFraccionamiento(data[0]);
+          console.log(data);
         } catch (error) {
           console.error(error);
         }
@@ -127,10 +95,16 @@ import { useEffect,useState } from "react";
 
       return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(mensualidad);
     }
+    
     return (
         <>
-            <Table>
-                <TableCaption> {idFraccionamiento}</TableCaption>
+            <div className="flex justify-end">
+              <Button id="toPDF" className="p-6"  onClick={() =>alert('PENDIENTE') }> 
+                <FileDown style={{height:'30px',width:'30px'}}/>PDF
+              </Button>
+            </div>
+            <Table id="tablaDatos">
+                <TableCaption>GRUPO LOTIFICADORA - REPORTE DE TERRENOS LIBRES - </TableCaption>
                 <TableHeader>
                     <TableRow >
                     <TableHead className="w-[100px]">Terreno</TableHead>
@@ -154,6 +128,7 @@ import { useEffect,useState } from "react";
                 </TableHeader>
                 <TableBody>
                       {manzanas.map((manzana)=>(
+
                         <>
                           <TableRow key={manzana.manzana} className="shadownc-table__row my-row">
                              <TableCell colSpan={9} className="font-medium text-xs bg-slate-100" style={{ height: '10px', padding: 2,}}>Manzana: {manzana.manzana}</TableCell>
@@ -174,10 +149,11 @@ import { useEffect,useState } from "react";
                 </TableBody>
                 <TableFooter>
                     <TableRow style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
-                        <TableCell colSpan={1}>Total</TableCell>
-                        <TableCell className="text-right">5,000.00</TableCell>
+                        <TableCell colSpan={1} className="font-semibold">Total</TableCell>
+                        <TableCell className="text-right font-semibold">{new Intl.NumberFormat('es-MX', { style:'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(totalesFraccionamiento.total_superficie))} m2</TableCell>
                         <TableCell colSpan={5}></TableCell>
-                        <TableCell colSpan={1} className="font-semibold text-right">$15,122,500.00</TableCell>
+                        {/* <TableCell colSpan={1} className="font-semibold text-right">$15,122,500.00</TableCell> */}
+                        <TableCell className="text-right font-semibold">{new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(totalesFraccionamiento.total_valor))}</TableCell>
                     </TableRow>
                 </TableFooter>
             </Table>
