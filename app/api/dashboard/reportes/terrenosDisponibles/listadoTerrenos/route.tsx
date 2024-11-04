@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
                   AND C.ID_FRACCIONAMIENTO=${idFraccionamiento}
                 ORDER BY B.NO_MANZANA,A.NO_TERRENO
              `;
-  let tempData = await dbQuery(query);
+  const tempData = await dbQuery(query);
 
  // Agrupando los datos por manzana usando Lodash
 const groupedData = _.groupBy(tempData.rows, 'no_manzana');

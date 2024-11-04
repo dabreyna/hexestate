@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
 	                AND A.ESTATUS = 1
                     AND A.BND_ACTIVO = TRUE
              `;
-  let tempData = await dbQuery(query);
+  const tempData = await dbQuery(query);
 
   return NextResponse.json(tempData.rows, { status: 200 });
   //return NextResponse.json(tempData.rows, { status: 200 });

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
                FROM CAT_FINANCIAMIENTOS
                WHERE BND_ACTIVO = TRUE
              `;
-  let tempData = await dbQuery(query);
+  const tempData = await dbQuery(query);
 
 
   return NextResponse.json(tempData.rows, { status: 200 });

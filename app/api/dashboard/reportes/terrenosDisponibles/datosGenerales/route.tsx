@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
                       TO_CHAR(SUM(SUPERFICIE),'999,999,999,999,999.99 m2') AS TOTAL_SUPERFICIE
                FROM (SELECT ID_TERRENO,SUPERFICIE,TOTAL_TERRENO FROM CAT_TERRENOS WHERE BND_ACTIVO = TRUE AND ESTATUS = 1 )
              `;
-  let tempData = await dbQuery(query);
+  const tempData = await dbQuery(query);
 
 
   return NextResponse.json(tempData.rows, { status: 200 });
