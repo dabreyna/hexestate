@@ -81,16 +81,12 @@ export default function ListadoFraccionamientos({ mediosPublicitarios,estatusCon
           }
         const fetchData = async () => {
             try {
-              console.log(id_usuario);
-              console.log(perfil_usuario);
-              //console.log(`/api/dashboard/reportes/mercadotecnia?idMedio=${idMedio}&idEstatus=${idEstatus}&idAsesorActivo=${idAsesorActivo}&idAsesorInactivo=${idAsesorInactivo}&fInicio=${fInicio}&fFin=${fFin}&usuario=${id_usuario}&perfil=${perfil_usuario}`);
               const response = await fetch(`/api/dashboard/reportes/mercadotecnia?idMedio=${medio}&idEstatus=${estatus}&idAsesorActivo=${asesorActivo}&idAsesorInactivo=${asesorInactivo}&fInicio=${fInicio}&fFin=${fFin}&usuario=${id_usuario}&perfil=${perfil_usuario}`);
               if (!response.ok) {
                 throw new Error(`Failed to fetch data: ${response.status}`);
               }
               const data = await response.json();
               seleccionaResultados(data);
-              // console.log(data);
             } catch (error) {
               console.error(error);
             }

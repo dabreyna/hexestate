@@ -36,9 +36,8 @@ interface listadoReferencias{
 }
 
 export default function Referencias() {
-    const [isMounted, setIsMounted] = useState(false);
+    // const [isMounted, setIsMounted] = useState(false);
     const [data,setData]=useState<datosReferencia[]>([]);
-    // const idCliente = useContratoSelectedStore((state) => state.idCliente);
     const idContrato = useContratoSelectedStore((state) => state.idContrato);
 
     const handleGuardarCambios =(newData:datosReferencia[])=>{
@@ -52,7 +51,6 @@ export default function Referencias() {
     }
 
     useEffect(() => {
-      // if(isMounted){
       const fetchData = async () => {
         try {
           const response = await fetch(`/api/dashboard/detallesContrato/datosReferencia?idContrato=${idContrato}`);
@@ -67,10 +65,7 @@ export default function Referencias() {
       };
   
       fetchData();
-    // } else {
-    //   setIsMounted(true);
-    // }
-    }, [idContrato,isMounted]);
+    }, [idContrato]);
 // console.log(data)
   return (<>
             {data ? (

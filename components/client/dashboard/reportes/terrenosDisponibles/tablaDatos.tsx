@@ -79,7 +79,6 @@ import { Button } from "@/components/ui/button";
           }
           const data = await response.json();
           setTotalesFraccionamiento(data[0]);
-          console.log(data);
         } catch (error) {
           console.error(error);
         }
@@ -103,7 +102,7 @@ import { Button } from "@/components/ui/button";
                 <FileDown style={{height:'30px',width:'30px'}}/>PDF
               </Button>
             </div>
-            <Table id="tablaDatos">
+            <Table id="tablaDatos" className="rounded-md border-1 border-slate-200 shadow-sm">
                 <TableCaption>GRUPO LOTIFICADORA - REPORTE DE TERRENOS LIBRES - </TableCaption>
                 <TableHeader>
                     <TableRow >
@@ -141,7 +140,6 @@ import { Button } from "@/components/ui/button";
                                 {financiamientos.map((financiamiento)=>(
                                   <TableCell key={financiamiento.financiamiento} className="text-right">{calculaMonto(financiamiento.porcentaje,financiamiento.no_pagos,terreno.total_terreno)}</TableCell>
                                 ))}
-                                {/* <TableCell className="text-right">{invoice.totalAmount}</TableCell> */}
                             </TableRow>
                           ))}
                       </>
@@ -152,7 +150,6 @@ import { Button } from "@/components/ui/button";
                         <TableCell colSpan={1} className="font-semibold">Total</TableCell>
                         <TableCell className="text-right font-semibold">{new Intl.NumberFormat('es-MX', { style:'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(totalesFraccionamiento.total_superficie))} m2</TableCell>
                         <TableCell colSpan={5}></TableCell>
-                        {/* <TableCell colSpan={1} className="font-semibold text-right">$15,122,500.00</TableCell> */}
                         <TableCell className="text-right font-semibold">{new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(totalesFraccionamiento.total_valor))}</TableCell>
                     </TableRow>
                 </TableFooter>
