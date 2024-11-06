@@ -47,7 +47,7 @@ export default function Referencias() {
       setData(newReferencias);
 
       //setData(newData);
-      console.log("guardando cambios");
+      // console.log("guardando cambios");
     }
 
     useEffect(() => {
