@@ -183,7 +183,7 @@ export default function ListadoFraccionamientos({ mediosPublicitarios,estatusCon
                         id="date"
                         variant={"outline"}
                         className={cn(
-                        "w-[300px] justify-start text-left font-normal",
+                        "w-full justify-start text-left font-normal",
                         !date && "text-muted-foreground"
                         )}
                     >
@@ -202,14 +202,14 @@ export default function ListadoFraccionamientos({ mediosPublicitarios,estatusCon
                         )}
                     </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="w-auto p-0" align="center">
                     <Calendar
                         initialFocus
                         mode="range"
                         defaultMonth={date?.from}
                         selected={date}
                         onSelect={setDate}
-                        numberOfMonths={2}
+                        numberOfMonths={4}
                         locale={es}
                     />
                     </PopoverContent>

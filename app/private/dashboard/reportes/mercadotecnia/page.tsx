@@ -37,14 +37,14 @@ export default async function ReporteMercadotecnia() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-6 md:grid-cols-12 sm:grid-cols-12">
-                    <Card className="col-span-2">
+                    <Card className="col-span-3">
                       <CardHeader>
                       </CardHeader>
                       <CardContent>
                         <FiltrosConsulta mediosPublicitarios={mediosPublicitarios} estatusContrato={estatusContrato} asesoresActivos={asesoresActivos} asesoresInactivos={asesoresInactivos} id_usuario={session.user.id_usuario} perfil_usuario={session.user.perfil_usuario}/>
                       </CardContent>
                     </Card>
-                    <Card className="col-span-10">
+                    <Card className="col-span-9">
                       <CardHeader>
                       </CardHeader>
                       <CardContent>
