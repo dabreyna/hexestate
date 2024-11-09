@@ -44,6 +44,7 @@ import { Button } from "@/components/ui/button";
 
   export default function TablaDatos() {
     const idFraccionamiento = useFraccionamientoSelectedStore((state) => state.idFraccionamiento);
+    const nombreFraccionamiento = useFraccionamientoSelectedStore((state) => state.nombre);
     const [manzanas,setManzanas]=useState<Manzana[]>([]);
     const [financiamientos,setFinanciamientos]=useState<Financiamiento[]>([]);
     const [totalesFraccionamiento,setTotalesFraccionamiento]=useState<TotalesFraccionamiento>({total_superficie:'0',total_valor:'0'});
@@ -105,6 +106,9 @@ import { Button } from "@/components/ui/button";
             <Table id="tablaDatos" className="rounded-md border-1 border-slate-200 shadow-sm">
                 <TableCaption>GRUPO LOTIFICADORA - REPORTE DE TERRENOS LIBRES - </TableCaption>
                 <TableHeader>
+                    <TableRow>
+                        <TableHead className="text-center" colSpan={12}>{nombreFraccionamiento}</TableHead>
+                    </TableRow>
                     <TableRow >
                     <TableHead className="w-[100px]">Terreno</TableHead>
                     <TableHead className="text-right">Superficie</TableHead>
