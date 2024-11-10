@@ -1,10 +1,13 @@
 create index usuario_idx on movimientos_detalle(usuario);
 create index id_contrato_idx on movimientos_detalle(id_contrato);
 create index tipo_pago_idx on movimientos_detalle(id_contrato,id_tipo_movimiento);
+create index TIPO_MOVIMIENTO_ID_CONTRATO_NO_PAGO_idx on movimientos_detalle(ID_TIPO_MOVIMIENTO,ID_CONTRATO,NO_PAGO);
+ID_TIPO_MOVIMIENTO,ID_CONTRATO,NO_PAGO FROM MOVIMIENTOS_DETALLE
 create index asesor_idx on comisiones_pagos(asesor);
 create index id_contrato_idx on comisiones_pagos(id_contrato);
 create index asesor_primario_idx on comisiones(asesor_primario);
 create index asesor_secundario_idx on comisiones(asesor_secundario);
+create index id_contrato_idx on comisiones(id_contrato);
 create index nombre_cliente_idx on clientes(nombre,ap_paterno,ap_materno);
 create index nombre_usuario_idx on cat_usuarios(nombre,ap_paterno,ap_materno);
 create index id_cliente_idx on contratos_terrenos(id_cliente);

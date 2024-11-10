@@ -3,18 +3,6 @@ import dbQuery from "@/lib/dbQuery";
 import _ from 'lodash';
 
 
-interface Terreno {
-  terreno: string;
-  superficie: number;
-  preciom2: number;
-  total_terreno: number;
-}
-
-interface Manzana {
-  manzana: string;
-  terrenos: Terreno[];
-}
-
 export async function GET(request: NextRequest) {
   
   const { searchParams } = new URL(request.url);   
