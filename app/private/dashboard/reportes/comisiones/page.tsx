@@ -8,14 +8,18 @@ import {
   } from "@/components/ui/card";
   import { auth } from "@/auth";
   import { redirect } from "next/navigation";
-  import TablaDatos from "@/components/client/dashboard/reportes/comisiones/tablaDatos"; 
+  import TablaDatos from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada"; 
   import FiltrosConsulta from "@/components/client/dashboard/reportes/comisiones/filtrosConsulta";
+import { Tabs } from "@radix-ui/react-tabs";
+import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import TablaDatosDetallada from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
+import TablaDatosResumen from "@/components/client/dashboard/reportes/comisiones/tablaDatosResumen";
   
   
   
   
   
-  export default async function ReporteMercadotecnia() {
+  export default async function ReporteComisiones() {
       const session = await auth();
       if (!session) {
         redirect("/sistema");
@@ -43,7 +47,20 @@ import {
                         <CardHeader>
                         </CardHeader>
                         <CardContent>
-                          <TablaDatos />
+                        <Tabs defaultValue="resumen" className="w-full">
+                      <TabsList className="grid w-full grid-cols-2" >
+                        <TabsTrigger value="resumen">RESUMEN</TabsTrigger>
+                        <TabsTrigger value="detallado">DETALLADO</TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="resumen">
+                        <div>
+                          <TablaDatosResumen />
+                        </div>
+                      </TabsContent>
+                      <TabsContent value="detallado">
+                        <TablaDatosDetallada />
+                        </TabsContent>
+                      </Tabs>
                         </CardContent>
                       </Card>                                        
                     </div>

@@ -180,7 +180,7 @@ export async function GET(request: NextRequest) {
                         )AA WHERE 1=1 
                         GROUP BY USUARIO
         `;
-        console.log(query);
+        // console.log(query);
         const usuarios = await dbQuery(query);
         let resultados:any =[];
         // console.log(usuarios);

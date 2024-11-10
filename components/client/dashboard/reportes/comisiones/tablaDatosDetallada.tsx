@@ -15,8 +15,8 @@ import { FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
-  export default function TablaDatos() {
-    const resultados = useComisionesFiltrosConsultaStore((state) => state.asesor);
+  export default function TablaDatosDetallada() {
+    const resultados = useComisionesFiltrosConsultaStore((state) => state.detallado);
 
     return (
         <>

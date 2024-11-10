@@ -18,9 +18,19 @@ interface Asesor {
     comisiones: Comision[];
 }
 
+interface Resumen {
+    nombre_asesor: string;
+    generado: string;
+    pagado: string;
+    saldo: string;
+    usuario: string;
+}
+
 interface ComisionesStore {
-    asesor: Asesor[];
-    setAsesor: (asesor: Asesor[]) => void;
+    resumen: Resumen[];
+    detallado: Asesor[];
+    setResumen: (resumen: Resumen[]) => void;
+    setDetallado: (detallado: Asesor[]) => void;
 }
 
 // interface reporteResultados {
@@ -30,7 +40,9 @@ interface ComisionesStore {
 
 
 export const useComisionesFiltrosConsultaStore = create<ComisionesStore>((set) => ({
-    asesor: [],
-    setAsesor: (resultados) => set({ asesor: resultados }),
+    resumen: [],
+    detallado: [],
+    setResumen: (resultados) => set({ resumen: resultados }),
+    setDetallado: (resultados) => set({ detallado: resultados }),
 }));
 

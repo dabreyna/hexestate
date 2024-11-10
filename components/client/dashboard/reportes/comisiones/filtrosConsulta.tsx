@@ -40,7 +40,8 @@ interface FiltrosConsultaProps {
 export default function ListadoFraccionamientos({id_usuario,perfil_usuario }: FiltrosConsultaProps,{
     className,
   }: React.HTMLAttributes<HTMLDivElement>) {
-    const seleccionaResultados = useComisionesFiltrosConsultaStore((state: { setAsesor: any; }) => state.setAsesor);
+    const tablaResumen = useComisionesFiltrosConsultaStore((state: { setResumen: any; }) => state.setResumen);
+    const tablaDetallados = useComisionesFiltrosConsultaStore((state: { setDetallado: any; }) => state.setDetallado);
 
     const [date, setDate] = useState<DateRange | undefined>(undefined);
     const [fInicio, setFInicio] = useState("");
@@ -73,8 +74,8 @@ export default function ListadoFraccionamientos({id_usuario,perfil_usuario }: Fi
                 throw new Error(`Failed to fetch data: ${response.status}`);
               }
               const data = await response.json();
-              //console.log(data);
-              //seleccionaResultados(data);
+              console.log(data);
+              tablaResumen(data);
             } catch (error) {
               console.error(error);
             }
@@ -86,8 +87,7 @@ export default function ListadoFraccionamientos({id_usuario,perfil_usuario }: Fi
                 throw new Error(`Failed to fetch data: ${response.status}`);
               }
               const data = await response.json();
-              console.log(data);
-              seleccionaResultados(data);
+              tablaDetallados(data);
             } catch (error) {
               console.error(error);
             }
