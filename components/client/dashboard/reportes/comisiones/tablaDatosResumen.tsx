@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
               </Button>
             </div>
             <Table id="tablaDatos" className="rounded-md border-2 border-slate-200 shadow-sm">
-                <TableCaption>GRUPO LOTIFICADORA - REPORTE DE MERCADOTECNIA - </TableCaption>
+                <TableCaption>GRUPO LOTIFICADORA - REPORTE DE COMISIONES - </TableCaption>
                 <TableHeader className="border-2 border-slate-200 shadow-lg">
                     <TableRow >
                         <TableHead className="text-center">Asesor</TableHead>
