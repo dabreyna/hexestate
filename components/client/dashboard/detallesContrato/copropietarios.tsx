@@ -135,7 +135,7 @@ export default function Copropietarios() {
                                         <br />
                                         <span className="text-sm uppercase"><b>Conyuge:</b> <span className="text-xs normal-case">{copropietario.conyuge}</span></span>
                                         <br />
-                                        <span className="text-sm uppercase"><b>Estado Civil:</b> <span className="text-xs normal-case">{copropietario.estado}</span></span>
+                                        <span className="text-sm uppercase"><b>Estado Civil:</b> <span className="text-xs normal-case">{copropietario.estado_civil}</span></span>
                                         <br />
                                         <span className="text-sm uppercase"><b>Nacionalidad:</b> <span className="text-xs normal-case">{copropietario.nacionalidad}</span></span>
                                         <br />
