@@ -66,6 +66,9 @@ export default function ListadoClientesBuscador({
   const handleDetallesContrato = (id_cliente: number) => {
     router.push(`/private/dashboard/detallesContrato/${id_cliente}`);
   };
+  const handleComentariosVentas = (id_cliente: number) => {
+    router.push(`/private/dashboard/reportes/comentariosVentas/${id_cliente}`);
+  };
 
   const columns: ColumnDef<listadoClientes>[] = [
     {
@@ -134,6 +137,11 @@ export default function ListadoClientesBuscador({
                 onClick={() => handleDetallesContrato(cliente.id_cliente)}
               >
                 Ver Expediente
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleComentariosVentas(cliente.id_cliente)}
+              >
+                Ver comentarios de ventas
               </DropdownMenuItem>
               <DropdownMenuItem>Ir a Caja</DropdownMenuItem>
             </DropdownMenuContent>
