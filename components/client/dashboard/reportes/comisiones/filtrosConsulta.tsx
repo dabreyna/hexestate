@@ -74,7 +74,6 @@ export default function ListadoFraccionamientos({id_usuario,perfil_usuario }: Fi
                 throw new Error(`Failed to fetch data: ${response.status}`);
               }
               const data = await response.json();
-              console.log(data);
               tablaResumen(data);
             } catch (error) {
               console.error(error);

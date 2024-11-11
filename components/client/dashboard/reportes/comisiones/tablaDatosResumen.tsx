@@ -39,7 +39,7 @@ import { Button } from "@/components/ui/button";
                 {resultados.map((asesor) => (
                     <>
                         <TableRow key={`${asesor}`}>
-                            <TableCell className="font-medium text-xs">{asesor.nombre_asesor}</TableCell>
+                            <TableCell className="font-medium">{asesor.nombre_asesor}</TableCell>
                             <TableCell className="text-right">{new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(asesor.generado))}</TableCell>
                             <TableCell className="text-right">{new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(asesor.pagado))}</TableCell>
                             <TableCell className="text-right">{new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(asesor.saldo))}</TableCell>

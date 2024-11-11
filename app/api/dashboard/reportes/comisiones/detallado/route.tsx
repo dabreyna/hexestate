@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
                     ,(SELECT MAX(NO_COMISION) FROM COMISIONES WHERE ID_CONTRATO=B.ID_CONTRATO) AS MAX_COMISION,
                             CASE 
                                 WHEN 
-                                    A.ASESOR_PRIMARIO=${usuario} THEN A.FECHA_PAGO_PRIMARIO
+                                    A.ASESOR_PRIMARIO=${usuario} THEN TO_CHAR(A.FECHA_PAGO_PRIMARIO,'DD/MM/YYYY')
                                     ELSE NULL -- NO PAGADA
                                 END  
                                 AS COMISIONPAGADA
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
                     ,(SELECT MAX(NO_COMISION) FROM COMISIONES WHERE ID_CONTRATO=B.ID_CONTRATO) AS MAX_COMISION,
                             CASE 
                                 WHEN 
-                                    A.ASESOR_SECUNDARIO=${usuario} THEN A.FECHA_PAGO_SECUNDARIO
+                                    A.ASESOR_SECUNDARIO=${usuario} THEN TO_CHAR(A.FECHA_PAGO_PRIMARIO,'DD/MM/YYYY')
                                     ELSE NULL --NO PAGADA
                                 END  
                                 AS COMISIONPAGADA
