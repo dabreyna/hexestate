@@ -1,246 +1,206 @@
-// "use client";
+"use client";
 
-export default function FiltrosConsultaCatalogoClientes() {
-  return <></>;
+// export default function FiltrosConsultaCatalogoClientes() {
+//   return <></>;
+// }
+
+//   {
+
+import { Label } from "@/components/ui/label";
+import { useMercadotecniaFiltrosConsultaStore } from "@/app/store/dashboard/reportes/mercadotecnia/filtrosConsultaStore";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import * as React from "react";
+import { Calendar as CalendarIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { DateRange } from "react-day-picker";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useEffect, useState } from "react";
+import { get } from "lodash";
+
+
+interface estatusTerreno {
+  id_estatus: string;
+  estatus: string;
 }
 
-//   {
+interface fraccionamiento {
+  id_fraccionamiento: string;
+  fraccionamiento: string;
+}
 
-// import { Label } from "@/components/ui/label";
-// import { useMercadotecniaFiltrosConsultaStore } from "@/app/store/dashboard/reportes/mercadotecnia/filtrosConsultaStore";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
-// import { Separator } from "@/components/ui/separator";
-// import * as React from "react";
-// import { Calendar as CalendarIcon } from "lucide-react";
+interface FiltrosConsultaProps {
+  listaFraccionamientos: fraccionamiento[];
+  listaEstatus: estatusTerreno[];
+  id_usuario: string | undefined | null;
+  perfil_usuario: string | undefined | null;
+}
+interface Manzana {
+  id_manzana: string;
+  no_manzana: string;
+}
+interface Terreno {
+  id_terreno: string;
+  no_terreno: string;
+}
 
-// import { cn } from "@/lib/utils";
-// import { Button } from "@/components/ui/button";
-// import { Calendar } from "@/components/ui/calendar";
-// import { DateRange } from "react-day-picker";
-// import { format } from "date-fns";
-// import { es } from "date-fns/locale";
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover";
-// import { useEffect, useState } from "react";
+export default function FiltrosConsultaCatalogoClientes(
+  {
+    id_usuario,
+    perfil_usuario,
+    listaFraccionamientos,
+    listaEstatus,
+  }: FiltrosConsultaProps,
+  { className }: React.HTMLAttributes<HTMLDivElement>
+) {
+  const seleccionaResultados = useMercadotecniaFiltrosConsultaStore(
+    (state: { setResultados: any }) => state.setResultados
+  );
 
-// interface MedioPublicitario {
-//   id_medio: string;
-//   medio: string;
-// }
+  const [fraccionamiento, setFraccionamiento] = useState<string>("");
+  const [manzanas, setManzanas] = useState<Manzana[]>([]);
+  const [manzana, setManzana] = useState<string>("");
+  const [terrenos, setTerrenos] = useState<Terreno[]>([]);
+  const [terreno, setTerreno] = useState<string>("");
+  // const [estatusLista, setEstatusLista] = useState<estatusTerreno[]>([]); 
+  const [estatus, setEstatus] = useState<string>("");
 
-// interface EstatusContrato {
-//   id_estatus: string;
-//   estatus: string;
-// }
+  useEffect(() => {
+    const getManzanas = async () => {
+      try {
+        const response = await fetch(
+          `/api/dashboard/reportes/catalogoClientes/filtros/manzanas?idFraccionamiento=${fraccionamiento}`
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data: ${response.status}`);
+        }
+        const data = await response.json();
+        setManzanas(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getManzanas();
+    setTerrenos([]);
+  }, [fraccionamiento]); // Update  whenever filters changes
 
-// interface Asesor {
-//   id_usuario: string;
-//   nombre_asesor: string;
-// }
+  useEffect(() => {
+    const getTerrenos = async () => {
+      try {
+        const response = await fetch(
+          `/api/dashboard/reportes/catalogoClientes/filtros/terrenos?idManzana=${manzana}` 
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data: ${response.status}`);
+        }
+        const data = await response.json();
+        setTerrenos(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getTerrenos();
+  }, [manzana]); // Update  whenever filters changes
 
-// interface FiltrosConsultaProps {
-//   // mediosPublicitarios: MedioPublicitario[];
-//   // estatusContrato: EstatusContrato[];
-//   // asesoresActivos: Asesor[];
-//   // asesoresInactivos: Asesor[];
-//   id_usuario: string | undefined | null;
-//   perfil_usuario: string | undefined | null;
-// }
+  function getDatos(){
 
-// export default function FiltrosConsultaCatalogoClientes(
-//   {
-//     // mediosPublicitarios,
-//     // estatusContrato,
-//     // asesoresActivos,
-//     // asesoresInactivos,
-//     id_usuario,
-//     perfil_usuario,
-//   }: FiltrosConsultaProps,
-//   { className }: React.HTMLAttributes<HTMLDivElement>
-// ) {
-//   const seleccionaResultados = useMercadotecniaFiltrosConsultaStore(
-//     (state: { setResultados: any }) => state.setResultados
-//   );
+  }
 
-//   const [date, setDate] = useState<DateRange | undefined>(undefined);
-//   const [medio, setMedio] = useState<string>("");
-//   const [estatus, setEstatus] = useState<string>("");
-//   const [asesorActivo, setAsesorActivo] = useState<string>("");
-//   const [asesorInactivo, setAsesorInactivo] = useState<string>("");
-//   const [fInicio, setFInicio] = useState("");
-//   const [fFin, setFFin] = useState("");
-
-//   useEffect(() => {
-//     if (date?.from && date?.to) {
-//       // Check for both from and to dates
-//       setFInicio(format(date.from, "yyyy-MM-dd", { locale: es }));
-//       setFFin(format(date.to, "yyyy-MM-dd", { locale: es }));
-//     } else {
-//       setFInicio("");
-//       setFFin("");
-//     }
-//   }, [date]); // Update fInicio and fFin whenever date changes
-
-//   const datos = () => {
-//     setMedio(medio);
-//     setEstatus(estatus);
-//     setAsesorActivo(asesorActivo);
-//     setAsesorInactivo(asesorInactivo);
-//     if (date?.from && date?.to) {
-//       // Check for both from and to dates
-//       setFInicio(format(date.from, "yyyy-MM-dd", { locale: es }));
-//       setFFin(format(date.to, "yyyy-MM-dd", { locale: es }));
-//     } else {
-//       setFInicio("");
-//       setFFin("");
-//     }
-//     const fetchData = async () => {
-//       try {
-//         const response = await fetch(
-//           `/api/dashboard/reportes/mercadotecnia?idMedio=${medio}&idEstatus=${estatus}&idAsesorActivo=${asesorActivo}&idAsesorInactivo=${asesorInactivo}&fInicio=${fInicio}&fFin=${fFin}&usuario=${id_usuario}&perfil=${perfil_usuario}`
-//         );
-//         if (!response.ok) {
-//           throw new Error(`Failed to fetch data: ${response.status}`);
-//         }
-//         const data = await response.json();
-//         seleccionaResultados(data);
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     };
-//     fetchData();
-//   };
-
-//   return (
-//     <>
-//       <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
-//         <Label htmlFor="status">Medio Publicitario</Label>
-//         <Select onValueChange={setMedio}>
-//           <SelectTrigger id="status" aria-label="Selecciona el medio">
-//             <SelectValue placeholder="Selecciona el medio" />
-//           </SelectTrigger>
-//           <SelectContent>
-//             <SelectItem value="0" id="0">
-//               Todos
-//             </SelectItem>
-//             {mediosPublicitarios.map((medio) => (
-//               <SelectItem key={medio.id_medio} value={medio.id_medio}>
-//                 {medio.medio}
-//               </SelectItem>
-//             ))}
-//           </SelectContent>
-//         </Select>
-//       </div>
-//       <Separator className="my-4 size-1 bg-white" />
-//       <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
-//         <Label htmlFor="status">Estatus Contrato</Label>
-//         <Select onValueChange={setEstatus}>
-//           <SelectTrigger id="status" aria-label="Selecciona el estatus">
-//             <SelectValue placeholder="Selecciona el estatus" />
-//           </SelectTrigger>
-//           <SelectContent>
-//             <SelectItem value="0" id="0">
-//               Todos
-//             </SelectItem>
-//             {estatusContrato.map((estatus) => (
-//               <SelectItem key={estatus.id_estatus} value={estatus.id_estatus}>
-//                 {estatus.estatus}
-//               </SelectItem>
-//             ))}
-//           </SelectContent>
-//         </Select>
-//       </div>
-//       <Separator className="my-4 size-1 bg-white" />
-//       <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
-//         <Label htmlFor="status">Asesores Activos</Label>
-//         <Select onValueChange={setAsesorActivo}>
-//           <SelectTrigger id="status" aria-label="Selecciona el asesor">
-//             <SelectValue placeholder="Selecciona el asesor" />
-//           </SelectTrigger>
-//           <SelectContent>
-//             <SelectItem value="0" id="0">
-//               Todos
-//             </SelectItem>
-//             {asesoresActivos.map((asesor) => (
-//               <SelectItem key={asesor.id_usuario} value={asesor.id_usuario}>
-//                 {asesor.nombre_asesor}
-//               </SelectItem>
-//             ))}
-//           </SelectContent>
-//         </Select>
-//       </div>
-//       <Separator className="my-4 size-1 bg-white" />
-//       <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
-//         <Label htmlFor="status">Asesores Inactivos</Label>
-//         <Select onValueChange={setAsesorInactivo}>
-//           <SelectTrigger id="status" aria-label="Selecciona el asesor">
-//             <SelectValue placeholder="Selecciona el asesor" />
-//           </SelectTrigger>
-//           <SelectContent>
-//             <SelectItem value="0" id="0">
-//               Todos
-//             </SelectItem>
-//             {asesoresInactivos.map((asesor) => (
-//               <SelectItem key={asesor.id_usuario} value={asesor.id_usuario}>
-//                 {asesor.nombre_asesor}
-//               </SelectItem>
-//             ))}
-//           </SelectContent>
-//         </Select>
-//       </div>
-//       <Separator className="my-4 size-1 bg-white" />
-//       <div className={cn("grid gap-2", className)}>
-//         <Popover>
-//           <PopoverTrigger asChild>
-//             <Button
-//               id="date"
-//               variant={"outline"}
-//               className={cn(
-//                 "w-full justify-start text-left font-normal",
-//                 !date && "text-muted-foreground"
-//               )}
-//             >
-//               <CalendarIcon />
-//               {date?.from ? (
-//                 date.to ? (
-//                   <>
-//                     {format(date.from, "LLL dd, y", { locale: es })} -{" "}
-//                     {format(date.to, "LLL dd, y", { locale: es })}
-//                   </>
-//                 ) : (
-//                   format(date.from, "LLL dd, y", { locale: es })
-//                 )
-//               ) : (
-//                 <span>Estalece un rango de fechas</span>
-//               )}
-//             </Button>
-//           </PopoverTrigger>
-//           <PopoverContent className="w-auto p-0" align="center">
-//             <Calendar
-//               initialFocus
-//               mode="range"
-//               defaultMonth={date?.from}
-//               selected={date}
-//               onSelect={setDate}
-//               numberOfMonths={4}
-//               locale={es}
-//             />
-//           </PopoverContent>
-//         </Popover>
-//       </div>
-//       <Separator className="my-4 size-1 bg-white" />
-//       <Button className="p-6" onClick={datos} disabled={!date}>
-//         DATOS
-//       </Button>
-//     </>
-//   );
-// }
+  return (
+    <>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12">
+      <div className="md:col-span-4 lg:col-span-4 xl:col-span-4">
+        <Label htmlFor="status">Fraccionamiento</Label>
+        <Select onValueChange={setFraccionamiento}>
+          <SelectTrigger id="status" aria-label="Selecciona el medio">
+            <SelectValue placeholder="Selecciona el medio" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0" id="0">
+              Todos
+            </SelectItem>
+            {listaFraccionamientos.map((fraccionamiento) => (
+              <SelectItem key={fraccionamiento.id_fraccionamiento} value={fraccionamiento.id_fraccionamiento}>
+                {fraccionamiento.fraccionamiento}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
+        <Label htmlFor="status">Manzana</Label>
+        <Select onValueChange={setManzana}>
+          <SelectTrigger id="status" aria-label="Selecciona el medio">
+            <SelectValue placeholder="Selecciona el medio" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0" id="0">
+              Todos
+            </SelectItem>
+            {manzanas.map((manzana) => (
+              <SelectItem key={manzana.id_manzana} value={manzana.id_manzana}>
+                {manzana.no_manzana}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
+        <Label htmlFor="status">Terreno</Label>
+        <Select onValueChange={setTerreno}>
+          <SelectTrigger id="status" aria-label="Selecciona el medio">
+            <SelectValue placeholder="Selecciona el medio" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0" id="0">
+              Todos
+            </SelectItem>
+            {terrenos.map((terreno) => ( 
+              <SelectItem key={terreno.id_terreno} value={terreno.id_terreno}> 
+                {terreno.no_terreno}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
+        <Label htmlFor="status">Estatus</Label>
+        <Select onValueChange={setEstatus}>
+          <SelectTrigger id="status" aria-label="Selecciona el medio">
+            <SelectValue placeholder="Selecciona el medio" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0" id="0">
+              Todos
+            </SelectItem>
+            {listaEstatus.map((estadoTerreno) => ( 
+              <SelectItem key={estadoTerreno.id_estatus} value={estadoTerreno.id_estatus}> 
+                {estadoTerreno.estatus}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+      <Separator className="my-4 size-1 bg-white" />
+      <Button className="p-6" onClick={getDatos}>
+        DATOS
+      </Button>
+    </>
+  );
+}

@@ -7,12 +7,9 @@ import {
 } from "@/components/ui/card";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import TablaDatos from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
-import FiltrosConsultaComisiones from "@/components/client/dashboard/reportes/comisiones/filtrosConsulta";
-import { Tabs } from "@radix-ui/react-tabs";
-import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {getFraccionamientos} from "@/lib/reportes/catalogoClientes/fraccionamientos";
+import {getEstatus} from "@/lib/reportes/catalogoClientes/estatusTerrenos";
 import TablaDatosDetallada from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
-import TablaDatosResumen from "@/components/client/dashboard/reportes/comisiones/tablaDatosResumen";
 import FiltrosConsultaCatalogoClientes from "@/components/client/dashboard/reportes/catalogoClientes/filtrosConsulta";
 
 export default async function CatalogoClientes() {
@@ -20,6 +17,9 @@ export default async function CatalogoClientes() {
   if (!session) {
     redirect("/sistema");
   }
+
+  const listaFraccionamientos = await getFraccionamientos();
+  const listaEstatus = await getEstatus();
 
   return (
     <>
@@ -35,10 +35,12 @@ export default async function CatalogoClientes() {
                   <Card className="col-span-12">
                     <CardHeader></CardHeader>
                     <CardContent>
-                      {/* <FiltrosConsultaCatalogoClientes
+                      <FiltrosConsultaCatalogoClientes
                         id_usuario={session.user.id_usuario}
                         perfil_usuario={session.user.perfil_usuario}
-                      /> */}
+                        listaFraccionamientos={listaFraccionamientos}
+                        listaEstatus={listaEstatus}
+                      />
                       <TablaDatosDetallada />
                     </CardContent>
                   </Card>
