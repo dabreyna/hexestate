@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Este proyecto se esta creando con [Next.js](https://nextjs.org/) v.14, como objetivo de migrar un sistema basado en asp con .net framework 4.5 y con sql server, el cual corre en un servidor local windows server 2008 R2 con IIS 7.5, se ha decidido migrar a next.js para poder usar las mejores características de la plataforma, como por ejemplo el uso de typescript, la integración continua, el uso de prisma,postgresql, etc.
 
-## Getting Started
 
-First, run the development server:
+## Instalación
+
+Instalar [Node.js](https://nodejs.org/en/download/) (recomendamos usar la última versión) y [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/) si no lo tienes ya instalado.
+
+Luego, ejecuta los siguientes comandos en la terminal:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm run dev
+
+```
+Abre [http://localhost:3000](http://localhost:3000) con tu navegador web para ver tu aplicación en acción.
+
+Para desplegar tu aplicación en producción, ejecuta:
+
+```bash
+pnpm run build
+pnpm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contribuir
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Si quieres contribuir con el proyecto, puedes hacerlo de varias maneras:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Reportando errores
+- Mejorando la documentación
+- Agregando nuevas características
+- Corregir errores
+- Agregando nuevas características
+- Mejorando la documentación
+- Reportando errores
 
-## Learn More
+Puedes encontrar más información sobre cómo contribuir en [CONTRIBUTING.md](CONTRIBUTING.md).
 
-To learn more about Next.js, take a look at the following resources:
+## Licencia
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Este proyecto está bajo la licencia MIT. Puedes encontrar más información sobre ella en [LICENSE](LICENSE). 
