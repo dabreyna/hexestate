@@ -9,7 +9,9 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import {getFraccionamientos} from "@/lib/reportes/catalogoClientes/fraccionamientos";
 import {getEstatus} from "@/lib/reportes/catalogoClientes/estatusTerrenos";
-import TablaDatosDetallada from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
+import TablaDatos from "@/components/client/dashboard/reportes/catalogoClientes/tablaDatos";
+
+// import TablaDatosDetallada from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
 import FiltrosConsultaCatalogoClientes from "@/components/client/dashboard/reportes/catalogoClientes/filtrosConsulta";
 
 export default async function CatalogoClientes() {
@@ -41,7 +43,7 @@ export default async function CatalogoClientes() {
                         listaFraccionamientos={listaFraccionamientos}
                         listaEstatus={listaEstatus}
                       />
-                      <TablaDatosDetallada />
+                      <TablaDatos />
                     </CardContent>
                   </Card>
                 </div>

@@ -7,7 +7,7 @@
 //   {
 
 import { Label } from "@/components/ui/label";
-import { useMercadotecniaFiltrosConsultaStore } from "@/app/store/dashboard/reportes/mercadotecnia/filtrosConsultaStore";
+import { useCatalogoClientesFiltrosConsultaStore } from "@/app/store/dashboard/reportes/catalogoClientes/filtrosConsultaStore";
 import {
   Select,
   SelectContent,
@@ -66,19 +66,19 @@ export default function FiltrosConsultaCatalogoClientes(
     listaFraccionamientos,
     listaEstatus,
   }: FiltrosConsultaProps,
-  { className }: React.HTMLAttributes<HTMLDivElement>
+  // { className }: React.HTMLAttributes<HTMLDivElement>
 ) {
-  const seleccionaResultados = useMercadotecniaFiltrosConsultaStore(
+  const seleccionaResultados = useCatalogoClientesFiltrosConsultaStore(
     (state: { setResultados: any }) => state.setResultados
   );
 
-  const [fraccionamiento, setFraccionamiento] = useState<string>("");
+  const [fraccionamiento, setFraccionamiento] = useState<string>("0");
   const [manzanas, setManzanas] = useState<Manzana[]>([]);
-  const [manzana, setManzana] = useState<string>("");
+  const [manzana, setManzana] = useState<string>("0");
   const [terrenos, setTerrenos] = useState<Terreno[]>([]);
-  const [terreno, setTerreno] = useState<string>("");
+  const [terreno, setTerreno] = useState<string>("0");
   // const [estatusLista, setEstatusLista] = useState<estatusTerreno[]>([]); 
-  const [estatus, setEstatus] = useState<string>("");
+  const [estatus, setEstatus] = useState<string>("0");
 
   useEffect(() => {
     const getManzanas = async () => {
@@ -118,7 +118,20 @@ export default function FiltrosConsultaCatalogoClientes(
   }, [manzana]); // Update  whenever filters changes
 
   function getDatos(){
-
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/dashboard/reportes/catalogoClientes?idFraccionamiento=${fraccionamiento}&idManzana=${manzana}&idTerreno=${terreno}&idEstatus=${estatus}`); 
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data: ${response.status}`);
+        }
+        const data = await response.json();
+        seleccionaResultados(data);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
   }
 
   return (
