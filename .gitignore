@@ -35,3 +35,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#ignorar estos archivos no relacionados con el proyecto
+Avance Sistema.pdf
+Avance por Áreas.docx
