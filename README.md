@@ -3,7 +3,7 @@ Este proyecto se esta creando con [Next.js](https://nextjs.org/) v.14, como obje
 
 ## Instalación
 
-Instalar [Node.js](https://nodejs.org/en/download/) (recomendamos usar la última versión) y [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/) si no lo tienes ya instalado.
+Instalar [Node.js](https://nodejs.org/en/download/) (recomendamos usar la última versión) y [pnpm](https://pnpm.io/installation).
 
 Luego, ejecuta los siguientes comandos en la terminal:
 
