@@ -10,14 +10,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { useMercadotecniaFiltrosConsultaStore } from "@/app/store/dashboard/reportes/mercadotecnia/filtrosConsultaStore";
+import { useVentasMaduradasFiltrosConsultaStore } from "@/app/store/dashboard/reportes/ventasMaduradas/filtrosConsultaStore";
 import { FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import moment from "moment";
+import "moment/locale/es";
 
 export default function TablaDatos() {
-  const resultados = useMercadotecniaFiltrosConsultaStore(
+  const resultados = useVentasMaduradasFiltrosConsultaStore(
     (state) => state.resultados
   );
+  const mesInicio = useVentasMaduradasFiltrosConsultaStore(
+    (state) => state.mesInicio
+  );
+
+  //moment().locale("es");
+  const mes1 = moment(mesInicio).format("MMMM");
+  const mes2 = moment(mesInicio).add(2, "months").format("MMMM");
+  const mes3 = moment(mesInicio).add(3, "months").format("MMMM");
+  const mes4 = moment(mesInicio).add(4, "months").format("MMMM");
+  const mes5 = moment(mesInicio).add(5, "months").format("MMMM");
+  const mes6 = moment(mesInicio).add(6, "months").format("MMMM");
 
   return (
     <>
@@ -32,45 +45,64 @@ export default function TablaDatos() {
         className="rounded-md border-2 border-slate-200 shadow-sm"
       >
         <TableCaption>
-          GRUPO LOTIFICADORA - REPORTE DE MERCADOTECNIA -{" "}
+          GRUPO LOTIFICADORA - REPORTE DE VENTAS MADURADAS -{" "}
         </TableCaption>
         <TableHeader className="border-2 border-slate-200 shadow-lg">
           <TableRow>
-            <TableHead className="w-[100px]">Consecutivo</TableHead>
-            <TableHead className="text-center">Cliente</TableHead>
-            <TableHead className="text-center">Ubicaci&oacute;n</TableHead>
-            <TableHead className="text-center">Fecha alta cliente</TableHead>
-            <TableHead className="text-center">Fecha estatus</TableHead>
-            <TableHead className="text-center">Asesor</TableHead>
-            <TableHead className="text-center">Medio</TableHead>
-            <TableHead className="text-center">Estatus</TableHead>
+            <TableHead className="text-center uppercase">Cliente</TableHead>
+            <TableHead className="text-center uppercase">Terreno</TableHead>
+            <TableHead className="text-center uppercase">Fecha</TableHead>
+            <TableHead className="text-center uppercase">
+              Madurada / Cancelada
+            </TableHead>
+            <TableHead className="text-center uppercase">{mes1}</TableHead>
+            <TableHead className="text-center uppercase">{mes2}</TableHead>
+            <TableHead className="text-center uppercase">{mes3}</TableHead>
+            <TableHead className="text-center uppercase">{mes4}</TableHead>
+            <TableHead className="text-center uppercase">{mes5}</TableHead>
+            <TableHead className="text-center uppercase">{mes6}</TableHead>
+            <TableHead className="text-center uppercase">Asesor</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {resultados.length > 0 ? (
             resultados.map((resultado, index) => (
-              <TableRow key={resultado.consecutivo}>
-                <TableCell>{resultado.consecutivo}</TableCell>
+              <TableRow
+                key={index}
+                className="hover:bg-slate-100 hover:font-semibold hover:cursor-pointer"
+              >
                 <TableCell className="text-left border-2 border-slate-200 ">
-                  {resultado.cliente}
+                  {resultado.nombre_cliente}
                 </TableCell>
                 <TableCell className="text-left border-2 border-slate-200">
-                  {resultado.ubicacion}
+                  {resultado.terreno}
                 </TableCell>
                 <TableCell className="text-center border-2 border-slate-200 ">
-                  {resultado.fecha_alta}
+                  {resultado.fecha}
                 </TableCell>
                 <TableCell className="text-center border-2 border-slate-200 ">
-                  {resultado.fecha_estatus}
+                  {resultado.madurada}
                 </TableCell>
                 <TableCell className="text-left border-2 border-slate-200 ">
-                  {resultado.asesor}
+                  {resultado.mes1}
                 </TableCell>
                 <TableCell className="text-left border-2 border-slate-200 ">
-                  {resultado.medio}
+                  {resultado.mes2}
                 </TableCell>
                 <TableCell className="text-left border-2 border-slate-200 ">
-                  {resultado.estatus}
+                  {resultado.mes3}
+                </TableCell>
+                <TableCell className="text-left border-2 border-slate-200 ">
+                  {resultado.mes4}
+                </TableCell>
+                <TableCell className="text-left border-2 border-slate-200 ">
+                  {resultado.mes5}
+                </TableCell>
+                <TableCell className="text-left border-2 border-slate-200 ">
+                  {resultado.mes6}
+                </TableCell>
+                <TableCell className="text-left border-2 border-slate-200 ">
+                  {resultado.asesor_ventas}
                 </TableCell>
               </TableRow>
             ))

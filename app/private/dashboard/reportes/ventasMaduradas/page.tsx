@@ -35,11 +35,7 @@ export default async function ReporteVentasMaduradas() {
                   <Card className="col-span-3">
                     <CardHeader></CardHeader>
                     <CardContent>
-                      <FiltrosConsulta
-                        asesoresActivos={asesoresActivos}
-                        id_usuario={session.user.id_usuario}
-                        perfil_usuario={session.user.perfil_usuario}
-                      />
+                      <FiltrosConsulta asesoresActivos={asesoresActivos} />
                     </CardContent>
                   </Card>
                   <Card className="col-span-9">

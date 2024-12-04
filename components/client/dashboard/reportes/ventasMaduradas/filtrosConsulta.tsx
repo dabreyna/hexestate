@@ -1,7 +1,7 @@
 "use client";
 
 import { Label } from "@/components/ui/label";
-import { useMercadotecniaFiltrosConsultaStore } from "@/app/store/dashboard/reportes/mercadotecnia/filtrosConsultaStore";
+import { useVentasMaduradasFiltrosConsultaStore } from "@/app/store/dashboard/reportes/ventasMaduradas/filtrosConsultaStore";
 import {
   Select,
   SelectContent,
@@ -34,16 +34,17 @@ interface Asesor {
 
 interface FiltrosConsultaProps {
   asesoresActivos: Asesor[];
-  id_usuario: string | undefined | null;
-  perfil_usuario: string | undefined | null;
 }
 
-export default function ListadoFraccionamientos(
-  { asesoresActivos, id_usuario, perfil_usuario }: FiltrosConsultaProps,
+export default function ListadoVentasMaduradas(
+  { asesoresActivos }: FiltrosConsultaProps,
   { className }: React.HTMLAttributes<HTMLDivElement>
 ) {
-  const seleccionaResultados = useMercadotecniaFiltrosConsultaStore(
+  const Resultados = useVentasMaduradasFiltrosConsultaStore(
     (state: { setResultados: any }) => state.setResultados
+  );
+  const mesInicio = useVentasMaduradasFiltrosConsultaStore(
+    (state: { setMesInicio: any }) => state.setMesInicio
   );
 
   const [date, setDate] = useState<DateRange | undefined>(undefined);
@@ -78,19 +79,21 @@ export default function ListadoFraccionamientos(
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `/api/dashboard/reportes/ventasMaduradas/datosVentas?idAsesorActivo=${asesorActivo}&chkVenta=${chkVenta}&chkPostVenta=${chkPostVenta}&chkCancelado=${chkCancelado}&fInicio=${fInicio}&fFin=${fFin}&usuario=${id_usuario}&perfil=${perfil_usuario}`
+          `/api/dashboard/reportes/ventasMaduradas/datosVentas?idAsesorActivo=${asesorActivo}&chkVenta=${chkVenta}&chkPostVenta=${chkPostVenta}&chkCancelado=${chkCancelado}&fInicio=${fInicio}&fFin=${fFin}&asesor=${asesorActivo}`
         );
         if (!response.ok) {
           throw new Error(`Failed to fetch data: ${response.status}`);
         }
         const data = await response.json();
-        seleccionaResultados(data);
+        Resultados(data);
+        mesInicio(fInicio);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
   };
+  function handleCheckedChange() {}
 
   return (
     <>
@@ -117,15 +120,42 @@ export default function ListadoFraccionamientos(
         <div className="items-top flex space-x-2">
           <Checkbox
             id="chkVentas"
-            checked={true}
-            onCheckedChange={setChkVenta}
+            onCheckedChange={(e) => setChkVenta(!chkVenta)}
           />
           <div className="grid gap-1.5 leading-none">
             <label
               htmlFor="terms1"
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              Accept terms and conditions
+              Venta
+            </label>
+          </div>
+        </div>
+        <div className="items-top flex space-x-2">
+          <Checkbox
+            id="chkPostVenta"
+            onCheckedChange={(e) => setChkPostVenta(!chkPostVenta)}
+          />
+          <div className="grid gap-1.5 leading-none">
+            <label
+              htmlFor="terms1"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Post-venta
+            </label>
+          </div>
+        </div>
+        <div className="items-top flex space-x-2">
+          <Checkbox
+            id="chkCancelado"
+            onCheckedChange={(e) => setChkCancelado(!chkCancelado)}
+          />
+          <div className="grid gap-1.5 leading-none">
+            <label
+              htmlFor="terms1"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Cancelado
             </label>
           </div>
         </div>
