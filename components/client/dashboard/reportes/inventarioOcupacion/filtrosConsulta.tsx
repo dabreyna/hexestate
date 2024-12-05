@@ -7,7 +7,7 @@
 //   {
 
 import { Label } from "@/components/ui/label";
-import { useCatalogoClientesFiltrosConsultaStore } from "@/app/store/dashboard/reportes/catalogoClientes/filtrosConsultaStore";
+import { useInventarioOcupacionFiltrosConsultaStore } from "@/app/store/dashboard/reportes/inventarioOcupacion/filtrosConsultaStore";
 import {
   Select,
   SelectContent,
@@ -17,26 +17,8 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import * as React from "react";
-import { Calendar as CalendarIcon } from "lucide-react";
-
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { DateRange } from "react-day-picker";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { useEffect, useState } from "react";
-import { get } from "lodash";
-
-interface estatusTerreno {
-  id_estatus: string;
-  estatus: string;
-}
 
 interface fraccionamiento {
   id_fraccionamiento: string;
@@ -45,9 +27,6 @@ interface fraccionamiento {
 
 interface FiltrosConsultaProps {
   listaFraccionamientos: fraccionamiento[];
-  listaEstatus: estatusTerreno[];
-  id_usuario: string | undefined | null;
-  perfil_usuario: string | undefined | null;
 }
 interface Manzana {
   id_manzana: string;
@@ -58,14 +37,10 @@ interface Terreno {
   no_terreno: string;
 }
 
-export default function FiltrosConsultaCatalogoClientes({
-  id_usuario,
-  perfil_usuario,
+export default function FiltrosConsultaInventarioOcupacion({
   listaFraccionamientos,
-  listaEstatus,
 }: FiltrosConsultaProps) {
-  // { className }: React.HTMLAttributes<HTMLDivElement>
-  const seleccionaResultados = useCatalogoClientesFiltrosConsultaStore(
+  const seleccionaResultados = useInventarioOcupacionFiltrosConsultaStore(
     (state: { setResultados: any }) => state.setResultados
   );
 
@@ -74,8 +49,6 @@ export default function FiltrosConsultaCatalogoClientes({
   const [manzana, setManzana] = useState<string>("0");
   const [terrenos, setTerrenos] = useState<Terreno[]>([]);
   const [terreno, setTerreno] = useState<string>("0");
-  // const [estatusLista, setEstatusLista] = useState<estatusTerreno[]>([]);
-  const [estatus, setEstatus] = useState<string>("0");
 
   useEffect(() => {
     const getManzanas = async () => {
@@ -118,7 +91,7 @@ export default function FiltrosConsultaCatalogoClientes({
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `/api/dashboard/reportes/catalogoClientes?idFraccionamiento=${fraccionamiento}&idManzana=${manzana}&idTerreno=${terreno}&idEstatus=${estatus}`
+          `/api/dashboard/reportes/inventarioOcupacion?idFraccionamiento=${fraccionamiento}&idManzana=${manzana}&idTerreno=${terreno}`
         );
         if (!response.ok) {
           throw new Error(`Failed to fetch data: ${response.status}`);
@@ -188,27 +161,6 @@ export default function FiltrosConsultaCatalogoClientes({
               {terrenos.map((terreno) => (
                 <SelectItem key={terreno.id_terreno} value={terreno.id_terreno}>
                   {terreno.no_terreno}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
-          <Label htmlFor="status">Estatus</Label>
-          <Select onValueChange={setEstatus}>
-            <SelectTrigger id="status" aria-label="Selecciona el medio">
-              <SelectValue placeholder="Selecciona el medio" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="0" id="0">
-                Todos
-              </SelectItem>
-              {listaEstatus.map((estadoTerreno) => (
-                <SelectItem
-                  key={estadoTerreno.id_estatus}
-                  value={estadoTerreno.id_estatus}
-                >
-                  {estadoTerreno.estatus}
                 </SelectItem>
               ))}
             </SelectContent>
