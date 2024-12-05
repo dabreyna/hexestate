@@ -112,12 +112,12 @@ export default function FiltrosConsultaInventarioOcupacion({
         <div className="md:col-span-4 lg:col-span-4 xl:col-span-4">
           <Label htmlFor="status">Fraccionamiento</Label>
           <Select onValueChange={setFraccionamiento}>
-            <SelectTrigger id="status" aria-label="Selecciona el medio">
-              <SelectValue placeholder="Selecciona el medio" />
+            <SelectTrigger id="status" aria-label="Selecciona el fraccionamiento">
+              <SelectValue placeholder="Selecciona el fraccionamiento" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="0" id="0">
-                Todos
+              Selecciona el fraccionamiento
               </SelectItem>
               {listaFraccionamientos.map((fraccionamiento) => (
                 <SelectItem
@@ -133,8 +133,8 @@ export default function FiltrosConsultaInventarioOcupacion({
         <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
           <Label htmlFor="status">Manzana</Label>
           <Select onValueChange={setManzana}>
-            <SelectTrigger id="status" aria-label="Selecciona el medio">
-              <SelectValue placeholder="Selecciona el medio" />
+            <SelectTrigger id="status" aria-label="Selecciona la manzana">
+              <SelectValue placeholder="Selecciona la manzana" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="0" id="0">
@@ -151,8 +151,8 @@ export default function FiltrosConsultaInventarioOcupacion({
         <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
           <Label htmlFor="status">Terreno</Label>
           <Select onValueChange={setTerreno}>
-            <SelectTrigger id="status" aria-label="Selecciona el medio">
-              <SelectValue placeholder="Selecciona el medio" />
+            <SelectTrigger id="status" aria-label="Selecciona el terreno">
+              <SelectValue placeholder="Selecciona el terreno" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="0" id="0">

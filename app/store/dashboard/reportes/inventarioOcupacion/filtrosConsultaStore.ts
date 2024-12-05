@@ -8,7 +8,7 @@ interface Terreno {
     superficie: string;
     precio_m2: string;
     precio_financiar: string;
-    nombrecliente: string;
+    nombre_cliente: string;
     id_cliente: string;
     id_contrato: string;
     fraccionamiento: string;
@@ -19,20 +19,20 @@ interface Manzana {
     terrenos: Terreno[];
 }
 
-interface DatosTerrenos{
+interface DatosTerrenos {
     data: Manzana[];
 }
 
 interface reporteResultados {
-    resultados: DatosTerrenos;
+    resultados: Manzana[];
     idFraccionamiento: string;
-    setResultados: (resultados: DatosTerrenos) => void;
+    setResultados: (resultados: any[]) => void;
     setIdFraccionamiento: (idFraccionamiento: string) => void;
 }
 
 
 export const useInventarioOcupacionFiltrosConsultaStore = create<reporteResultados>((set) => ({
-    resultados: {data:[]},
+    resultados: [],
     idFraccionamiento: "",
     setIdFraccionamiento: (idFraccionamiento) => set({ idFraccionamiento: idFraccionamiento }),
     setResultados: (resultados) => set({ resultados: resultados }),

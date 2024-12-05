@@ -32,7 +32,9 @@ export async function GET(request: NextRequest) {
   if (chkCancelado != "" && chkCancelado != "false") {
     estatusContrato = estatusContrato ? estatusContrato + ",3" : "3";
   }
-  estatusContrato = ` and a.id_estatus_contrato in (${estatusContrato})`;
+  
+  estatusContrato = estatusContrato ? ` and a.id_estatus_contrato in (${estatusContrato})`:` and a.id_estatus_contrato in (1,2,3,4,5)`; 
+  
   let where = "";
 
   where = estatusContrato
@@ -41,7 +43,6 @@ export async function GET(request: NextRequest) {
   if (asesor != "" && asesor != "0") {
     where += ` and f.id_usuario='${asesor}'`;
   }
-
   let query = "";
   if (fInicio != "" && fFin != "") {
     query = `SELECT A.ID_CLIENTE,CONCAT(B.NOMBRE,' ',B.AP_PATERNO,' ',COALESCE(B.AP_MATERNO,'')) AS NOMBRE_CLIENTE,CONCAT(E.NOMENCLATURA,'-',D.NO_MANZANA,'-',C.NO_TERRENO)AS TERRENO
@@ -133,7 +134,9 @@ export async function GET(request: NextRequest) {
   } else {
     query = `SELECT 'NO HAY DATOS'`;
   }
+  // console.log(query);
   const tempData = await dbQuery(query);
 
   return NextResponse.json(tempData.rows, { status: 200 });
+  // return NextResponse.json( { status: 200 });
 }
