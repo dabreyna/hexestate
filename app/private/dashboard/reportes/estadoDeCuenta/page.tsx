@@ -11,7 +11,7 @@ import { getFraccionamientos } from "@/lib/reportes/catalogoClientes/fraccionami
 import TablaDatos from "@/components/client/dashboard/reportes/inventarioOcupacion/tablaDatos";
 
 // import TablaDatosDetallada from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
-import FiltrosConsultaInventarioOcupacion from "@/components/client/dashboard/reportes/inventarioOcupacion/filtrosConsulta";
+import FiltrosConsultaEstadoDeCuenta from "@/components/client/dashboard/reportes/estadoDeCuenta/filtrosConsulta";
 
 export default async function CatalogoClientes() {
   const session = await auth();
@@ -35,7 +35,7 @@ export default async function CatalogoClientes() {
                   <Card className="col-span-12">
                     <CardHeader></CardHeader>
                     <CardContent>
-                      <FiltrosConsultaInventarioOcupacion
+                      <FiltrosConsultaEstadoDeCuenta
                         listaFraccionamientos={listaFraccionamientos}
                       />
                       <TablaDatos />

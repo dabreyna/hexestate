@@ -1,5 +1,11 @@
 "use client";
 
+// export default function FiltrosConsultaCatalogoClientes() {
+//   return <></>;
+// }
+
+//   {
+
 import { Label } from "@/components/ui/label";
 import { useInventarioOcupacionFiltrosConsultaStore } from "@/app/store/dashboard/reportes/inventarioOcupacion/filtrosConsultaStore";
 import {
@@ -13,6 +19,7 @@ import { Separator } from "@/components/ui/separator";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input";
 
 interface fraccionamiento {
   id_fraccionamiento: string;
@@ -31,7 +38,7 @@ interface Terreno {
   no_terreno: string;
 }
 
-export default function FiltrosConsultaInventarioOcupacion({
+export default function FiltrosConsultaEstadoDeCuenta({
   listaFraccionamientos,
 }: FiltrosConsultaProps) {
   const seleccionaResultados = useInventarioOcupacionFiltrosConsultaStore(
@@ -43,6 +50,8 @@ export default function FiltrosConsultaInventarioOcupacion({
   const [manzana, setManzana] = useState<string>("0");
   const [terrenos, setTerrenos] = useState<Terreno[]>([]);
   const [terreno, setTerreno] = useState<string>("0");
+  const [cliente, setCliente] = useState<string>("");
+  const [nombreCliente, setNombreCliente] = useState<string>("");
 
   useEffect(() => {
     const getManzanas = async () => {
@@ -162,6 +171,14 @@ export default function FiltrosConsultaInventarioOcupacion({
               ))}
             </SelectContent>
           </Select>
+        </div>
+        <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
+          <Label htmlFor="cliente">Cliente</Label>
+          <Input
+            placeholder="Ej. Jorge Perez"
+            id="cliente"
+            onChange={(event) => setNombreCliente(event.target.value)}
+          />
         </div>
       </div>
       <Separator className="my-4 size-1 bg-white" />
