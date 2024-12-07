@@ -1,10 +1,5 @@
 "use client";
 
-// export default function FiltrosConsultaCatalogoClientes() {
-//   return <></>;
-// }
-
-//   {
 
 import { Label } from "@/components/ui/label";
 import { useInventarioOcupacionFiltrosConsultaStore } from "@/app/store/dashboard/reportes/inventarioOcupacion/filtrosConsultaStore";
@@ -94,7 +89,7 @@ export default function FiltrosConsultaEstadoDeCuenta({
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `/api/dashboard/reportes/inventarioOcupacion?idFraccionamiento=${fraccionamiento}&idManzana=${manzana}&idTerreno=${terreno}`
+          `/api/dashboard/reportes/estadoDeCuenta?idFraccionamiento=${fraccionamiento}&idManzana=${manzana}&idTerreno=${terreno}&nombreCliente=${nombreCliente}`
         );
         if (!response.ok) {
           throw new Error(`Failed to fetch data: ${response.status}`);
@@ -177,6 +172,7 @@ export default function FiltrosConsultaEstadoDeCuenta({
           <Input
             placeholder="Ej. Jorge Perez"
             id="cliente"
+            className="uppercase"
             onChange={(event) => setNombreCliente(event.target.value)}
           />
         </div>

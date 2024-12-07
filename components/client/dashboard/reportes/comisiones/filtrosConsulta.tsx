@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
-import FiltrosConsulta from "@/components/client/dashboard/reportes/catalogoClientes/filtrosConsulta";
+// import FiltrosConsulta from "@/components/client/dashboard/reportes/catalogoClientes/filtrosConsulta";
 
 interface Asesor {
   id_usuario: string;
