@@ -1,15 +1,16 @@
 
+// import { Suspense } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { getDatos } from "@/lib/reportes/terrenosDisponibles/montosGenerales";
+// import { getDatos } from "@/lib/reportes/terrenosDisponibles/montosGenerales";
 
 
 
-export default async function MontosGenerales() {
-    const datos = await getDatos();
-    //console.log(datos);
+export default function MontosGenerales({datos}:{datos:any}) {
+    // const datos = await getDatos();
 
     return (
         <>
+        {/* <Suspense fallback={<div>Cargando Datos...</div>}> */}
         <Card className="col-span-2 mb-2" style={{backgroundColor:'#fcf5e5',color:'#b31c45'}}>
             <CardContent className="p-4" >
                 <div className="grid grid-cols-1 gap-2">
@@ -36,6 +37,7 @@ export default async function MontosGenerales() {
                 </div>
             </CardContent>
         </Card>
+        {/* </Suspense> */}
         </>
         )
 }

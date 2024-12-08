@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -10,7 +9,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import TablaDatos from "@/components/client/dashboard/reportes/terrenosDisponibles/tablaDatos";
 import MontosGenerales from "@/components/client/dashboard/reportes/terrenosDisponibles/montosGenerales";
-import {getDatos} from "@/lib/reportes/terrenosDisponibles/listadoFraccionamientos";
+import {getListadoFraccionamientos,getDatosGenerales} from "@/lib/reportes/terrenosDisponibles/listadoFraccionamientos";
 import ListadoFraccionamientos from "@/components/client/dashboard/reportes/terrenosDisponibles/listadoFraccionamientos";
 
 
@@ -20,7 +19,8 @@ export default async function ReporteTerrenosDisponibles() {
       redirect("/sistema");
     }
   
-    const listadoFraccionamientos = await getDatos();
+    const listadoFraccionamientos = await getListadoFraccionamientos();
+    const datosGenerales = await getDatosGenerales();
     // console.log(listadoFraccionamientos);
   return (
       <>
@@ -33,7 +33,7 @@ export default async function ReporteTerrenosDisponibles() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-6 md:grid-cols-8 sm:grid-cols-3">
-                  <MontosGenerales/>
+                  <MontosGenerales datos={datosGenerales}/>
                   </div>
                   <div className="grid gap-6 md:grid-cols-8 sm:grid-cols-12">
                     <Card className="col-span-2">

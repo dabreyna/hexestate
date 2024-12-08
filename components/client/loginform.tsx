@@ -31,21 +31,44 @@ export function LoginForm() {
     }
   });
 
+  // async function onSubmit(values: z.infer<typeof LoginSchema>) {
+  //   setError(null);
+  //   startTransition(async () => {
+  //     const response = await loginAction(values);
+  //     // console.log(response)
+  //     if (response.error) {
+  //       setError(response.error);
+  //       setTimeout(() => {
+  //         setError(""); // Limpiar el error
+  //       }, 3000); // 3 segundos = 3000 milisegundo
+  //     } else {
+  //       router.push("/private/dashboard");
+  //     }
+  //   });
+  // }
   async function onSubmit(values: z.infer<typeof LoginSchema>) {
     setError(null);
-    startTransition(async () => {
-      const response = await loginAction(values);
-      console.log(response)
-      if (response.error) {
-        setError(response.error);
-        setTimeout(() => {
-          setError(""); // Limpiar el error
-        }, 3000); // 3 segundos = 3000 milisegundo
-      } else {
-        router.push("/private/dashboard");
-      }
+  
+    startTransition(() => {
+      // Immediately start the async operation:
+      const promise = loginAction(values);
+  
+      // Update the UI with a loading state or other interim feedback:
+      // (e.g., set a loading state, show a spinner)
+  
+      promise.then(response => {
+        if (response.error) {
+          setError(response.error);
+          setTimeout(() => {
+            setError("");
+          }, 3000);
+        } else {
+          router.push("/private/dashboard");
+        }
+      });
     });
   }
+
   return (
     <div className="flex min-h-screen w-screen w-full items-center justify-center text-gray-600 bg-gray-50">
       <div className="relative">
@@ -82,7 +105,7 @@ export function LoginForm() {
                                     <FormControl>
                                     <Input 
                                         {...field}
-                                        // disabled={isPending}
+                                        disabled={isPending}
                                          className="block w-full cursor-text appearance-none rounded-md border border-gray-400 bg--100 py-2 px-3 text-sm outline-none focus:border-rose-500 focus:bg-white focus:text-gray-600 focus:shadow" id="username" name="email-username" placeholder="ej. dflores" autoFocus />
                                     </FormControl>
                                     <FormMessage/>

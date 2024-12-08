@@ -2,7 +2,7 @@
 
 
 import { Label } from "@/components/ui/label";
-import { useInventarioOcupacionFiltrosConsultaStore } from "@/app/store/dashboard/reportes/inventarioOcupacion/filtrosConsultaStore";
+import { useEstadoDeCuentaFiltrosConsultaStore } from "@/app/store/dashboard/reportes/estadoDeCuenta/filtrosConsultaStore";
 import {
   Select,
   SelectContent,
@@ -36,7 +36,7 @@ interface Terreno {
 export default function FiltrosConsultaEstadoDeCuenta({
   listaFraccionamientos,
 }: FiltrosConsultaProps) {
-  const seleccionaResultados = useInventarioOcupacionFiltrosConsultaStore(
+  const seleccionaResultados = useEstadoDeCuentaFiltrosConsultaStore(
     (state: { setResultados: any }) => state.setResultados
   );
 

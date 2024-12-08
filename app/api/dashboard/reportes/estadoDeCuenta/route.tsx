@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       where += ` AND CONCAT(e.NOMBRE,' ',e.AP_PATERNO,' ',COALESCE(e.AP_MATERNO, '')) LIKE '%${word}%'`;
     });
   
-    console.log(where);
+    // console.log(where);
 
   }
 
@@ -51,12 +51,9 @@ export async function GET(request: NextRequest) {
                 WHERE A.ID_ESTATUS_CONTRATO IN (1,4,5) 
                 and d.id_fraccionamiento=${idFraccionamiento}
                 ${where}  
-                ORDER BY NOMBRECLIENTE ASC
+                ORDER BY NOMBRE_CLIENTE ASC
                `;
 
-  //const tempData = await dbQuery(query);
-
-
-//   return NextResponse.json(tempData.rows, { status: 200 });
-  return NextResponse.json( { status: 200 });
+ const tempData = await dbQuery(query);
+  return NextResponse.json(tempData.rows, { status: 200 });
 }

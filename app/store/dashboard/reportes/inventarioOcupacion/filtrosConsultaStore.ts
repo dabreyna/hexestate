@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Resultados } from '../../../../private/dashboard/buscarCliente/resultados';
+
 
 interface Terreno {
     no_terreno: string;

@@ -1216,6 +1216,7 @@ model movimientos_detalle {
   @@index([id_tipo_movimiento], map: "fki_fk_movimientos_detalle_cat_tipos_movimiento")
   @@index([id_contrato], map: "fki_fk_movimientos_detalle_contratos_terrenos")
   @@index([id_movimiento_cabecera], map: "fki_fk_movimientos_detalle_movimientos_cabecera")
+  @@index([id_tipo_movimiento, id_contrato, no_pago], map: "tipo_movimiento_id_contrato_no_pago_idx")
 }
 
 model permisos_usuario {
