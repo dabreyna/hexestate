@@ -13,7 +13,7 @@ import {
   // import TablaDatosDetallada from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
   import FiltrosConsultaEstadoDeCuenta from "@/components/client/dashboard/reportes/estadoDeCuenta/filtrosConsulta";
   
-  export default async function EstadoDeCuentaDetalles() {
+  export default async function DetalleDePagosDetalles() {
     const session = await auth();
     if (!session) {
       redirect("/sistema");

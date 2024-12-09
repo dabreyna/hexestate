@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
   }
   
   if (idManzana != "" && idManzana != "0") {
-    where += ` and c.id_manzana=${idManzana}`;
+    where += ` and c.id_manzana==${idManzana}`;
   }
   if (idTerreno != "" && idTerreno != "0") {
     where += ` and b.id_terreno=${idTerreno}`;

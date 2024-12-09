@@ -8,12 +8,12 @@ import {
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getFraccionamientos } from "@/lib/reportes/catalogoClientes/fraccionamientos";
-import TablaDatos from "@/components/client/dashboard/reportes/estadoDeCuenta/tablaDatos";
+import TablaDatos from "@/components/client/dashboard/reportes/detalladoDePagos/tablaDatos";
 
 // import TablaDatosDetallada from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
-import FiltrosConsultaEstadoDeCuenta from "@/components/client/dashboard/reportes/estadoDeCuenta/filtrosConsulta";
+import FiltrosConsultaDetalladoDePagos from "@/components/client/dashboard/reportes/detalladoDePagos/filtrosConsulta";
 
-export default async function EstadoDeCuenta() {
+export default async function DetalladoDePagos() {
   const session = await auth();
   if (!session) {
     redirect("/sistema");
@@ -35,7 +35,7 @@ export default async function EstadoDeCuenta() {
                   <Card className="col-span-12">
                     <CardHeader></CardHeader>
                     <CardContent>
-                      <FiltrosConsultaEstadoDeCuenta listaFraccionamientos={listaFraccionamientos}/>
+                      <FiltrosConsultaDetalladoDePagos listaFraccionamientos={listaFraccionamientos}/>
                         <TablaDatos />
                     </CardContent>
                   </Card>

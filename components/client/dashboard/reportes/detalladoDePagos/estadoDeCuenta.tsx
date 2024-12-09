@@ -51,7 +51,7 @@ export function EstadoDeCuentaDetalles({id}:{id:string}) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`/api/dashboard/reportes/estadoDeCuenta/detalles/datosEmpresa?idContrato=${id}`);
+      const response = await fetch(`/api/dashboard/reportes/detalladoDePagos/detalles/datosEmpresa?idContrato=${id}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.status}`);
       }
@@ -61,7 +61,7 @@ export function EstadoDeCuentaDetalles({id}:{id:string}) {
       console.error(error);
     }
     try {
-      const response = await fetch(`/api/dashboard/reportes/estadoDeCuenta/detalles/datosCliente?idContrato=${id}`);
+      const response = await fetch(`/api/dashboard/reportes/detalladoDePagos/detalles/datosCliente?idContrato=${id}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.status}`);
       }
@@ -81,7 +81,7 @@ export function EstadoDeCuentaDetalles({id}:{id:string}) {
       </SheetTrigger>
       <SheetContent className=" md:max-w-full sm:min-w-[430px]">
         <SheetHeader>
-          <SheetTitle className="text-center">Estado de cuenta individual</SheetTitle>
+          <SheetTitle className="text-center">DETALLADO DE PAGOS</SheetTitle>
           <SheetDescription>
             <div className="grid gap-4 py-4 grid-cols-3">
               <div className="flex flex-col items-center">
@@ -126,10 +126,10 @@ export function EstadoDeCuentaDetalles({id}:{id:string}) {
             TABLA DE ESTADO DE CUENTA 
             </span>
             <span className="text-sm text-center">
-            TABLA DE ESTADO DE SALDOS VENCIDOS 
+            TABLA DE DETALLE DE PAGOS REALIZADOS 
             </span>
             <span className="text-sm text-center">
-            TABLA DE RESUMEN DE SALDOS VENCIDOS 
+            TABLA DE RESUMEN DE PAGOS
             </span>
             
           </div>

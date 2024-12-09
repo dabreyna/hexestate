@@ -8,12 +8,12 @@ import {
   import { auth } from "@/auth";
   import { redirect } from "next/navigation";
   import { getFraccionamientos } from "@/lib/reportes/catalogoClientes/fraccionamientos";
-  import TablaDatos from "@/components/client/dashboard/reportes/estadoDeCuenta/tablaDatos";
+  import TablaDatos from "@/components/client/dashboard/reportes/cancelados/tablaDatos";
   
   // import TablaDatosDetallada from "@/components/client/dashboard/reportes/comisiones/tablaDatosDetallada";
-  import FiltrosConsultaEstadoDeCuenta from "@/components/client/dashboard/reportes/estadoDeCuenta/filtrosConsulta";
+  import FiltrosConsultaCancelados from "@/components/client/dashboard/reportes/cancelados/filtrosConsulta";
   
-  export default async function EstadoDeCuentaDetalles() {
+  export default async function Cancelados() {
     const session = await auth();
     if (!session) {
       redirect("/sistema");
@@ -31,19 +31,17 @@ import {
                   <CardTitle className="text-center"></CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid gap-6 md:grid-cols-12 sm:grid-cols-12">
+                  <div className="grid gap-6 md:grid-cols-6 sm:grid-cols-6">
                     <Card className="col-span-12">
                       <CardHeader></CardHeader>
                       <CardContent>
-                        <FiltrosConsultaEstadoDeCuenta
-                          listaFraccionamientos={listaFraccionamientos}
-                        />
-                        <TablaDatos />
+                        <FiltrosConsultaCancelados listaFraccionamientos={listaFraccionamientos}/>
+                          <TablaDatos />
                       </CardContent>
                     </Card>
                   </div>
                 </CardContent>
-                <CardFooter className="justify-center border-t p-4"></CardFooter>
+                {/* <CardFooter className="justify-center border-t p-4"></CardFooter> */}
               </Card>
             </div>
           </div>
