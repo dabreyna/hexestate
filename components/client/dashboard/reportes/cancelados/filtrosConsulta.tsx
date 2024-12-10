@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Label } from "@/components/ui/label";
 import { useCanceladosFiltrosConsultaStore } from "@/app/store/dashboard/reportes/cancelados/filtrosConsultaStore";
 import {
@@ -44,10 +43,10 @@ interface Terreno {
   no_terreno: string;
 }
 
-export default function FiltrosConsultaCancelados({
-  listaFraccionamientos,
-}: FiltrosConsultaProps,
-{ className }: React.HTMLAttributes<HTMLDivElement>) {
+export default function FiltrosConsultaCancelados(
+  { listaFraccionamientos }: FiltrosConsultaProps,
+  { className }: React.HTMLAttributes<HTMLDivElement>
+) {
   const seleccionaResultados = useCanceladosFiltrosConsultaStore(
     (state: { setResultados: any }) => state.setResultados
   );
@@ -71,7 +70,6 @@ export default function FiltrosConsultaCancelados({
       setFFin("");
     }
   }, [date]); // Update fInicio and fFin whenever date changes
-
 
   function getDatos() {
     const fetchData = async () => {
@@ -121,7 +119,7 @@ export default function FiltrosConsultaCancelados({
           </Select>
         </div>
         <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
-        <Label htmlFor="status">Fecha Inicio-Fin</Label>
+          <Label htmlFor="status">Fecha Inicio-Fin</Label>
           <div className={cn("grid gap-2 item", className)}>
             <Popover>
               <PopoverTrigger asChild>
@@ -133,7 +131,7 @@ export default function FiltrosConsultaCancelados({
                     !date && "text-muted-foreground"
                   )}
                 >
-                <CalendarIcon />
+                  <CalendarIcon />
                   {date?.from ? (
                     date.to ? (
                       <>
@@ -163,7 +161,7 @@ export default function FiltrosConsultaCancelados({
           </div>
         </div>
 
-        <div className="md:col-span-3 lg:col-span-3 xl:col-span-3"> 
+        <div className="md:col-span-3 lg:col-span-3 xl:col-span-3">
           <Label htmlFor="cliente">Cliente</Label>
           <Input
             placeholder="Ej. Jorge Perez"
@@ -173,29 +171,42 @@ export default function FiltrosConsultaCancelados({
           />
         </div>
         <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
-          <Label htmlFor="cliente">Tipo de Cambio</Label>
+          {/*
+          <Label htmlFor="tipoCambio">Tipo de Cambio</Label>
           <Input
-          type="number"
+            type="number"
             placeholder="Ej. 20.00"
-            id="cliente"
+            id="tipoCambio"
             className="uppercase"
-            onChange={(event) => setNombreCliente(event.target.value)}
-          />
+            onChange={(event) => setTipoDeCambio(event.target.value)}
+          />*/}
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12">
         <div className="items-center flex space-x-2 p-4">
-          <Checkbox id="chkDolares"onCheckedChange={(e) => setChkDolares(!chkDolares)}/>
+          <Checkbox
+            id="chkDolares"
+            onCheckedChange={(e) => setChkDolares(!chkDolares)}
+          />
           <div className="grid gap-1.5 leading-none">
-            <label htmlFor="terms1" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            <label
+              htmlFor="terms1"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
               Dolares
             </label>
           </div>
         </div>
         <div className="items-center flex space-x-2 p-4">
-          <Checkbox id="chkHistorico"onCheckedChange={(e) => setChkHistorico(!chkHistorico)}/>
+          <Checkbox
+            id="chkHistorico"
+            onCheckedChange={(e) => setChkHistorico(!chkHistorico)}
+          />
           <div className="grid gap-1.5 leading-none">
-            <label htmlFor="terms1" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            <label
+              htmlFor="terms1"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
               Historico
             </label>
           </div>

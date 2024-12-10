@@ -72,6 +72,9 @@ model agenda {
   @@index([id_usuario_comentario], map: "fki_fk_agenda_cat_usuarios_comentario")
   @@index([id_clasificacion], map: "fki_fk_agenda_cat_ventas_clasificacion")
   @@index([id_cliente], map: "fki_fk_agenda_clientes")
+  @@index([id_clasificacion], map: "clasificacion")
+  @@index([id_cliente], map: "cliente")
+  @@index([id_cliente, id_clasificacion], map: "cliente_clasificacion")
 }
 
 model agenda_cobranza {
@@ -91,6 +94,10 @@ model agenda_cobranza {
   cat_usuarios_agenda_cobranza_id_usuarioTocat_usuarios         cat_usuarios?                  @relation("agenda_cobranza_id_usuarioTocat_usuarios", fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_usuarios")
   cat_usuarios_agenda_cobranza_id_usuario_atendioTocat_usuarios cat_usuarios?                  @relation("agenda_cobranza_id_usuario_atendioTocat_usuarios", fields: [id_usuario_atendio], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_cat_ususarios_atendio")
   contratos_terrenos                                            contratos_terrenos?            @relation(fields: [id_contrato], references: [id_contrato], onDelete: NoAction, onUpdate: NoAction, map: "fk_agenda_cobranza_contratos_terrenos")
+
+  @@index([id_contrato], map: "contrato")
+  @@index([id_contrato, id_usuario], map: "contrato_usuario")
+  @@index([id_usuario], map: "usuario")
 }
 
 model agua_reconexiones {
@@ -270,6 +277,9 @@ model beneficiarios {
   contratos_terrenos contratos_terrenos? @relation(fields: [id_contrato], references: [id_contrato], onDelete: NoAction, onUpdate: NoAction, map: "fk_beneficiarios_contratos_terrenos")
 
   @@index([id_contrato], map: "fki_fk_beneficiarios_contratos_terrenos")
+  @@index([id_contrato], map: "contrato_idx")
+  @@index([nombre, ap_paterno, ap_materno, id_contrato], map: "nombre_beneficiario_contrato_idx")
+  @@index([nombre, ap_paterno, ap_materno], map: "nombre_beneficiario_idx")
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -696,6 +706,7 @@ model cat_usuarios {
   traspasos                                                        traspasos[]
 
   @@id([id_usuario, username])
+  @@index([nombre, ap_paterno, ap_materno], map: "nombre_usuario_idx")
 }
 
 model cat_ventas_clasificacion {
@@ -760,6 +771,8 @@ model clientes {
   requisitos_fraccionamiento_terreno                     requisitos_fraccionamiento_terreno[]
   traspasos_traspasos_id_cliente_anteriorToclientes      traspasos[]                          @relation("traspasos_id_cliente_anteriorToclientes")
   traspasos_traspasos_id_cliente_nuevoToclientes         traspasos[]                          @relation("traspasos_id_cliente_nuevoToclientes")
+
+  @@index([nombre, ap_paterno, ap_materno], map: "nombre_cliente_idx")
 }
 
 model cobranza_cartas_conceptos {
@@ -857,6 +870,8 @@ model comisiones {
   @@index([asesor_primario], map: "fki_fk_comisiones_cat_usuarios_asesor_primario")
   @@index([asesor_secundario], map: "fki_fk_comisiones_cat_usuarios_asesor_secundario")
   @@index([id_contrato], map: "fki_fk_comisiones_contratos_terrenos")
+  @@index([asesor_primario], map: "asesor_primario_idx")
+  @@index([asesor_secundario], map: "asesor_secundario_idx")
 }
 
 model comisiones_configuracion {
@@ -876,6 +891,8 @@ model comisiones_pagos {
   cat_usuarios cat_usuarios @relation(fields: [asesor], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_comisiones_pagos_cat_usuarios")
 
   @@index([asesor], map: "fki_fk_comisiones_pagos_cat_usuarios")
+  @@index([asesor], map: "asesor_idx")
+  @@index([id_contrato], map: "id_contrato_idx")
 }
 
 model consumo_agua_carga {
@@ -1052,6 +1069,8 @@ model contratos_terrenos {
   @@index([id_terreno], map: "fki_fk_contratos_terrenos_cat_terrenos")
   @@index([id_usuario_cancelacion], map: "fki_fk_contratos_terrenos_cat_usuarios")
   @@index([id_cliente], map: "fki_fk_contratos_terrenos_clientes")
+  @@index([id_cliente], map: "id_cliente_idx")
+  @@index([id_terreno], map: "id_terreno_idx")
 }
 
 model copropietarios {
@@ -1216,7 +1235,6 @@ model movimientos_detalle {
   @@index([id_tipo_movimiento], map: "fki_fk_movimientos_detalle_cat_tipos_movimiento")
   @@index([id_contrato], map: "fki_fk_movimientos_detalle_contratos_terrenos")
   @@index([id_movimiento_cabecera], map: "fki_fk_movimientos_detalle_movimientos_cabecera")
-  @@index([id_tipo_movimiento, id_contrato, no_pago], map: "tipo_movimiento_id_contrato_no_pago_idx")
 }
 
 model permisos_usuario {
@@ -1259,6 +1277,7 @@ model referencias_personales {
   @@index([id_terreno], map: "fki_fk_referencias_personales_cat_terrenos")
   @@index([id_usuario], map: "fki_fk_referencias_personales_cat_usuarios")
   @@index([id_contrato], map: "fki_fk_referencias_personales_contratos_terrenos")
+  @@index([nombre, ap_paterno, ap_materno], map: "nombre_referencia_idx")
 }
 
 model requisitos_archivos {
