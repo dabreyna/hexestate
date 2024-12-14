@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Fira_Sans } from "next/font/google"; //ESTA PARECE SER LA 2da. ELEGIDA
+//import { Public_Sans } from "next/font/google"; //ESTA PARECE SER LA ELEGIDA
 
 import "./globals.css";
 import next from "next";
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
+const roboto = Fira_Sans({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Grupo Lotificadora",
@@ -19,16 +26,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={inter.className}>
-      <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-        {children}
+      <body className={roboto.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
         </ThemeProvider>
-        </body>
+      </body>
     </html>
   );
 }
