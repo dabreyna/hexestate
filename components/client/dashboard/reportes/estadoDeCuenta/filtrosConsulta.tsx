@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Label } from "@/components/ui/label";
 import { useEstadoDeCuentaFiltrosConsultaStore } from "@/app/store/dashboard/reportes/estadoDeCuenta/filtrosConsultaStore";
 import {
@@ -41,14 +40,19 @@ export default function FiltrosConsultaEstadoDeCuenta({
   );
 
   const [fraccionamiento, setFraccionamiento] = useState<string>("0");
-  const [manzanas, setManzanas] = useState<Manzana[]>([]);
   const [manzana, setManzana] = useState<string>("0");
-  const [terrenos, setTerrenos] = useState<Terreno[]>([]);
   const [terreno, setTerreno] = useState<string>("0");
-  const [cliente, setCliente] = useState<string>("");
+
+  const [manzanas, setManzanas] = useState<Manzana[]>([]);
+  const [terrenos, setTerrenos] = useState<Terreno[]>([]);
+  // const [cliente, setCliente] = useState<string>("");
   const [nombreCliente, setNombreCliente] = useState<string>("");
 
   useEffect(() => {
+    setManzanas([]);
+    setManzana("0");
+    setTerrenos([]);
+    setTerreno("0");
     const getManzanas = async () => {
       try {
         const response = await fetch(
@@ -68,6 +72,10 @@ export default function FiltrosConsultaEstadoDeCuenta({
   }, [fraccionamiento]); // Update  whenever filters changes
 
   useEffect(() => {
+    // if (manzana === "0") {
+    setTerrenos([]);
+    setTerreno("0");
+    // }
     const getTerrenos = async () => {
       try {
         const response = await fetch(
@@ -109,7 +117,7 @@ export default function FiltrosConsultaEstadoDeCuenta({
       <div className="grid grid-cols-1 gap-4 md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12">
         <div className="md:col-span-4 lg:col-span-4 xl:col-span-4">
           <Label htmlFor="status">Fraccionamiento</Label>
-          <Select onValueChange={setFraccionamiento}>
+          <Select onValueChange={setFraccionamiento} defaultValue="0">
             <SelectTrigger
               id="status"
               aria-label="Selecciona el fraccionamiento"
@@ -133,13 +141,13 @@ export default function FiltrosConsultaEstadoDeCuenta({
         </div>
         <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
           <Label htmlFor="status">Manzana</Label>
-          <Select onValueChange={setManzana}>
+          <Select onValueChange={setManzana} defaultValue="0">
             <SelectTrigger id="status" aria-label="Selecciona la manzana">
               <SelectValue placeholder="Selecciona la manzana" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="0" id="0">
-                Todos
+                Todas
               </SelectItem>
               {manzanas.map((manzana) => (
                 <SelectItem key={manzana.id_manzana} value={manzana.id_manzana}>
@@ -151,7 +159,7 @@ export default function FiltrosConsultaEstadoDeCuenta({
         </div>
         <div className="md:col-span-2 lg:col-span-2 xl:col-span-2">
           <Label htmlFor="status">Terreno</Label>
-          <Select onValueChange={setTerreno}>
+          <Select onValueChange={setTerreno} defaultValue="0">
             <SelectTrigger id="status" aria-label="Selecciona el terreno">
               <SelectValue placeholder="Selecciona el terreno" />
             </SelectTrigger>

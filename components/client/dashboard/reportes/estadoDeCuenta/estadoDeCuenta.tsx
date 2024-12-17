@@ -17,6 +17,7 @@ import logoLotificadora from "@/public/logo.png";
 import { useEffect, useState } from "react";
 import { exit } from "process";
 import { Separator } from "@/components/ui/separator";
+import TablaEstadoDeCuenta from "@/components/client/dashboard/reportes/estadoDeCuenta/tablaEstadoDeCuenta";
 
 interface Empresa {
   nombre: string;
@@ -44,10 +45,31 @@ interface Cliente {
   tel_cod_cel: string;
   tel_cod_casa: string;
 }
+interface EstadoDeCuenta {
+  id_contrato: string;
+  total_pagado: number;
+  terreno: string;
+  concepto: string;
+  monto_terreno_inicial: number;
+  descuentos: number;
+  descuentos_mensualidad: number;
+  ajuste_anual: number;
+  ajuste_anual_saldo: number;
+  saldo_ajustado: number;
+  deposito: number;
+  pagos: number;
+  saldo: number;
+  mensualidades_pendientes: number;
+  superficie: number;
+  deposito_preferente: number;
+}
 
 export function EstadoDeCuentaDetalles({ id }: { id: string }) {
   const [dataEmpresa, setDataEmpresa] = useState<Empresa[]>([]);
   const [dataCliente, setDataCliente] = useState<Cliente[]>([]);
+  const [dataEstadoDeCuenta, setDataEstadoDeCuenta] = useState<
+    EstadoDeCuenta[]
+  >([]);
 
   const fetchData = async () => {
     try {
@@ -71,6 +93,19 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
       }
       const data = await response.json();
       setDataCliente(data);
+    } catch (error) {
+      console.error(error);
+    }
+    try {
+      const response = await fetch(
+        `/api/dashboard/reportes/estadoDeCuenta/detalles/datosContrato?idContrato=${id}`
+      );
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.status}`);
+      }
+      const data = await response.json();
+      setDataEstadoDeCuenta(data);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -157,7 +192,7 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-1 items-center gap-4">
               <span className="text-sm text-center">
-                TABLA DE ESTADO DE CUENTA
+                <TablaEstadoDeCuenta datosEstadoDeCuenta={dataEstadoDeCuenta} />
               </span>
               <span className="text-sm text-center">
                 TABLA DE ESTADO DE SALDOS VENCIDOS

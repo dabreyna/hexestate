@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbQuery from "@/lib/dbQuery";
 
-
 /*TODO:
 
 
@@ -9,16 +8,16 @@ import dbQuery from "@/lib/dbQuery";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const idContrato = searchParams.get("idContrato"); 
+  const idContrato = searchParams.get("idContrato");
 
-    /*
+  /*
         CONSULTA EL ESTADO DE CUENTA GENERAL
     */
   let query = `select deposito+pagos-descuentos_mensualidad as total_pagado,aa.*
 ,pagos-descuentos_mensualidad as deposito_preferente
 from (
 	-- select d.NOMENCLATURA+'-'+format(try_convert(numeric,c.NO_MANZANA),'000')+'-'+format(try_convert(numeric,b.NO_terreno),'000') as terreno
-	select concat(d.NOMENCLATURA,'-',c.NO_MANZANA,'-',b.NO_terreno) as terreno
+	select a.id_contrato,concat(d.NOMENCLATURA,'-',c.NO_MANZANA,'-',b.NO_terreno) as terreno
 ,'CAPITAL' AS concepto
 	,e.MONTO_TERRENO_INICIAL
 	,(select coalesce(sum(coalesce(MONTO,0)),0) from MOVIMIENTOS_DETALLE where ID_CONTRATO=a.ID_CONTRATO and BND_ACTIVO=true and ID_TIPO_MOVIMIENTO in (5))+(select coalesce(descuento_monto,0) from movimientos_cabecera where id_contrato=a.id_contrato) as descuentos
@@ -39,13 +38,14 @@ from (
 	inner join MOVIMIENTOS_CABECERA e on a.ID_CONTRATO=e.ID_CONTRATO
 	where a.ID_CONTRATO=${idContrato}) aa
     `;
-    const datosGenerales= await dbQuery(query);
-    /*
+  const datosGenerales = await dbQuery(query);
+  /*
         CONSULTA LOS VENCIMIENTOS
      */
-    query = ``;
+  // query = ``;
 
-    const tempData = await dbQuery(query);
+  const tempData = await dbQuery(query);
+  console.log(tempData.rows);
 
   return NextResponse.json(tempData.rows, { status: 200 });
 }

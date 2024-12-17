@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbQuery from "@/lib/dbQuery";
-import _ from "lodash";
+// import _ from "lodash";
 
 /*TODO:
 
@@ -16,30 +16,28 @@ export async function GET(request: NextRequest) {
   const nombreCliente = searchParams.get("nombreCliente")?.toUpperCase();
 
   let where = " ";
-  
+
   if (idFraccionamiento != "" && idFraccionamiento != "0") {
     where += ` and d.id_fraccionamiento=${idFraccionamiento}`;
   }
-  
+
   if (idManzana != "" && idManzana != "0") {
     where += ` and c.id_manzana=${idManzana}`;
   }
   if (idTerreno != "" && idTerreno != "0") {
     where += ` and b.id_terreno=${idTerreno}`;
   }
-  
+
   if (nombreCliente) {
-    const words = nombreCliente.split(' ');
+    const words = nombreCliente.split(" ");
     // let whereClause = '';
-  
-    words.forEach(word => {
+
+    words.forEach((word) => {
       where += ` AND CONCAT(e.NOMBRE,' ',e.AP_PATERNO,' ',COALESCE(e.AP_MATERNO, '')) LIKE '%${word}%'`;
     });
-  
-    // console.log(where);
 
+    console.log(where);
   }
-
 
   let query = `SELECT CONCAT(E.NOMBRE,' ',E.AP_PATERNO,' ',COALESCE(E.AP_MATERNO,'')) AS NOMBRE_CLIENTE
                 ,D.NOMENCLATURA,C.NO_MANZANA,B.NO_TERRENO,A.ID_CONTRATO
@@ -52,7 +50,7 @@ export async function GET(request: NextRequest) {
                 ${where}  
                 ORDER BY NOMBRE_CLIENTE ASC
                `;
-              //  console.log(query);
- const tempData = await dbQuery(query);
+  //  console.log(query);
+  const tempData = await dbQuery(query);
   return NextResponse.json(tempData.rows, { status: 200 });
 }
