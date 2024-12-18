@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -15,7 +13,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import logoLotificadora from "@/public/logo.png";
 import { useEffect, useState } from "react";
-import { exit } from "process";
 import { Separator } from "@/components/ui/separator";
 import TablaEstadoDeCuenta from "@/components/client/dashboard/reportes/estadoDeCuenta/tablaEstadoDeCuenta";
 
@@ -67,15 +64,11 @@ interface EstadoDeCuenta {
 export function EstadoDeCuentaDetalles({ id }: { id: string }) {
   const [dataEmpresa, setDataEmpresa] = useState<Empresa[]>([]);
   const [dataCliente, setDataCliente] = useState<Cliente[]>([]);
-  const [dataEstadoDeCuenta, setDataEstadoDeCuenta] = useState<
-    EstadoDeCuenta[]
-  >([]);
+  const [dataEstadoDeCuenta, setDataEstadoDeCuenta] = useState<EstadoDeCuenta[]>([]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        `/api/dashboard/reportes/estadoDeCuenta/detalles/datosEmpresa?idContrato=${id}`
-      );
+      const response = await fetch(`/api/dashboard/reportes/estadoDeCuenta/detalles/datosEmpresa?idContrato=${id}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.status}`);
       }
@@ -85,9 +78,7 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
       console.error(error);
     }
     try {
-      const response = await fetch(
-        `/api/dashboard/reportes/estadoDeCuenta/detalles/datosCliente?idContrato=${id}`
-      );
+      const response = await fetch(`/api/dashboard/reportes/estadoDeCuenta/detalles/datosCliente?idContrato=${id}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.status}`);
       }
@@ -97,9 +88,7 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
       console.error(error);
     }
     try {
-      const response = await fetch(
-        `/api/dashboard/reportes/estadoDeCuenta/detalles/datosContrato?idContrato=${id}`
-      );
+      const response = await fetch(`/api/dashboard/reportes/estadoDeCuenta/detalles/datosContrato?idContrato=${id}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.status}`);
       }
@@ -120,17 +109,11 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
       </SheetTrigger>
       <SheetContent className=" md:max-w-full sm:min-w-[430px]">
         <SheetHeader>
-          <SheetTitle className="text-center uppercase">
-            Estado de cuenta individual
-          </SheetTitle>
+          <SheetTitle className="text-center uppercase">Estado de cuenta individual</SheetTitle>
           <SheetDescription>
             <div className="grid gap-4 py-4 grid-cols-3">
               <div className="flex flex-col items-center">
-                <Image
-                  src={logoLotificadora}
-                  alt="Grupo Lotificadora"
-                  className="w-[170px] h-[130px] transition-all"
-                />
+                <Image src={logoLotificadora} alt="Grupo Lotificadora" className="w-[170px] h-[130px] transition-all" />
               </div>
               <div className="flex flex-col col-span-2">
                 <div className="text-left">
@@ -140,13 +123,9 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
                     <br />
                     {dataEmpresa[0]?.calle}
                     <br />
-                    {dataEmpresa[0]?.ciudad},{dataEmpresa[0]?.estado} C.P.{" "}
-                    {dataEmpresa[0]?.cp}
+                    {dataEmpresa[0]?.ciudad},{dataEmpresa[0]?.estado} C.P. {dataEmpresa[0]?.cp}
                     <br />
-                    TEL&Eacute;FONO: 686 -{" "}
-                    <span className="text-blue-500">
-                      {dataEmpresa[0]?.telefono_principal}
-                    </span>
+                    TEL&Eacute;FONO: 686 - <span className="text-blue-500">{dataEmpresa[0]?.telefono_principal}</span>
                   </p>
                 </div>
               </div>
@@ -154,9 +133,7 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
               <div className="flex flex-col col-span-3">
                 <div className="grid gap-1 px-4 py-1 grid-cols-6 place-items-stretch">
                   <span className="text-sm">Cliente</span>
-                  <span className="text-sm col-span-2">
-                    {dataCliente[0]?.nombre}
-                  </span>
+                  <span className="text-sm col-span-2">{dataCliente[0]?.nombre}</span>
                   <span className="text-sm row-span-2">Direccion</span>
                   <p className="text-sm col-span-2 row-span-2 uppercase">
                     {dataCliente[0]?.calle} {dataCliente[0]?.numero} <br />
@@ -164,24 +141,19 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
                     <br /> {dataCliente[0]?.ciudad}, C.P. {dataCliente[0]?.cp}
                   </p>
                   <span className="text-sm">Fecha Contrato</span>
-                  <span className="text-sm col-span-2">
-                    {dataCliente[0]?.fecha_contrato}
-                  </span>
+                  <span className="text-sm col-span-2">{dataCliente[0]?.fecha_contrato}</span>
                   <span className="text-sm">Telefono(s)</span>
                   <p className="text-sm col-span-2">
-                    {dataCliente[0]?.tel_cod_casa}-{dataCliente[0]?.tel_casa}{" "}
-                    <br />
+                    {dataCliente[0]?.tel_cod_casa}-{dataCliente[0]?.tel_casa} <br />
                     {dataCliente[0]?.tel_cod_cel} - {dataCliente[0]?.tel_cel}{" "}
                   </p>
                   <span className="text-sm col-span-3">
-                    Terreno: {dataCliente[0]?.no_terreno} <br /> Manzana:{" "}
-                    {dataCliente[0]?.no_manzana}
+                    Terreno: {dataCliente[0]?.no_terreno} <br /> Manzana: {dataCliente[0]?.no_manzana}
                   </span>
                   {/* <span className="text-sm col-span-2"></span> */}
                   <span className="text-sm">Desarrollo</span>
                   <span className="text-sm col-span-2">
-                    {dataCliente[0]?.fraccionamiento} (
-                    {dataCliente[0]?.fraccionamiento ? "PESOS" : "DLLS"})
+                    {dataCliente[0]?.fraccionamiento} ({dataCliente[0]?.fraccionamiento ? "PESOS" : "DLLS"})
                   </span>
                 </div>
               </div>
@@ -194,12 +166,8 @@ export function EstadoDeCuentaDetalles({ id }: { id: string }) {
               <span className="text-sm text-center">
                 <TablaEstadoDeCuenta datosEstadoDeCuenta={dataEstadoDeCuenta} />
               </span>
-              <span className="text-sm text-center">
-                TABLA DE ESTADO DE SALDOS VENCIDOS
-              </span>
-              <span className="text-sm text-center">
-                TABLA DE RESUMEN DE SALDOS VENCIDOS
-              </span>
+              <span className="text-sm text-center">TABLA DE ESTADO DE SALDOS VENCIDOS</span>
+              <span className="text-sm text-center">TABLA DE RESUMEN DE SALDOS VENCIDOS</span>
             </div>
           </div>
         </ScrollArea>

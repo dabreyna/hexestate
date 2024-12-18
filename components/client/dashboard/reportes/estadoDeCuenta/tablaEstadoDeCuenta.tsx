@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { useState } from "react";
 // import { Estad} from "@/components/client/dashboard/reportes/estadoDeCuenta/estadoDeCuenta";
 interface EstadoDeCuenta {
   id_contrato: string;
@@ -30,11 +29,7 @@ interface EstadoDeCuenta {
   superficie: number;
   deposito_preferente: number;
 }
-export default function TablaEstadoDeCuenta({
-  datosEstadoDeCuenta,
-}: {
-  datosEstadoDeCuenta: EstadoDeCuenta[];
-}) {
+export default function TablaEstadoDeCuenta({ datosEstadoDeCuenta }: { datosEstadoDeCuenta: EstadoDeCuenta[] }) {
   return (
     <>
       <Table
@@ -49,20 +44,14 @@ export default function TablaEstadoDeCuenta({
             <TableHead className="text-center">Terreno</TableHead>
             <TableHead className="text-center">Concepto</TableHead>
             <TableHead className="text-center">Superficie m2</TableHead>
-            <TableHead className="text-center">
-              Depósito por preferencia
-            </TableHead>
+            <TableHead className="text-center">Depósito por preferencia</TableHead>
             <TableHead className="text-center">Descuentos</TableHead>
             <TableHead className="text-center">Ajuste anual</TableHead>
             <TableHead className="text-center">Ajuste anual saldo</TableHead>
-            <TableHead className="text-center">
-              Depósito por preferencia financiado
-            </TableHead>
+            <TableHead className="text-center">Depósito por preferencia financiado</TableHead>
             <TableHead className="text-center">Depósito inicial</TableHead>
             <TableHead className="text-center">Depósito preferente</TableHead>
-            <TableHead className="text-center">
-              Total depósito preferente
-            </TableHead>
+            <TableHead className="text-center">Total depósito preferente</TableHead>
             <TableHead className="text-center">Saldo</TableHead>
             <TableHead className="text-center">Mens</TableHead>
           </TableRow>
@@ -74,43 +63,19 @@ export default function TablaEstadoDeCuenta({
                 key={`${resultado.id_contrato}`}
                 className="hover:bg-slate-100 hover:font-semibold hover:cursor-pointer"
               >
-                <TableCell className="text-right">
-                  {resultado.terreno}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.concepto}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.superficie}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.monto_terreno_inicial}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.descuentos}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.ajuste_anual}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.ajuste_anual_saldo}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.saldo_ajustado}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.deposito}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.deposito_preferente}
-                </TableCell>
-                <TableCell className="text-right">
-                  {resultado.total_pagado}
-                </TableCell>
+                <TableCell className="text-right">{resultado.terreno}</TableCell>
+                <TableCell className="text-right">{resultado.concepto}</TableCell>
+                <TableCell className="text-right">{resultado.superficie}</TableCell>
+                <TableCell className="text-right">{resultado.monto_terreno_inicial}</TableCell>
+                <TableCell className="text-right">{resultado.descuentos}</TableCell>
+                <TableCell className="text-right">{resultado.ajuste_anual}</TableCell>
+                <TableCell className="text-right">{resultado.ajuste_anual_saldo}</TableCell>
+                <TableCell className="text-right">{resultado.saldo_ajustado}</TableCell>
+                <TableCell className="text-right">{resultado.deposito}</TableCell>
+                <TableCell className="text-right">{resultado.deposito_preferente}</TableCell>
+                <TableCell className="text-right">{resultado.total_pagado}</TableCell>
                 <TableCell className="text-right">{resultado.saldo}</TableCell>
-                <TableCell className="text-right">
-                  {resultado.mensualidades_pendientes}
-                </TableCell>
+                <TableCell className="text-right">{resultado.mensualidades_pendientes}</TableCell>
               </TableRow>
             ))}
           </>
